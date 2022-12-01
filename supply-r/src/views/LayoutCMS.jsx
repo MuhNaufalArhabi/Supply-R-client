@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
-// import sidebar
+import SideBar from "../components/SideBar";
 
 export default function LayoutCMS() {
 	return (
 		<>
-			<Outlet />
+			<SideBar className="col-md-3" />
+			<Outlet className="col-md-9" />
 		</>
 	);
 }
