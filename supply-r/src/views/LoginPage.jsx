@@ -1,3 +1,6 @@
+import { auth, google, facebook, twitter } from "../stores/firebase";
+import { signInWithPopup, signOut } from "firebase/auth";
+
 import {
   Col,
   Button,
@@ -8,6 +11,15 @@ import {
   CardGroup,
 } from "react-bootstrap";
 export default function LoginPage() {
+  const login = async (provider) => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <Container>
@@ -73,6 +85,17 @@ export default function LoginPage() {
                         </div>
                       </Form>
                     </div>
+                    <button onClick={() => login(google)}>
+                      Login with Google
+                    </button>
+                    <br/>
+                    <button onClick={() => login(facebook)}>
+                      Login with Facebook
+                    </button>
+                    <br/>
+                    <button onClick={() => login(twitter)}>
+                      Login with twitter
+                    </button>
                   </div>
                 </Card.Body>
               </Card>
