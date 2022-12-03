@@ -1,10 +1,14 @@
 import React from 'react';
 import { Container, Row, Col, Button, Form, ButtonGroup, Alert } from 'react-bootstrap';
 import ImageUploading from 'react-images-uploading';
-import axios from 'axios';
+import { postProduct } from '../features/productSlice';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function AddProductCMS(props) {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const {
     maxNumber = 5,
     acceptType = ['jpeg', 'jpg', 'png'],
@@ -35,23 +39,12 @@ export default function AddProductCMS(props) {
   };
   const printjson = async (e) => {
 	e.preventDefault();
-    try {;
-      let form = new FormData();
-      images.forEach((el) => {
-        form.append('image', el.data_url);
-      });
-	  form.append('product', JSON.stringify(formProduct))
-      await axios({
-        method: 'post',
-        url: 'http://localhost:4000/products',
-        headers: {
-		  'access_token' : localStorage.access_token
-        },
-        data: form
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  const data = {
+    images,
+    formProduct
+  }
+  await dispatch(postProduct(data))
+  navigate('/product-list')
   };
   return (
     <>

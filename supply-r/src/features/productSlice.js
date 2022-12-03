@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
 import axios from "axios";
 
+
 const baseUrl = "http://localhost:3001";
 export const getProducts = createAsyncThunk("products/getProducts", async () => {
   const {data} = await axios({
@@ -9,6 +10,26 @@ export const getProducts = createAsyncThunk("products/getProducts", async () => 
   })
   return data
 });
+
+export const postProduct = createAsyncThunk("products/postProduct", async(payload) => {
+
+  console.log(payload)
+  const {images, formProduct} = payload
+  let form = new FormData();
+      images.forEach((el) => {
+        form.append('image', el.data_url);
+      });
+	await form.append('product', JSON.stringify(formProduct))
+  const {data} = await axios({
+    method: 'post',
+    url: `${baseUrl}/products`,
+    headers: {
+      'access_token': localStorage.access_token
+    },
+    data: form
+  })
+  return data
+})
 
 const productEntity = createEntityAdapter({
   selectId: (product) => product.id,
@@ -20,6 +41,9 @@ const productSlice = createSlice({
   extraReducers: {
     [getProducts.fulfilled]: (state, action) => {
       productEntity.setAll(state, action.payload);
+    },
+    [postProduct.fulfilled]: (state, action) => {
+      productEntity.addOne(state, action.payload)
     }
   }
 })
