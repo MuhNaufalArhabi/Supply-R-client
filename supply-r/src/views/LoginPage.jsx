@@ -1,6 +1,6 @@
 import { auth, google, facebook, twitter } from "../stores/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-
+import axios from 'axios'
 import {
   Col,
   Button,
@@ -13,9 +13,26 @@ import {
 export default function LoginPage() {
   const login = async (provider) => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log(result);
-      
+      let baseUrl = ''
+      const {user} = await signInWithPopup(auth, provider);
+      console.log(user.displayName, user.email)
+      if(provider === google){
+        baseUrl = 'http://localhost:3001/sellers/google-login'
+      } else if(provider === facebook){
+        baseUrl = 'http://localhost:3001/sellers/facebook-login'
+      } else if(provider === twitter){
+        baseUrl = 'http://localhost:3001/sellers/twitter-login'
+      }
+      const {data} = await axios({
+        method: 'POST',
+        url: baseUrl,
+        data: {
+          username: user.displayName,
+          email: user.email
+        }
+      })
+      console.log(data)
+      localStorage.setItem("access_token", data.access_token);
     } catch (err) {
       console.log(err);
     }
