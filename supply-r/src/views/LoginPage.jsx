@@ -21,12 +21,28 @@ export default function LoginPage() {
                 />
 
                 <Card.Body>
-                  <Button className="mb-3 mt-md-4" variant="info" type="button">
+                  <Button
+                    className="mb-3 mt-md-4"
+                    style={{
+                      backgroundColor: "#2596be",
+                      borderColor: "#2596be",
+                      color: "white",
+                    }}
+                    type="button"
+                  >
                     Register as Company
                   </Button>
                   <br></br>
 
-                  <Button className="mb-3 mt-md-4" variant="info" type="button">
+                  <Button
+                    className="mb-3 mt-md-4"
+                    style={{
+                      backgroundColor: "#2596be",
+                      borderColor: "#2596be",
+                      color: "white",
+                    }}
+                    type="button"
+                  >
                     Register as UMKM
                   </Button>
                 </Card.Body>

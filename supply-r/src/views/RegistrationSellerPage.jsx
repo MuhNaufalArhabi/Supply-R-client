@@ -99,7 +99,14 @@ export default function RegistrationSellerPage() {
                         </Form.Group>
 
                         <div className="d-grid">
-                          <Button variant="info" type="submit">
+                          <Button
+                            style={{
+                              backgroundColor: "#2596be",
+                              borderColor: "#2596be",
+                              color: "white",
+                            }}
+                            type="submit"
+                          >
                             Register Seller
                           </Button>
                         </div>

@@ -33,7 +33,15 @@ export default function ProfileSellerPage() {
                     <h5>Phone Number </h5>
                     <h6>ada</h6>
                   </Card.Text>
-                  <Button variant="info">Edit UMKM Info</Button>
+                  <Button
+                    style={{
+                      backgroundColor: "#2596be",
+                      borderColor: "#2596be",
+                      color: "white",
+                    }}
+                  >
+                    Edit UMKM Info
+                  </Button>
                 </Card.Body>
               </Card>
             </div>
