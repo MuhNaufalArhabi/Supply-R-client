@@ -41,7 +41,15 @@ export default function ProfileBuyerPage() {
                     <h5>Website </h5>
                     <h6>ada</h6>
                   </Card.Text>
-                  <Button variant="info">Edit Company Info</Button>
+                  <Button
+                    style={{
+                      backgroundColor: "#2596be",
+                      borderColor: "#2596be",
+                      color: "white",
+                    }}
+                  >
+                    Edit Company Info
+                  </Button>
                 </Card.Body>
               </Card>
             </div>
