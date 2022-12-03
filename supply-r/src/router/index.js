@@ -9,11 +9,12 @@ import ProfileSellerPage from "../views/ProfileSellerPage.jsx";
 import ProductDetail from "../views/ProductDetail.jsx";
 import CartPage from "../views/CartPage.jsx";
 import LayoutCMS from "../views/LayoutCMS.jsx";
-import DashboardPageCMS from "../views/DashboardPageCMS.jsx";
-import TransactionPageCMS from "../views/TransactionPageCMS.jsx";
+import TransactionCashPageCMS from "../views/TransactionCashPageCMS.jsx";
+import TransactionInstallmentPageCMS from "../views/TransactionInstallmentPageCMS.jsx";
 import ProductListCMS from "../views/ProductListCMS.jsx";
 import AddProductCMS from "../views/AddProductCMS.jsx";
 import ProfileStorePageCMS from "../views/ProfileStorePageCMS.jsx";
+import EditProfileStorePageCMS from "../views/EditProfileStorePageCMS.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -57,12 +58,16 @@ const router = createBrowserRouter([
 		element: <LayoutCMS />,
 		children: [
 			{
-				path: "/dashboard",
-				element: <DashboardPageCMS />,
+				path: "/profile-store",
+				element: <ProfileStorePageCMS />,
 			},
 			{
-				path: "/transaction",
-				element: <TransactionPageCMS />,
+				path: "/transaction-cash",
+				element: <TransactionCashPageCMS />,
+			},
+			{
+				path: "/transaction-installment",
+				element: <TransactionInstallmentPageCMS />,
 			},
 			{
 				path: "/product-list",
@@ -73,8 +78,8 @@ const router = createBrowserRouter([
 				element: <AddProductCMS />,
 			},
 			{
-				path: "/profile-store",
-				element: <ProfileStorePageCMS />,
+				path: "/edit-profile-store",
+				element: <EditProfileStorePageCMS />,
 			},
 		],
 	},
