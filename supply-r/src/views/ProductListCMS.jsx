@@ -3,8 +3,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import ProductRowCMS from "../components/ProductRowCMS";
-
+import react, { useState, useEffect } from "react";
+import { getProductByShopId, productSelectors } from "../features/productSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 export default function ProductListCMS() {
+	const dispatch = useDispatch();
+	const { shopId } = useParams();
+	const products = useSelector(productSelectors.selectAll);
+	useEffect( () => {
+	dispatch(getProductByShopId(shopId));
+		console.log(products);
+	}, [dispatch]);
 	return (
 		<>
 			<div style={{ marginLeft: "20%" }}>
@@ -39,14 +49,9 @@ export default function ProductListCMS() {
 							</tr>
 						</thead>
 						<tbody>
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
+						{products.map((product, index) => {
+							return <ProductRowCMS product={product} key={product.id} index={index} />
+						})}
 						</tbody>
 					</Table>
 				</Container>

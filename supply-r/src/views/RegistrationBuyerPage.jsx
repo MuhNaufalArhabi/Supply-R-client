@@ -7,8 +7,31 @@ import {
   Form,
   CardGroup,
 } from "react-bootstrap";
+import { useState } from "react";
+
 
 export default function RegistrationBuyerPage() {
+  const [formBuyer, setFormBuyer] = useState({
+    name: "",
+    email: "",
+    password: "",
+    owner: "",
+    address: "",
+    phoneNumber: "",
+    industry: "",
+    website: "",
+  })
+
+  const handleFormBuyer = (event) => {
+    setFormBuyer({
+      ...formBuyer,
+      [event.target.name]: event.target.value
+    })
+  }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formBuyer);
+  }
   return (
     <>
       <Container>

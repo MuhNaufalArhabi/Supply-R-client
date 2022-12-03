@@ -16,8 +16,8 @@ export default function AddProductCMS(props) {
     name: '',
     CategoryId: '',
     description: '',
-    price: '',
-    stock: '',
+    price: 0,
+    stock: 0,
   });
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
@@ -43,7 +43,7 @@ export default function AddProductCMS(props) {
 	  form.append('product', JSON.stringify(formProduct))
       await axios({
         method: 'post',
-        url: 'http://localhost:4000/products',
+        url: 'http://localhost:3001/products',
         headers: {
 		  'access_token' : localStorage.access_token
         },
