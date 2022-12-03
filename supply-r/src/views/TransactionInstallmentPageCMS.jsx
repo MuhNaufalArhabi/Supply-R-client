@@ -2,9 +2,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import ProductRowCMS from "../components/ProductRowCMS";
+import TransactionInstallmentRowCMS from "../components/TransactionInstallmentRowCMS";
 
-export default function ProductListCMS() {
+export default function TransactionInstallmentPageCMS() {
 	return (
 		<>
 			<div style={{ marginLeft: "20%" }}>
@@ -17,7 +17,7 @@ export default function ProductListCMS() {
 					}}
 				>
 					<h1 style={{ textAlign: "center", color: "#204e64" }}>
-						Product List
+						Installment Transaction List
 					</h1>
 					<br></br>
 
@@ -27,26 +27,19 @@ export default function ProductListCMS() {
 							style={{ textAlign: "center" }}
 						>
 							<tr style={{ color: "white", backgroundColor: "#204e64" }}>
-								<th>No.</th>
+								<th>Order ID</th>
 								<th>Name</th>
-								<th>Category</th>
-								<th>Description</th>
+								<th>Quantity</th>
 								<th>Price</th>
-								<th>Stock</th>
-								<th>Image</th>
-								<th>Edit</th>
-								<th>Delete</th>
+								<th>Total Price</th>
+								<th>Order Date</th>
+								<th>Customer</th>
+								<th>Payment Method</th>
 							</tr>
 						</thead>
 						<tbody>
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
-							<ProductRowCMS />
+							<TransactionInstallmentRowCMS />
+							<TransactionInstallmentRowCMS />
 						</tbody>
 					</Table>
 				</Container>

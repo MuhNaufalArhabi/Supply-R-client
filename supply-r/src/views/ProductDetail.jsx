@@ -30,7 +30,15 @@ export default function ProductDetail() {
               <h6>ada</h6>
               <h5>Stock </h5>
               <h6>ada</h6>
-              <Button variant="info">Add to Cart</Button>
+              <Button
+                style={{
+                  backgroundColor: "#2596be",
+                  borderColor: "#2596be",
+                  color: "white",
+                }}
+              >
+                Add to Cart
+              </Button>
             </div>
           </Col>
         </Row>

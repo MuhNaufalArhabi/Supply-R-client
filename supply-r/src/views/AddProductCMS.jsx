@@ -3,12 +3,14 @@ import { Container, Row, Col, Button, Form, ButtonGroup, Alert } from 'react-boo
 import ImageUploading from 'react-images-uploading';
 import axios from 'axios';
 
+
 export default function AddProductCMS(props) {
   const {
     maxNumber = 5,
     acceptType = ['jpeg', 'jpg', 'png'],
     maxFileSize = 5000000,
   } = props;
+  
   const [images, setImages] = React.useState([]);
   const [formProduct, setFormProduct] = React.useState({
     name: '',
@@ -31,7 +33,6 @@ export default function AddProductCMS(props) {
     newProduct[name] = value;
     setFormProduct(newProduct);
   };
-
   const printjson = async (e) => {
 	e.preventDefault();
     try {;
@@ -40,8 +41,6 @@ export default function AddProductCMS(props) {
         form.append('image', el.data_url);
       });
 	  form.append('product', JSON.stringify(formProduct))
-		
-
       await axios({
         method: 'post',
         url: 'http://localhost:4000/products',
@@ -54,7 +53,6 @@ export default function AddProductCMS(props) {
       console.log(err);
     }
   };
-
   return (
     <>
       <div style={{ marginLeft: '20%' }}>
@@ -234,28 +232,20 @@ export default function AddProductCMS(props) {
                 </>
               )}
             </ImageUploading>
-            {/* <Form.Group className="mb-3">
-							<Form.Label>Image 1</Form.Label>
-							<Form.Control type="file" />
-						</Form.Group>
-
-						<Form.Group className="mb-3">
-							<Form.Label>Image 2</Form.Label>
-							<Form.Control type="file" />
-						</Form.Group>
-
-						<Form.Group className="mb-3">
-							<Form.Label>Image 3</Form.Label>
-							<Form.Control type="file" />
-						</Form.Group> */}
-
-            <br></br>
-            <Button variant="primary" type="submit">
-              + Add Product
-            </Button>
-          </Form>
-        </Container>
-      </div>
-    </>
-  );
+						<br></br>
+						<Button
+							style={{
+								backgroundColor: "#2596be",
+								borderColor: "#2596be",
+								color: "white",
+							}}
+							type="submit"
+						>
+							+ Add Product
+						</Button>
+					</Form>
+				</Container>
+			</div>
+		</>
+	);
 }
