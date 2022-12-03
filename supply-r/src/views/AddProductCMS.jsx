@@ -16,7 +16,7 @@ export default function AddProductCMS() {
 						paddingRight: "15%",
 					}}
 				>
-					<h1 style={{ textAlign: "center" }}>Add Product</h1>
+					<h1 style={{ textAlign: "center", color: "#204e64" }}>Add Product</h1>
 					<br></br>
 
 					<Form>
@@ -28,7 +28,9 @@ export default function AddProductCMS() {
 						<Form.Group className="mb-3">
 							<Form.Label>Category</Form.Label>
 							<Form.Select>
-								<option disabled>-- Select Category --</option>
+								<option disabled selected>
+									-- Select Category --
+								</option>
 								<option value="1">Electronik</option>
 								<option value="2">Pertukangan</option>
 								<option value="3">Jasa Konstruksi / Renovasi</option>
@@ -84,7 +86,14 @@ export default function AddProductCMS() {
 						</Form.Group>
 
 						<br></br>
-						<Button variant="primary" type="submit">
+						<Button
+							style={{
+								backgroundColor: "#2596be",
+								borderColor: "#2596be",
+								color: "white",
+							}}
+							type="submit"
+						>
 							+ Add Product
 						</Button>
 					</Form>

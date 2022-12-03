@@ -18,30 +18,60 @@ export default function SideBar() {
 				}}
 			>
 				<hr />
-				<Link to="/dashboard" className="nav-link">
-					<h4>Dashboard</h4>
+				<Link
+					to="/profile-store"
+					className="nav-link"
+					style={{ marginTop: "5px" }}
+				>
+					<h4 style={{ color: "#204e64" }}>Store Profile</h4>
 				</Link>
 				<hr />
-				<Link to="/transaction" className="nav-link">
-					<h4>Transaction</h4>
+				<Link
+					to="/transaction-cash"
+					className="nav-link"
+					style={{ marginTop: "5px" }}
+				>
+					<h4 style={{ color: "#204e64" }}>Transaction</h4>
+				</Link>
+				<Link to="/transaction-cash" className="nav-link">
+					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
+						Cash Transaction
+					</h5>
+				</Link>
+				<Link to="/transaction-installment" className="nav-link">
+					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
+						Installment Transaction
+					</h5>
 				</Link>
 				<hr />
-				<Link to="/product-list" className="nav-link">
-					<h4>Products</h4>
+				<Link
+					to="/product-list"
+					className="nav-link"
+					style={{ marginTop: "5px" }}
+				>
+					<h4 style={{ color: "#204e64" }}>Products</h4>
 				</Link>
 				<Link to="/product-list" className="nav-link">
-					<h5 style={{ fontWeight: "lighter" }}>Product List</h5>
+					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
+						Product List
+					</h5>
 				</Link>
 				<Link to="/add-product" className="nav-link">
-					<h5 style={{ fontWeight: "lighter" }}>Add Product</h5>
+					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
+						Add Product
+					</h5>
 				</Link>
 				<hr />
-				<Link to="/profile-store" className="nav-link">
-					<h4>Shop Profile</h4>
+				<Link
+					to="/edit-profile-store"
+					className="nav-link"
+					style={{ marginTop: "5px" }}
+				>
+					<h4 style={{ color: "#204e64" }}>Edit Store Profile</h4>
 				</Link>
 				<hr />
-				<Link to="/" className="nav-link">
-					<h4>Back to Home Page</h4>
+				<Link to="/" className="nav-link" style={{ marginTop: "5px" }}>
+					<h4 style={{ color: "#204e64" }}>Back to Home Page</h4>
 				</Link>
 				<hr />
 			</Container>
