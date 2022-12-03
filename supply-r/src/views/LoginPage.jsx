@@ -1,3 +1,6 @@
+import { auth, google, facebook, twitter } from "../stores/firebase";
+import { signInWithPopup, signOut } from "firebase/auth";
+import axios from 'axios'
 import {
   Col,
   Button,
@@ -8,6 +11,32 @@ import {
   CardGroup,
 } from "react-bootstrap";
 export default function LoginPage() {
+  const login = async (provider) => {
+    try {
+      let baseUrl = ''
+      const {user} = await signInWithPopup(auth, provider);
+      console.log(user.displayName, user.email)
+      if(provider === google){
+        baseUrl = 'http://localhost:3001/sellers/google-login'
+      } else if(provider === facebook){
+        baseUrl = 'http://localhost:3001/sellers/facebook-login'
+      } else if(provider === twitter){
+        baseUrl = 'http://localhost:3001/sellers/twitter-login'
+      }
+      const {data} = await axios({
+        method: 'POST',
+        url: baseUrl,
+        data: {
+          username: user.displayName,
+          email: user.email
+        }
+      })
+      console.log(data)
+      localStorage.setItem("access_token", data.access_token);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <Container>
@@ -89,6 +118,17 @@ export default function LoginPage() {
                         </div>
                       </Form>
                     </div>
+                    <button onClick={() => login(google)}>
+                      Login with Google
+                    </button>
+                    <br/>
+                    <button onClick={() => login(facebook)}>
+                      Login with Facebook
+                    </button>
+                    <br/>
+                    <button onClick={() => login(twitter)}>
+                      Login with twitter
+                    </button>
                   </div>
                 </Card.Body>
               </Card>
