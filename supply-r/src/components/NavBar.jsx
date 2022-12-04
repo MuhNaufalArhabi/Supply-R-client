@@ -15,8 +15,12 @@ import {
 	faEnvelope,
 	faCartShopping,
 } from "@fortawesome/free-solid-svg-icons";
+import {useState} from 'react'
+import ChatRoom from "./ChatRoom";
 
-export default function NavBar() {
+export default function NavBar({socket}) {
+	const [modalShow, setModalShow] = useState(false);
+
 	return (
 		<>
 			<Navbar bg="light" variant="light" sticky="top">
@@ -53,7 +57,7 @@ export default function NavBar() {
 							</InputGroup>
 
 							{/* before login */}
-							<div
+							{/* <div
 								style={{
 									display: "flex",
 									flexDirection: "row",
@@ -73,10 +77,10 @@ export default function NavBar() {
 								<Link to="/login" className="nav-link">
 									Login
 								</Link>
-							</div>
+							</div> */}
 
 							{/* login as buyer */}
-							{/* <div
+							<div
 								style={{
 									display: "flex",
 									flexDirection: "row",
@@ -90,22 +94,22 @@ export default function NavBar() {
 								<Link to="/cart" className="nav-link">
 									<FontAwesomeIcon
 										icon={faCartShopping}
-										style={{ fontSize: 24, paddingTop: "2px" }}
+										style={{ fontSize: 24, paddingTop: "2px" , paddingLeft: '20px'}}
 									/>
 								</Link>
-								<Link to="/cart" className="nav-link">
-									<FontAwesomeIcon
+								<ChatRoom socket={socket}/>
+									{/* <FontAwesomeIcon
 										icon={faEnvelope}
 										style={{ fontSize: 24, paddingTop: "2px" }}
-									/>
-								</Link>
+									/> */}
+									
 								<Link to="/profile-buyer" className="nav-link">
 									Buyer Profile
 								</Link>
 								<Link to="/" className="nav-link">
 									Logout
 								</Link>
-							</div> */}
+							</div>
 
 							{/* login as seller */}
 							{/* <div

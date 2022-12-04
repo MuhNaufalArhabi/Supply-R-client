@@ -12,6 +12,7 @@ import {
 	Form,
 	CardGroup,
 } from "react-bootstrap";
+import socket from "../stores/socket";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
@@ -35,6 +36,22 @@ export default function LoginPage() {
 				data: formLogin,
 			});
 			localStorage.setItem("access_token", data.access_token);
+			localStorage.setItem("id", data.id);
+
+			const shop = await axios({
+				method: "GET",
+				url: `http://localhost:3001/sellers/${data.id}`,
+				headers: {	
+					access_token: localStorage.getItem("access_token"),
+				},
+			});
+			if(!shop.data){
+				localStorage.setItem("name", 'seller');
+				
+			} else {
+				localStorage.setItem("name", shop.data.name);
+			}	
+			socket.emit('newUser', { users: localStorage.name, UserId: localStorage.id })
 			navigate("/");
 		} catch (err) {
 			console.log(err);

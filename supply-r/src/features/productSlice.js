@@ -84,8 +84,8 @@ const productSlice = createSlice({
       productEntity.setAll(state, action.payload);
     },
     [postProduct.fulfilled]: (state, action) => {
-      productEntity.addOne(state, action.payload)
-
+      productEntity.addOne(state, action.payload);
+    },
     [getProductByShopId.fulfilled]: (state, action) => {
       productEntity.setAll(state, action.payload);
     },
