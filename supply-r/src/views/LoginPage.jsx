@@ -1,6 +1,8 @@
 import { auth, google, facebook, twitter } from "../stores/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import axios from 'axios'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Col,
   Button,
@@ -11,6 +13,33 @@ import {
   CardGroup,
 } from "react-bootstrap";
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [formLogin, setFormLogin] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleFormLogin = (event) => {
+    setFormLogin({
+      ...formLogin,
+      [event.target.name]: event.target.value
+    })
+  }
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault()
+     const { data } = await axios({
+      method: 'POST',
+      url: 'http://localhost:3001/sellers/login',
+      data: formLogin
+    })
+      localStorage.setItem('access_token', data.access_token)
+    navigate('/')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const login = async (provider) => {
     try {
       let baseUrl = ''
@@ -84,7 +113,7 @@ export default function LoginPage() {
                       Please enter your login and password!
                     </p>
                     <div className="mb-3">
-                      <Form>
+                      <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                           <Form.Label className="text-center">
                             Email address
@@ -95,6 +124,7 @@ export default function LoginPage() {
                             className="form-control"
                             name="email"
                             placeholder="Enter email"
+                            onChange={handleFormLogin}
                           />
                         </Form.Group>
 
@@ -108,6 +138,7 @@ export default function LoginPage() {
                             className="form-control"
                             name="password"
                             placeholder="Enter password"
+                            onChange={handleFormLogin}
                           />
                         </Form.Group>
 

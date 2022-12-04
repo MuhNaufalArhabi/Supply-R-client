@@ -7,8 +7,34 @@ import {
   Form,
   CardGroup,
 } from "react-bootstrap";
-
+import { useState } from 'react'
+import axios from "axios";
+const {useNavigate} = require("react-router-dom");
 export default function RegistrationSellerPage() {
+  const navigate = useNavigate();
+  const [formSeller, setFormSeller] = useState({
+    username: '',
+    password: '',
+    email: '',
+    phoneNumber: '',
+    ktp: '',
+  })
+  const handleFormAddSeller = (event) => {
+    setFormSeller({
+      ...formSeller,
+      [event.target.name]: event.target.value
+    })
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const {data} = await axios({
+      method: 'POST',
+      url: 'http://localhost:3001/sellers/register',
+      data: formSeller
+    })
+    console.log(data)
+    navigate('/login')
+  }
   return (
     <>
       <Container>
@@ -35,7 +61,7 @@ export default function RegistrationSellerPage() {
                       Please fill the data with your info!
                     </p>
                     <div className="mb-3">
-                      <Form>
+                      <Form onSubmit={handleSubmit}>
                         <Form.Group
                           className="mb-3"
                           controlId="formBasicUsername"
@@ -49,6 +75,7 @@ export default function RegistrationSellerPage() {
                             className="form-control"
                             name="username"
                             placeholder="Enter username"
+                            onChange={handleFormAddSeller}
                           />
                         </Form.Group>
 
@@ -62,6 +89,7 @@ export default function RegistrationSellerPage() {
                             className="form-control"
                             name="email"
                             placeholder="Enter email"
+                            onChange={handleFormAddSeller}
                           />
                         </Form.Group>
 
@@ -75,6 +103,7 @@ export default function RegistrationSellerPage() {
                             className="form-control"
                             name="password"
                             placeholder="Enter password"
+                            onChange={handleFormAddSeller}
                           />
                         </Form.Group>
 
@@ -85,6 +114,7 @@ export default function RegistrationSellerPage() {
                             className="form-control"
                             name="phoneNumber"
                             placeholder="Enter Phone Number"
+                            onChange={handleFormAddSeller}
                           />
                         </Form.Group>
 
@@ -95,6 +125,7 @@ export default function RegistrationSellerPage() {
                             className="form-control"
                             name="ktp"
                             placeholder="Enter KTP id"
+                            onChange={handleFormAddSeller}
                           />
                         </Form.Group>
 
