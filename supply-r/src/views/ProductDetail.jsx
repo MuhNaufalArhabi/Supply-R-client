@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ProductDetail() {
-  const [modalShow, setModalShow] = useState(false);
+  // const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
   return (
     <>
@@ -47,7 +47,7 @@ export default function ProductDetail() {
               </Button>
               <br></br>
 
-              <Button
+              {/* <Button
                 style={{
                   backgroundColor: "#2596be",
                   borderColor: "#2596be",
@@ -57,8 +57,8 @@ export default function ProductDetail() {
                 onClick={() => setModalShow(true)}
               >
                 Chat with Seller
-              </Button>
-              <ChatRoom show={modalShow} onHide={() => setModalShow(false)} />
+              </Button> */}
+              {/* <ChatRoom show={modalShow} onHide={() => setModalShow(false)} /> */}
             </div>
           </Col>
         </Row>

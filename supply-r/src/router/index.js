@@ -1,60 +1,61 @@
-import { createBrowserRouter } from "react-router-dom";
-import Layout from "../views/Layout.jsx";
-import LoginPage from "../views/LoginPage.jsx";
-import RegistrationBuyerPage from "../views/RegistrationBuyerPage.jsx";
-import RegistrationSellerPage from "../views/RegistrationSellerPage.jsx";
-import HomePage from "../views/HomePage.jsx";
-import ProfileBuyerPage from "../views/ProfileBuyerPage.jsx";
-import ProfileSellerPage from "../views/ProfileSellerPage.jsx";
-import ProductDetail from "../views/ProductDetail.jsx";
-import CartPage from "../views/CartPage.jsx";
-import LayoutCMS from "../views/LayoutCMS.jsx";
-import TransactionCashPageCMS from "../views/TransactionCashPageCMS.jsx";
-import TransactionInstallmentPageCMS from "../views/TransactionInstallmentPageCMS.jsx";
-import ProductListCMS from "../views/ProductListCMS.jsx";
-import AddProductCMS from "../views/AddProductCMS.jsx";
-import ProfileStorePageCMS from "../views/ProfileStorePageCMS.jsx";
-import EditProfileStorePageCMS from "../views/EditProfileStorePageCMS.jsx";
-import OrderPage from "../views/OrderPage.jsx";
+import { createBrowserRouter } from 'react-router-dom';
+import Layout from '../views/Layout.jsx';
+import LoginPage from '../views/LoginPage.jsx';
+import RegistrationBuyerPage from '../views/RegistrationBuyerPage.jsx';
+import RegistrationSellerPage from '../views/RegistrationSellerPage.jsx';
+import HomePage from '../views/HomePage.jsx';
+import ProfileBuyerPage from '../views/ProfileBuyerPage.jsx';
+import ProfileSellerPage from '../views/ProfileSellerPage.jsx';
+import ProductDetail from '../views/ProductDetail.jsx';
+import CartPage from '../views/CartPage.jsx';
+import LayoutCMS from '../views/LayoutCMS.jsx';
+import TransactionCashPageCMS from '../views/TransactionCashPageCMS.jsx';
+import TransactionInstallmentPageCMS from '../views/TransactionInstallmentPageCMS.jsx';
+import ProductListCMS from '../views/ProductListCMS.jsx';
+import AddProductCMS from '../views/AddProductCMS.jsx';
+import ProfileStorePageCMS from '../views/ProfileStorePageCMS.jsx';
+import EditProfileStorePageCMS from '../views/EditProfileStorePageCMS.jsx';
+import OrderPage from '../views/OrderPage.jsx';
+
 
 const router = createBrowserRouter([
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
   },
   {
-    path: "/register-buyer",
+    path: '/register-buyer',
     element: <RegistrationBuyerPage />,
   },
   {
-    path: "/register-seller",
+    path: '/register-seller',
     element: <RegistrationSellerPage />,
   },
   {
     element: <Layout />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <HomePage />,
       },
       {
-        path: "/profile-buyer",
+        path: '/profile-buyer',
         element: <ProfileBuyerPage />,
       },
       {
-        path: "/profile-seller",
+        path: '/profile-seller',
         element: <ProfileSellerPage />,
       },
       {
-        path: "/product-detail/:id",
+        path: '/product-detail/:id',
         element: <ProductDetail />,
       },
       {
-        path: "/cart",
+        path: '/cart',
         element: <CartPage />,
       },
       {
-        path: "/order",
+        path: '/order',
         element: <OrderPage />,
       },
     ],
@@ -63,27 +64,27 @@ const router = createBrowserRouter([
     element: <LayoutCMS />,
     children: [
       {
-        path: "/profile-store",
+        path: '/profile-store',
         element: <ProfileStorePageCMS />,
       },
       {
-        path: "/transaction-cash",
+        path: '/transaction-cash',
         element: <TransactionCashPageCMS />,
       },
       {
-        path: "/transaction-installment",
+        path: '/transaction-installment',
         element: <TransactionInstallmentPageCMS />,
       },
       {
-        path: "/product-list/:shopId",
+        path: '/product-list/:shopId',
         element: <ProductListCMS />,
       },
       {
-        path: "/add-product",
+        path: '/add-product',
         element: <AddProductCMS />,
       },
       {
-        path: "/edit-profile-store",
+        path: '/edit-profile-store',
         element: <EditProfileStorePageCMS />,
       },
     ],
