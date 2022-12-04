@@ -226,7 +226,9 @@ export default function AddProductCMS(props) {
 													width: "55%",
 													// backgroundColor: "red",
 												}}
-											></div>
+											>
+												{/* {images.length !== 0 ? undefined : <h1>halo</h1>} */}
+											</div>
 											<div
 												className="p-2"
 												style={{
