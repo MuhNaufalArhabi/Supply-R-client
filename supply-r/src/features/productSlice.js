@@ -13,7 +13,6 @@ export const getProducts = createAsyncThunk("products/getProducts", async () => 
 
 export const postProduct = createAsyncThunk("products/postProduct", async(payload) => {
 
-  console.log(payload)
   const {images, formProduct} = payload
   let form = new FormData();
       images.forEach((el) => {
@@ -34,7 +33,17 @@ export const postProduct = createAsyncThunk("products/postProduct", async(payloa
 const productEntity = createEntityAdapter({
   selectId: (product) => product.id,
 });
+// const productEntityByShopId = createEntityAdapter({
+//   selectId: (productByShop) => productByShop.id
+// })
 
+/* 
+initialState : {
+  product: productEntity.getinitialState(),
+  productByShop: productEntityByShopId.getInitialState()
+}
+
+*/
 const productSlice = createSlice({
   name: "product",
   initialState: productEntity.getInitialState(),
@@ -49,4 +58,5 @@ const productSlice = createSlice({
 })
 
 export const productSelectors = productEntity.getSelectors(state => state.product)
+// export const productByShopSelector = product
 export default productSlice.reducer;
