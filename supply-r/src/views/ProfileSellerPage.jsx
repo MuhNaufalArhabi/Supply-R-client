@@ -1,7 +1,10 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import AddStoreModal from "../components/AddStoreModal.jsx";
+import { useState } from "react";
 
 export default function ProfileSellerPage() {
+  const [modalShow, setModalShow] = useState(false);
   return (
     <>
       <Container>
@@ -44,17 +47,17 @@ export default function ProfileSellerPage() {
                   >
                     Edit Seller Info
                   </Button>
-
                   <Button
-                    style={{
-                      backgroundColor: "#2596be",
-                      borderColor: "#2596be",
-                      color: "white",
-                    }}
-                    className="mt-2 mb-2"
+                  style={{
+                    backgroundColor: "#2596be",
+                    borderColor: "#2596be",
+                    color: "white",
+                  }}
+                  onClick={() => setModalShow(true)}
                   >
-                    Create New Store
+                  + Create Store
                   </Button>
+                  <AddStoreModal show={modalShow} onHide={() => setModalShow(false)} />
                 </Card.Body>
               </Card>
             </div>
