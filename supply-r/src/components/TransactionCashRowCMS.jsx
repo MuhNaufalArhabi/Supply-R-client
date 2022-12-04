@@ -1,6 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-
 export default function TransactionCashRowCMS() {
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {

@@ -6,6 +6,7 @@ import PromoCarousel from "../components/PromoCarousel";
 import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
 export default function HomePage() {
+
   const dispatch = useDispatch();
   const products = useSelector(productSelectors.selectAll);
   useEffect(() => {

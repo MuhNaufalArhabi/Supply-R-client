@@ -11,7 +11,9 @@ export default function ShowImagesModalCMS(props) {
 			centered
 		>
 			<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">Images</Modal.Title>
+				<Modal.Title id="contained-modal-title-vcenter">
+					[Product Name]
+				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Carousel style={{ textAlign: "center" }}>
@@ -38,18 +40,6 @@ export default function ShowImagesModalCMS(props) {
 					</Carousel.Item>
 				</Carousel>
 			</Modal.Body>
-			<Modal.Footer>
-				<Button
-					style={{
-						backgroundColor: "#2596be",
-						borderColor: "#2596be",
-						color: "white",
-					}}
-					onClick={props.onHide}
-				>
-					Close
-				</Button>
-			</Modal.Footer>
 		</Modal>
 	);
 }
