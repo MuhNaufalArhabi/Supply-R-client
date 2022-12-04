@@ -7,8 +7,41 @@ import {
   Form,
   CardGroup,
 } from "react-bootstrap";
-
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function RegistrationBuyerPage() {
+  const navigate = useNavigate();
+  const [formBuyer, setFormBuyer] = useState({
+    name: "",
+    email: "",
+    password: "",
+    owner: "",
+    address: "",
+    phoneNumber: "",
+    industry: "",
+    website: "",
+  })
+
+  const handleFormBuyer = (event) => {
+    setFormBuyer({
+      ...formBuyer,
+      [event.target.name]: event.target.value
+    })
+  }
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault()
+      const {data} = await axios({
+        method: 'POST',
+        url: 'http://localhost:3001/buyers/register',
+        data: formBuyer
+      })
+      navigate('/login')
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <>
       <Container>
@@ -35,7 +68,7 @@ export default function RegistrationBuyerPage() {
                       Please fill the data with your info!
                     </p>
                     <div className="mb-3">
-                      <Form>
+                      <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicName">
                           <Form.Label className="text-center">Name</Form.Label>
 
@@ -44,6 +77,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="name"
                             placeholder="Enter company name"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -57,6 +91,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="email"
                             placeholder="Enter email"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -70,6 +105,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="password"
                             placeholder="Enter password"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -80,6 +116,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="owner"
                             placeholder="Enter owner name"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -90,6 +127,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="phoneNumber"
                             placeholder="Enter Phone Number"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -103,6 +141,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="address"
                             placeholder="Enter company address"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -116,6 +155,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="industry"
                             placeholder="Enter industry name"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 
@@ -129,6 +169,7 @@ export default function RegistrationBuyerPage() {
                             className="form-control"
                             name="website"
                             placeholder="Enter website info"
+                            onChange={handleFormBuyer}
                           />
                         </Form.Group>
 

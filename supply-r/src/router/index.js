@@ -75,7 +75,7 @@ const router = createBrowserRouter([
         element: <TransactionInstallmentPageCMS />,
       },
       {
-        path: "/product-list",
+        path: "/product-list/:shopId",
         element: <ProductListCMS />,
       },
       {
