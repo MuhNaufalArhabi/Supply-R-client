@@ -2,11 +2,19 @@ import { Container, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import ChatRoom from "../components/ChatRoom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getProductById, productSelectors} from "../features/productSlice";
+import { useEffect } from "react";
 export default function ProductDetail() {
   const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const product = useSelector((state) => productSelectors.selectById(state, id));
+  useEffect(()=> {
+    dispatch(getProductById(id))
+  },[dispatch])
   return (
     <>
       <Container>
@@ -18,7 +26,7 @@ export default function ProductDetail() {
         <Row>
           <Col sm={4}>
             <img
-              src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Untitled466619.png"
+              src={product.mainImage}
               width={300}
               height={400}
             ></img>
@@ -26,15 +34,15 @@ export default function ProductDetail() {
           <Col sm={8}>
             <div className="mt-5 mb-5">
               <h5>Name </h5>
-              <h6>asas</h6>
+              <h6>{product.name}</h6>
               <h5>Description </h5>
-              <h6>ada</h6>
+              <h6>{product.description}</h6>
               <h5>Category </h5>
-              <h6>ada</h6>
+              <h6>{product.Category.name}</h6>
               <h5>Price </h5>
-              <h6>ada</h6>
+              <h6>Rp. {product.price}</h6>
               <h5>Stock </h5>
-              <h6>ada</h6>
+              <h6>{product.stock}</h6>
               <Button
                 style={{
                   backgroundColor: "#2596be",
