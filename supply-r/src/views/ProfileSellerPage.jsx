@@ -47,6 +47,7 @@ export default function ProfileSellerPage() {
                   >
                     Edit Seller Info
                   </Button>
+//cek
                   <Button
                   style={{
                     backgroundColor: "#2596be",
@@ -58,6 +59,7 @@ export default function ProfileSellerPage() {
                   + Create Store
                   </Button>
                   <AddStoreModal show={modalShow} onHide={() => setModalShow(false)} />
+//cek
                 </Card.Body>
               </Card>
             </div>
