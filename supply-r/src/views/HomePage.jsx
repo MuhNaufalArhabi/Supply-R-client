@@ -22,15 +22,24 @@ export default function HomePage() {
         </Row>
         <Row>
           <Col sm={12} className="mt-3 mb-3">
+          <Row>
             <h4 style={{ color: "#204e64" }}>Category</h4>
             <CategoryCard />
+            <CategoryCard />
+            <CategoryCard />
+          </Row>
           </Col>
         </Row>
         <Row>
           <Col sm={12} className="mt-3 mb-3">
+          <Row>
             <h4>Products</h4>
-            <ProductCard />
+            {products.map((product) => {
+              return <ProductCard product={product} key={product.id} />
+            })}
+          </Row>
           </Col>
+     
         </Row>
         <Row>
           <Col sm={12} className="mt-3 mb-3">
@@ -39,10 +48,6 @@ export default function HomePage() {
           </Col>
         </Row>
       </Container>
-
-      {products.map((product) => {
-        return <div key={product.id}>{product.name}</div>;
-      })}
     </>
   );
 }

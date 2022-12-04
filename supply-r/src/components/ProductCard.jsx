@@ -3,19 +3,19 @@ import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 
 
-export default function ProductCard() {
+export default function ProductCard({product}) {
   const navigate = useNavigate();
   return (
     <>
       <Card style={{ width: "12rem" }} className="margin">
         <Card.Img
           variant="top"
-          src="https://smb-padiumkm-images-public-prod.oss-ap-southeast-5.aliyuncs.com/product/image/29102022/63575346cdb0741eddce73e3/635ca1f0729c230e0e897a98/64b021c89e7f7a5f3e53d65e9ad36c.JPG"
+          src={product?.mainImage}
         />
         <Card.Body>
-          <Card.Title>Card Title</Card.Title>
-          <Card.Text>Rp. 200.000</Card.Text>
-          <Card.Text>Lokasi</Card.Text>
+          <Card.Title>{product?.name}</Card.Title>
+          <Card.Text>Rp. {product?.price}</Card.Text>
+          <Card.Text>{product?.Shop.name}</Card.Text>
           <Button
             style={{
               backgroundColor: "#204e64",
@@ -23,7 +23,7 @@ export default function ProductCard() {
               color: "white",
             }}
             onClick={() => {
-              navigate("/product-detail/1");
+              navigate(`/product-detail/${product.id}`);
             }}
           >
             Details
