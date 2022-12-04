@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Carousel from "react-bootstrap/Carousel";
 
 export default function ShowImagesModalCMS(props) {
+
   return (
     <Modal
       {...props}
@@ -34,13 +35,6 @@ export default function ShowImagesModalCMS(props) {
               </Carousel.Item>
             );
           })}
-          {/* <Carousel.Item>
-						<img
-							style={{ height: "500px" }}
-							src="https://www.adidas.co.id/media/catalog/product/h/f/hf1845_fc_ecom.jpg"
-							alt="Third slide"
-						/>
-					</Carousel.Item> */}
         </Carousel>
       </Modal.Body>
       <Modal.Footer>
@@ -57,4 +51,5 @@ export default function ShowImagesModalCMS(props) {
       </Modal.Footer>
     </Modal>
   );
+
 }

@@ -12,6 +12,8 @@ import {
   Form,
   CardGroup,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const [formLogin, setFormLogin] = useState({
@@ -42,25 +44,25 @@ export default function LoginPage() {
 
   const login = async (provider) => {
     try {
-      let baseUrl = ''
-      const {user} = await signInWithPopup(auth, provider);
-      console.log(user.displayName, user.email)
-      if(provider === google){
-        baseUrl = 'http://localhost:3001/sellers/google-login'
-      } else if(provider === facebook){
-        baseUrl = 'http://localhost:3001/sellers/facebook-login'
-      } else if(provider === twitter){
-        baseUrl = 'http://localhost:3001/sellers/twitter-login'
+      let baseUrl = "";
+      const { user } = await signInWithPopup(auth, provider);
+      console.log(user.displayName, user.email);
+      if (provider === google) {
+        baseUrl = "http://localhost:3001/sellers/google-login";
+      } else if (provider === facebook) {
+        baseUrl = "http://localhost:3001/sellers/facebook-login";
+      } else if (provider === twitter) {
+        baseUrl = "http://localhost:3001/sellers/twitter-login";
       }
-      const {data} = await axios({
-        method: 'POST',
+      const { data } = await axios({
+        method: "POST",
         url: baseUrl,
         data: {
           username: user.displayName,
-          email: user.email
-        }
-      })
-      console.log(data)
+          email: user.email,
+        },
+      });
+      console.log(data);
       localStorage.setItem("access_token", data.access_token);
     } catch (err) {
       console.log(err);
@@ -87,6 +89,9 @@ export default function LoginPage() {
                       color: "white",
                     }}
                     type="button"
+                    onClick={() => {
+                      navigate("/register-buyer");
+                    }}
                   >
                     Register as Company
                   </Button>
@@ -100,6 +105,9 @@ export default function LoginPage() {
                       color: "white",
                     }}
                     type="button"
+                    onClick={() => {
+                      navigate("/register-seller");
+                    }}
                   >
                     Register as UMKM
                   </Button>
@@ -143,23 +151,49 @@ export default function LoginPage() {
                         </Form.Group>
 
                         <div className="d-grid">
-                          <Button variant="info" type="submit">
+                          <Button
+                            style={{
+                              backgroundColor: "#2596be",
+                              borderColor: "#2596be",
+                              color: "white",
+                            }}
+                            type="submit"
+                          >
                             Login
                           </Button>
                         </div>
                       </Form>
                     </div>
-                    <button onClick={() => login(google)}>
+                    <Button
+                      variant="danger"
+                      type="button"
+                      onClick={() => login(google)}
+                      className="mt-1 mb-1"
+                      style={{ padding: 5 }}
+                    >
                       Login with Google
-                    </button>
-                    <br/>
-                    <button onClick={() => login(facebook)}>
+                    </Button>
+
+                    <br />
+                    <Button
+                      variant="primary"
+                      type="button"
+                      onClick={() => login(facebook)}
+                      className="mt-1 mb-1"
+                    >
                       Login with Facebook
-                    </button>
-                    <br/>
-                    <button onClick={() => login(twitter)}>
-                      Login with twitter
-                    </button>
+                    </Button>
+
+                    <br />
+                    <Button
+                      variant="info"
+                      type="button"
+                      onClick={() => login(twitter)}
+                      className="mt-1 mb-1"
+                    >
+                      <i class="fa fa-twitter" aria-hidden="true"></i> Login
+                      with Twitter
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>

@@ -1,13 +1,16 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import AddStoreModal from "../components/AddStoreModal.jsx";
+import { useState } from "react";
 
 export default function ProfileSellerPage() {
+  const [modalShow, setModalShow] = useState(false);
   return (
     <>
       <Container>
         <Row>
           <div className="mt-5 mb-5">
-            <h1>UMKM Profile</h1>
+            <h1>Seller Profile</h1>
           </div>
         </Row>
         <Row>
@@ -22,7 +25,7 @@ export default function ProfileSellerPage() {
             <div className="mt-1 mb-5">
               <Card style={{ width: "18rem" }}>
                 <Card.Body>
-                  <Card.Title>UMKM Info</Card.Title>
+                  <Card.Title>Seller Info</Card.Title>
                   <div className="border border-2 border-info"></div>
 
                   <Card.Text>
@@ -32,6 +35,8 @@ export default function ProfileSellerPage() {
                     <h6>ada</h6>
                     <h5>Phone Number </h5>
                     <h6>ada</h6>
+                    <h5>KTP ID </h5>
+                    <h6>ada</h6>
                   </Card.Text>
                   <Button
                     style={{
@@ -40,8 +45,21 @@ export default function ProfileSellerPage() {
                       color: "white",
                     }}
                   >
-                    Edit UMKM Info
+                    Edit Seller Info
                   </Button>
+//cek
+                  <Button
+                  style={{
+                    backgroundColor: "#2596be",
+                    borderColor: "#2596be",
+                    color: "white",
+                  }}
+                  onClick={() => setModalShow(true)}
+                  >
+                  + Create Store
+                  </Button>
+                  <AddStoreModal show={modalShow} onHide={() => setModalShow(false)} />
+//cek
                 </Card.Body>
               </Card>
             </div>
