@@ -1,13 +1,12 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+div:empty::before {
+	color: grey;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+div[data-placeholder]:not([data-placeholder=""]):empty::before {
+	content: attr(data-placeholder);
+}
+div:empty::before {
+	content: "Choose a file or Drag it here";
+	display: flex;
+	justify-content: center;
+	margin-top: 6%;
 }

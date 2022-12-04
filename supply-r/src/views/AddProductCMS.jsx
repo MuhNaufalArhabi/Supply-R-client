@@ -1,65 +1,71 @@
-
-import React from 'react';
-import { Container, Row, Col, Button, Form, ButtonGroup, Alert } from 'react-bootstrap';
-import ImageUploading from 'react-images-uploading';
-import { postProduct } from '../features/productSlice';
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-
+import React from "react";
+import {
+	Container,
+	Row,
+	Col,
+	Button,
+	Form,
+	ButtonGroup,
+	Alert,
+} from "react-bootstrap";
+import ImageUploading from "react-images-uploading";
+import { postProduct } from "../features/productSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function AddProductCMS(props) {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const {
-    maxNumber = 5,
-    acceptType = ['jpeg', 'jpg', 'png'],
-    maxFileSize = 5000000,
-  } = props;
-  
-  const [images, setImages] = React.useState([]);
-  const [formProduct, setFormProduct] = React.useState({
-    name: '',
-    CategoryId: '',
-    description: '',
-    price: '',
-    stock: '',
-  });
-  const onChange = (imageList, addUpdateIndex) => {
-    setImages(imageList);
-  };
-  const onError = () => {
-    setImages([]);
-  };
-  const hendlerProduct = (e) => {
-    const { name, value } = e.target;
-    const newProduct = {
-      ...formProduct,
-    };
-    newProduct[name] = value;
-    setFormProduct(newProduct);
-  };
-  const printjson = async (e) => {
-	e.preventDefault();
-  const data = {
-    images,
-    formProduct
-  }
-  await dispatch(postProduct(data))
-  navigate('/product-list')
-  };
-  return (
-    <>
-      <div style={{ marginLeft: '20%' }}>
-        <Container
-          style={{
-            paddingTop: '2%',
-            paddingBottom: '2%',
-            paddingLeft: '15%',
-            paddingRight: '15%',
-          }}>
-          <h1 style={{ textAlign: 'center' }}>Add Product</h1>
-          <br></br>
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const {
+		maxNumber = 5,
+		acceptType = ["jpeg", "jpg", "png"],
+		maxFileSize = 5000000,
+	} = props;
 
+	const [images, setImages] = React.useState([]);
+	const [formProduct, setFormProduct] = React.useState({
+		name: "",
+		CategoryId: "",
+		description: "",
+		price: "",
+		stock: "",
+	});
+	const onChange = (imageList, addUpdateIndex) => {
+		setImages(imageList);
+	};
+	const onError = () => {
+		setImages([]);
+	};
+	const hendlerProduct = (e) => {
+		const { name, value } = e.target;
+		const newProduct = {
+			...formProduct,
+		};
+		newProduct[name] = value;
+		setFormProduct(newProduct);
+	};
+	const printjson = async (e) => {
+		e.preventDefault();
+		const data = {
+			images,
+			formProduct,
+		};
+		await dispatch(postProduct(data));
+		navigate("/product-list");
+	};
+	return (
+		<>
+			<div style={{ marginLeft: "20%" }}>
+				<Container
+					style={{
+						paddingTop: "2%",
+						paddingBottom: "2%",
+						paddingLeft: "15%",
+						paddingRight: "15%",
+					}}
+				>
+					<h1 style={{ textAlign: "center", color: "#204e64" }}>Add Product</h1>
+					<br></br>
 
 					<Form onSubmit={printjson}>
 						<Form.Group className="mb-3">
@@ -215,6 +221,7 @@ export default function AddProductCMS(props) {
 											<div
 												as="textarea"
 												rows={3}
+												data-placeholder=" "
 												placeholder="Choose a file or Drag it here"
 												className="upload-container"
 												{...dragProps}
@@ -224,6 +231,8 @@ export default function AddProductCMS(props) {
 													zIndex: "1",
 													position: "fixed",
 													width: "55%",
+													color: "grey",
+													textAlign: "center",
 													// backgroundColor: "red",
 												}}
 											>
