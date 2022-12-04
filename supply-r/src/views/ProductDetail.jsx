@@ -1,7 +1,12 @@
 import { Container, Col, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import ChatRoom from "../components/ChatRoom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductDetail() {
+  const [modalShow, setModalShow] = useState(false);
+  const navigate = useNavigate();
   return (
     <>
       <Container>
@@ -36,9 +41,24 @@ export default function ProductDetail() {
                   borderColor: "#2596be",
                   color: "white",
                 }}
+                className="mt-1 mb-1"
               >
                 Add to Cart
               </Button>
+              <br></br>
+
+              <Button
+                style={{
+                  backgroundColor: "#2596be",
+                  borderColor: "#2596be",
+                  color: "white",
+                }}
+                className="mt-1 mb-1"
+                onClick={() => setModalShow(true)}
+              >
+                Chat with Seller
+              </Button>
+              <ChatRoom show={modalShow} onHide={() => setModalShow(false)} />
             </div>
           </Col>
         </Row>
