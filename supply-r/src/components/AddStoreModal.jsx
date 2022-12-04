@@ -58,22 +58,3 @@ export default function AddStoreModal(props) {
 		</Modal>
 	);
 }
-
-// import AddStoreModal from "../components/AddStoreModal.jsx";
-// import { useState } from "react";
-// import Button from "react-bootstrap/Button";
-
-// const [modalShow, setModalShow] = useState(false);
-
-// <Button
-// 	style={{
-// 		backgroundColor: "#2596be",
-// 		borderColor: "#2596be",
-// 		color: "white",
-// 	}}
-// 	onClick={() => setModalShow(true)}
-// >
-// 	+ Create Store
-// </Button>
-
-// <AddStoreModal show={modalShow} onHide={() => setModalShow(false)} />
