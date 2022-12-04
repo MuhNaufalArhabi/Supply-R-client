@@ -7,7 +7,7 @@ export default function ProfileSellerPage() {
       <Container>
         <Row>
           <div className="mt-5 mb-5">
-            <h1>UMKM Profile</h1>
+            <h1>Seller Profile</h1>
           </div>
         </Row>
         <Row>
@@ -22,7 +22,7 @@ export default function ProfileSellerPage() {
             <div className="mt-1 mb-5">
               <Card style={{ width: "18rem" }}>
                 <Card.Body>
-                  <Card.Title>UMKM Info</Card.Title>
+                  <Card.Title>Seller Info</Card.Title>
                   <div className="border border-2 border-info"></div>
 
                   <Card.Text>
@@ -32,6 +32,8 @@ export default function ProfileSellerPage() {
                     <h6>ada</h6>
                     <h5>Phone Number </h5>
                     <h6>ada</h6>
+                    <h5>KTP ID </h5>
+                    <h6>ada</h6>
                   </Card.Text>
                   <Button
                     style={{
@@ -40,7 +42,18 @@ export default function ProfileSellerPage() {
                       color: "white",
                     }}
                   >
-                    Edit UMKM Info
+                    Edit Seller Info
+                  </Button>
+
+                  <Button
+                    style={{
+                      backgroundColor: "#2596be",
+                      borderColor: "#2596be",
+                      color: "white",
+                    }}
+                    className="mt-2 mb-2"
+                  >
+                    Create New Store
                   </Button>
                 </Card.Body>
               </Card>
