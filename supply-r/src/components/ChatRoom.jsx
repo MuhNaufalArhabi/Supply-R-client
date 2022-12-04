@@ -16,11 +16,13 @@ import ChatBar from './ChatBar';
 import ChatBody from './ChatBody';
 import ChatFooter from './ChatFooter';
 import socket from '../stores/socket';
+import axios from 'axios';
 
 export default function ChatRoom(props) {
   const [show, setShow] = useState(false);
   const [messages, setMessages] = useState([])
   const lastMessageRef = useRef(null);
+  const [person, setPerson] = useState([])
 
   const handleClose = () => {
 
@@ -28,6 +30,7 @@ export default function ChatRoom(props) {
   };
   const handleShow = (e) => {
     e.preventDefault();
+    room()
     setShow(true);
   };
 
@@ -39,6 +42,21 @@ export default function ChatRoom(props) {
     // 👇️ scroll to bottom every time messages change
     lastMessageRef.current?.scrollIntoView({behavior: 'smooth'});
   }, [messages]);
+
+  const room = async() => {
+    try {
+      const {data} = await axios({
+        method: 'GET',
+        url: `http://localhost:3000/rooms/${localStorage.id}`,
+        headers: {
+          access_token: localStorage.access_token
+        }
+      })
+      setPerson(data)
+    } catch (err) {
+      console.log(err);
+    }
+  }
   
   return (
     <>
@@ -153,7 +171,7 @@ export default function ChatRoom(props) {
           </Row>
         </Container> */}
         <div className='chat container'>
-          <ChatBar socket={socket}/>
+          <ChatBar socket={socket} person={person}/>
           <div className='chat_main'>
             <ChatBody socket={socket} lastMessageRef={lastMessageRef} messages={messages}/>
             <ChatFooter socket={socket}/>
@@ -166,7 +184,7 @@ export default function ChatRoom(props) {
             borderColor: '#2596be',
             color: 'white',
           }}
-          onClick={props.onHide}>
+          onClick={handleClose}>
           Close
         </Button>
       </Modal>

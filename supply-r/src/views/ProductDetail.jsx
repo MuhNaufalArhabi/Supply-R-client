@@ -14,6 +14,7 @@ export default function ProductDetail() {
           <div className="mt-5 mb-5">
             <h1>Product Details</h1>
           </div>
+          <ChatRoom />
         </Row>
         <Row>
           <Col sm={4}>

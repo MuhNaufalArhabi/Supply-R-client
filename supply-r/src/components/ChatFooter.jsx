@@ -10,12 +10,12 @@ const ChatFooter = ({ socket, currentSocketId }) => {
     console.log(currentSocketId);
     if (message.trim() && localStorage.getItem('userName')) {
       socket.emit(
-        'message'
-        // {
-        // chat: message,
-        // pengirimId: `${user.id}`, // user yang mengirim pesan
-        // penerimaId: `${currentSocketId}`, // user yang menerima pesan, dipilih di chatbar
-        // }
+        'message',
+        {
+        chat: message,
+        pengirimId: localStorage.id, // user yang mengirim pesan
+        penerimaId: `${currentSocketId}`, // user yang menerima pesan, dipilih di chatbar
+        }
       );
     }
     setMessage('');

@@ -1,17 +1,9 @@
-import { auth, google, facebook, twitter } from "../stores/firebase";
-import { signInWithPopup, signOut } from "firebase/auth";
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Col,
-  Button,
-  Row,
-  Container,
-  Card,
-  Form,
-  CardGroup,
-} from "react-bootstrap";
+import { auth, google, facebook, twitter } from '../stores/firebase';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Col, Button, Row, Container, Card, Form, CardGroup } from 'react-bootstrap';
 import {
   MDBContainer,
   MDBTabs,
@@ -23,13 +15,14 @@ import {
   MDBIcon,
   MDBInput,
   MDBCheckbox,
-} from "mdb-react-ui-kit";
+} from 'mdb-react-ui-kit';
+import socket from '../stores/socket';
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [formLogin, setFormLogin] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleFormLogin = (event) => {
@@ -38,16 +31,52 @@ export default function LoginPage() {
       [event.target.name]: event.target.value,
     });
   };
-  const handleSubmit = async (event) => {
+  const handleSubmitSeller = async (event) => {
     try {
       event.preventDefault();
       const { data } = await axios({
-        method: "POST",
-        url: "http://localhost:3001/sellers/login",
+        method: 'POST',
+        url: 'http://localhost:3001/sellers/login',
         data: formLogin,
       });
-      localStorage.setItem("access_token", data.access_token);
-      navigate("/");
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('role', data.role);
+
+    //   console.log(data);
+    //   const shop = await axios({
+    //     method: 'GET',
+    //     url: `http://localhost:3001/shops/${data.id}`,
+    //   });
+    //   if (!shop.data) {
+    //     localStorage.setItem('name', data.name);
+    //   } else {
+    //     localStorage.setItem('name', shop.data.name);
+    //   }
+	//   console.log(shop.data)
+    //   socket.emit('newUser', { users: localStorage.name, UserId: localStorage.id });
+
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSubmitBuyer = async (event) => {
+    try {
+      event.preventDefault();
+      const { data } = await axios({
+        method: 'POST',
+        url: 'http://localhost:3001/buyers/login',
+        data: formLogin,
+      });
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('role', data.role);
+      localStorage.setItem('name', data.name);
+      console.log(data);
+      socket.emit('newUser', { users: localStorage.name, UserId: localStorage.id });
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -55,18 +84,18 @@ export default function LoginPage() {
 
   const login = async (provider) => {
     try {
-      let baseUrl = "";
+      let baseUrl = '';
       const { user } = await signInWithPopup(auth, provider);
       console.log(user.displayName, user.email);
       if (provider === google) {
-        baseUrl = "http://localhost:3001/sellers/google-login";
+        baseUrl = 'http://localhost:3001/sellers/google-login';
       } else if (provider === facebook) {
-        baseUrl = "http://localhost:3001/sellers/facebook-login";
+        baseUrl = 'http://localhost:3001/sellers/facebook-login';
       } else if (provider === twitter) {
-        baseUrl = "http://localhost:3001/sellers/twitter-login";
+        baseUrl = 'http://localhost:3001/sellers/twitter-login';
       }
       const { data } = await axios({
-        method: "POST",
+        method: 'POST',
         url: baseUrl,
         data: {
           username: user.displayName,
@@ -74,13 +103,14 @@ export default function LoginPage() {
         },
       });
       console.log(data);
-      localStorage.setItem("access_token", data.access_token);
+      localStorage.setItem('access_token', data.access_token);
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
   };
 
-  const [justifyActive, setJustifyActive] = useState("tab1");
+  const [justifyActive, setJustifyActive] = useState('tab1');
 
   const handleJustifyClick = (value) => {
     if (value === justifyActive) {
@@ -106,15 +136,14 @@ export default function LoginPage() {
                   <Button
                     className="mb-3 mt-md-4"
                     style={{
-                      backgroundColor: "#2596be",
-                      borderColor: "#2596be",
-                      color: "white",
+                      backgroundColor: '#2596be',
+                      borderColor: '#2596be',
+                      color: 'white',
                     }}
                     type="button"
                     onClick={() => {
-                      navigate("/register-buyer");
-                    }}
-                  >
+                      navigate('/register-buyer');
+                    }}>
                     Register as Company
                   </Button>
                   <br></br>
@@ -122,15 +151,14 @@ export default function LoginPage() {
                   <Button
                     className="mb-3 mt-md-4"
                     style={{
-                      backgroundColor: "#2596be",
-                      borderColor: "#2596be",
-                      color: "white",
+                      backgroundColor: '#2596be',
+                      borderColor: '#2596be',
+                      color: 'white',
                     }}
                     type="button"
                     onClick={() => {
-                      navigate("/register-seller");
-                    }}
-                  >
+                      navigate('/register-seller');
+                    }}>
                     Register as UMKM
                   </Button>
                 </Card.Body>
@@ -142,41 +170,31 @@ export default function LoginPage() {
                     <MDBTabs
                       pills
                       justify
-                      className="mb-3 d-flex flex-row justify-content-between"
-                    >
+                      className="mb-3 d-flex flex-row justify-content-between">
                       <MDBTabsItem>
                         <MDBTabsLink
-                          onClick={() => handleJustifyClick("tab1")}
-                          active={justifyActive === "tab1"}
-                        >
+                          onClick={() => handleJustifyClick('tab1')}
+                          active={justifyActive === 'tab1'}>
                           Buyer
                         </MDBTabsLink>
                       </MDBTabsItem>
                       <MDBTabsItem>
                         <MDBTabsLink
-                          onClick={() => handleJustifyClick("tab2")}
-                          active={justifyActive === "tab2"}
-                        >
+                          onClick={() => handleJustifyClick('tab2')}
+                          active={justifyActive === 'tab2'}>
                           Seller
                         </MDBTabsLink>
                       </MDBTabsItem>
                     </MDBTabs>
 
                     <MDBTabsContent>
-                      <MDBTabsPane show={justifyActive === "tab1"}>
+                      <MDBTabsPane show={justifyActive === 'tab1'}>
                         <div className="mb-3 mt-md-4">
-                          <h2 className="fw-bold mb-2 text-uppercase ">
-                            LOGIN BUYER
-                          </h2>
-                          <p className=" mb-5">
-                            Please enter your login and password!
-                          </p>
+                          <h2 className="fw-bold mb-2 text-uppercase ">LOGIN BUYER</h2>
+                          <p className=" mb-5">Please enter your login and password!</p>
                           <div className="mb-3">
-                            <Form onSubmit={handleSubmit}>
-                              <Form.Group
-                                className="mb-3"
-                                controlId="formBasicEmail"
-                              >
+                            <Form onSubmit={handleSubmitBuyer}>
+                              <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="text-center">
                                   Email address
                                 </Form.Label>
@@ -190,10 +208,7 @@ export default function LoginPage() {
                                 />
                               </Form.Group>
 
-                              <Form.Group
-                                className="mb-3"
-                                controlId="formBasicPassword"
-                              >
+                              <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
                                 <input
                                   type="password"
@@ -207,12 +222,11 @@ export default function LoginPage() {
                               <div className="d-grid">
                                 <Button
                                   style={{
-                                    backgroundColor: "#2596be",
-                                    borderColor: "#2596be",
-                                    color: "white",
+                                    backgroundColor: '#2596be',
+                                    borderColor: '#2596be',
+                                    color: 'white',
                                   }}
-                                  type="submit"
-                                >
+                                  type="submit">
                                   Login
                                 </Button>
                               </div>
@@ -220,19 +234,17 @@ export default function LoginPage() {
                           </div>
                         </div>
                         <div className="text-center mb-3">
-                          <h5 style={{ color: "#204e64" }}>Log in with:</h5>
+                          <h5 style={{ color: '#204e64' }}>Log in with:</h5>
 
                           <div
                             className="d-flex justify-content-between mx-auto"
-                            style={{ width: "40%" }}
-                          >
+                            style={{ width: '40%' }}>
                             <MDBBtn
                               tag="a"
                               color="none"
                               className="m-1"
-                              style={{ color: "#2596be" }}
-                              onClick={() => login(facebook)}
-                            >
+                              style={{ color: '#2596be' }}
+                              onClick={() => login(facebook)}>
                               <MDBIcon fab icon="facebook-f" size="lg" />
                             </MDBBtn>
 
@@ -240,9 +252,8 @@ export default function LoginPage() {
                               tag="a"
                               color="none"
                               className="m-1"
-                              style={{ color: "#2596be" }}
-                              onClick={() => login(twitter)}
-                            >
+                              style={{ color: '#2596be' }}
+                              onClick={() => login(twitter)}>
                               <MDBIcon fab icon="twitter" size="lg" />
                             </MDBBtn>
 
@@ -250,29 +261,21 @@ export default function LoginPage() {
                               tag="a"
                               color="none"
                               className="m-1"
-                              style={{ color: "#2596be" }}
-                              onClick={() => login(google)}
-                            >
+                              style={{ color: '#2596be' }}
+                              onClick={() => login(google)}>
                               <MDBIcon fab icon="google" size="lg" />
                             </MDBBtn>
                           </div>
                         </div>
                       </MDBTabsPane>
 
-                      <MDBTabsPane show={justifyActive === "tab2"}>
+                      <MDBTabsPane show={justifyActive === 'tab2'}>
                         <div className="mb-3 mt-md-4">
-                          <h2 className="fw-bold mb-2 text-uppercase ">
-                            LOGIN SELLER
-                          </h2>
-                          <p className=" mb-5">
-                            Please enter your login and password!
-                          </p>
+                          <h2 className="fw-bold mb-2 text-uppercase ">LOGIN SELLER</h2>
+                          <p className=" mb-5">Please enter your login and password!</p>
                           <div className="mb-3">
-                            <Form onSubmit={handleSubmit}>
-                              <Form.Group
-                                className="mb-3"
-                                controlId="formBasicEmail"
-                              >
+                            <Form onSubmit={handleSubmitSeller}>
+                              <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label className="text-center">
                                   Email address
                                 </Form.Label>
@@ -286,10 +289,7 @@ export default function LoginPage() {
                                 />
                               </Form.Group>
 
-                              <Form.Group
-                                className="mb-3"
-                                controlId="formBasicPassword"
-                              >
+                              <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
                                 <input
                                   type="password"
@@ -303,12 +303,11 @@ export default function LoginPage() {
                               <div className="d-grid">
                                 <Button
                                   style={{
-                                    backgroundColor: "#2596be",
-                                    borderColor: "#2596be",
-                                    color: "white",
+                                    backgroundColor: '#2596be',
+                                    borderColor: '#2596be',
+                                    color: 'white',
                                   }}
-                                  type="submit"
-                                >
+                                  type="submit">
                                   Login
                                 </Button>
                               </div>
@@ -316,19 +315,17 @@ export default function LoginPage() {
                           </div>
                         </div>
                         <div className="text-center mb-3">
-                          <h5 style={{ color: "#204e64" }}>Log in with:</h5>
+                          <h5 style={{ color: '#204e64' }}>Log in with:</h5>
 
                           <div
                             className="d-flex justify-content-between mx-auto"
-                            style={{ width: "40%" }}
-                          >
+                            style={{ width: '40%' }}>
                             <MDBBtn
                               tag="a"
                               color="none"
                               className="m-1"
-                              style={{ color: "#2596be" }}
-                              onClick={() => login(facebook)}
-                            >
+                              style={{ color: '#2596be' }}
+                              onClick={() => login(facebook)}>
                               <MDBIcon fab icon="facebook-f" size="lg" />
                             </MDBBtn>
 
@@ -336,9 +333,8 @@ export default function LoginPage() {
                               tag="a"
                               color="none"
                               className="m-1"
-                              style={{ color: "#2596be" }}
-                              onClick={() => login(twitter)}
-                            >
+                              style={{ color: '#2596be' }}
+                              onClick={() => login(twitter)}>
                               <MDBIcon fab icon="twitter" size="lg" />
                             </MDBBtn>
 
@@ -346,9 +342,8 @@ export default function LoginPage() {
                               tag="a"
                               color="none"
                               className="m-1"
-                              style={{ color: "#2596be" }}
-                              onClick={() => login(google)}
-                            >
+                              style={{ color: '#2596be' }}
+                              onClick={() => login(google)}>
                               <MDBIcon fab icon="google" size="lg" />
                             </MDBBtn>
                           </div>
