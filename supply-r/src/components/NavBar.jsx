@@ -12,6 +12,10 @@ export default function NavBar({ socket }) {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState(false);
 
+  const handleChat = () => {
+    socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
+  }
+
   const handleLogout = () => {
     localStorage.clear();
     signOut(auth);
@@ -88,7 +92,7 @@ export default function NavBar({ socket }) {
                       style={{ fontSize: 24, paddingTop: '2px', paddingLeft: '20px' }}
                     />
                   </Link>
-                  <ChatRoom socket={socket} />
+                  <ChatRoom onClick={() => handleChat} />
 
                   <Link to="/profile-buyer" className="nav-link">
                     Buyer Profile
@@ -108,7 +112,7 @@ export default function NavBar({ socket }) {
                     gap: '25px',
                     color: '#204e64',
                   }}>
-                  <ChatRoom socket={socket} />
+                  <ChatRoom onClick={() => handleChat}/>
                   <Link to="/profile-store" className="nav-link">
                     Seller Store
                   </Link>

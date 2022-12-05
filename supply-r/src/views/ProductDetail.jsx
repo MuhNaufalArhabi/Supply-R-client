@@ -7,17 +7,23 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProductById, productSelectors } from '../features/productSlice';
 import { useEffect } from 'react';
 import socket from '../stores/socket';
+
 export default function ProductDetail() {
   // const [modalShow, setModalShow] = useState(false);
-  const [receiverMsg, setReceiverMsg] = useState(0);
-  const navigate = useNavigate();
   const { id } = useParams();
+  // const [receiverMsg, setReceiverMsg] = useState();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const product = useSelector((state) => productSelectors.selectById(state, id));
-  const handleShop = (id) => {
-    setReceiverMsg(id);
-    socket.emit('newUser', { users: product.Shop.name, id: product.Shop.id });
-  };
+  const [shopId, setShopId] = useState(product.ShopId);
+
+  // const handleShop = async(param) => {
+  //   setReceiverMsg(param ? param : product.ShopId)
+  //   socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
+  // };
+  // useEffect(() => {
+  //   setReceiverMsg(product.Shop.id);
+  // }, [product])
   useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch]);
@@ -29,7 +35,7 @@ export default function ProductDetail() {
             <h1>Product Details</h1>
             {/* <pre>{product.Shop}</pre> */}
           </div>
-          <ChatRoom handleShop={handleShop} receiverMsg={receiverMsg} />
+          <ChatRoom shopId={shopId}/>
         </Row>
         <Row>
           <Col sm={4}>

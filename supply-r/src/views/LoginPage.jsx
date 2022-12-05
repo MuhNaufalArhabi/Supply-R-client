@@ -42,6 +42,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
+      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: data.id});
       // localStorage.setItem('name', data.name);
       // socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
 
@@ -76,6 +77,7 @@ export default function LoginPage() {
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
       localStorage.setItem('name', data.name);
+      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: data.id});
       // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
       navigate('/');
     } catch (err) {
