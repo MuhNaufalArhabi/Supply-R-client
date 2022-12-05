@@ -4,6 +4,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
+
+  const rupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
+
   return (
     <>
       <Card
@@ -19,7 +27,7 @@ export default function ProductCard({ product }) {
         <Card.Img variant="top" src={product?.mainImage} />
         <Card.Body>
           <Card.Title>{product?.name}</Card.Title>
-          <Card.Text>Rp. {product?.price}</Card.Text>
+          <Card.Text>{rupiah(product?.price)}</Card.Text>
           <Card.Text>{product?.Shop.name}</Card.Text>
           <Button
             style={{

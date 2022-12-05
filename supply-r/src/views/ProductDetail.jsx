@@ -4,17 +4,27 @@ import ChatRoom from "../components/ChatRoom";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductById, productSelectors} from "../features/productSlice";
+import { getProductById, productSelectors } from "../features/productSlice";
 import { useEffect } from "react";
 export default function ProductDetail() {
   // const [modalShow, setModalShow] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((state) => productSelectors.selectById(state, id));
-  useEffect(()=> {
-    dispatch(getProductById(id))
-  },[dispatch])
+  const product = useSelector((state) =>
+    productSelectors.selectById(state, id)
+  );
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch]);
+
+  const rupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
+
   return (
     <>
       <Container>
@@ -26,11 +36,7 @@ export default function ProductDetail() {
         </Row>
         <Row>
           <Col sm={4}>
-            <img
-              src={product.mainImage}
-              width={300}
-              height={400}
-            ></img>
+            <img src={product.mainImage} width={300} height={400}></img>
           </Col>
           <Col sm={8}>
             <div className="mt-5 mb-5">
@@ -41,7 +47,7 @@ export default function ProductDetail() {
               <h5>Category </h5>
               <h6>{product.Category.name}</h6>
               <h5>Price </h5>
-              <h6>Rp. {product.price}</h6>
+              <h6>{rupiah(product.price)}</h6>
               <h5>Stock </h5>
               <h6>{product.stock}</h6>
               <Button
