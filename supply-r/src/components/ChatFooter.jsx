@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
+import socket from '../stores/socket';
 
-const ChatFooter = ({ socket, currentSocketId }) => {
+const ChatFooter = ({  receiverMsg }) => {
   const [message, setMessage] = useState('');
-  const handleTyping = () =>
-    socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
+  // const handleTyping = () =>
+  //   socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    console.log(currentSocketId);
-    if (message.trim() && localStorage.getItem('userName')) {
-      socket.emit(
-        'message',
-        {
+    console.log(receiverMsg, 'ini receiverMsg');
+    if (message.trim() && localStorage.getItem('id')) {
+      socket.emit('message', {
         chat: message,
-        pengirimId: localStorage.id, // user yang mengirim pesan
-        penerimaId: `${currentSocketId}`, // user yang menerima pesan, dipilih di chatbar
-        }
-      );
+        sender: localStorage.id, // user yang mengirim pesan
+        receiver: receiverMsg,
+        senderRole: localStorage.role,  // user yang menerima pesan, dipilih di chatbar
+        name: localStorage.name,
+      });
     }
     setMessage('');
   };
@@ -29,9 +29,11 @@ const ChatFooter = ({ socket, currentSocketId }) => {
           className="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleTyping}
+          // onKeyDown={handleTyping}
         />
-        <button className="sendBtn">SEND</button>
+        <button className="sendBtn" type="submit">
+          SEND
+        </button>
       </form>
     </div>
   );

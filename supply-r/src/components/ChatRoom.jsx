@@ -18,11 +18,11 @@ import ChatFooter from './ChatFooter';
 import socket from '../stores/socket';
 import axios from 'axios';
 
-export default function ChatRoom(props) {
+export default function ChatRoom({ handleShop, receiverMsg}) {
   const [show, setShow] = useState(false);
   const [messages, setMessages] = useState([])
   const lastMessageRef = useRef(null);
-  const [person, setPerson] = useState([])
+  // const [person, setPerson] = useState([])
 
   const handleClose = () => {
 
@@ -31,32 +31,39 @@ export default function ChatRoom(props) {
   const handleShow = (e) => {
     e.preventDefault();
     room()
-    setShow(true);
+    // console.log(window.location.pathname.split('/')[2], 'ini path');
+    if(localStorage.role == 'buyer' && window.location.pathname == '/product-detail'){
+      handleShop(window.location.pathname.split('/')[2])
+      setShow(true)
+    }else{
+      setShow(true);
+    }
   };
 
   useEffect(()=> {
     socket.on("messageResponse", data => setMessages([...messages, data]))
   }, [socket, messages])
+  // console.log(messages, 'ini messages')
 
   useEffect(() => {
     // 👇️ scroll to bottom every time messages change
     lastMessageRef.current?.scrollIntoView({behavior: 'smooth'});
   }, [messages]);
 
-  const room = async() => {
-    try {
-      const {data} = await axios({
-        method: 'GET',
-        url: `http://localhost:3000/rooms/${localStorage.id}`,
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-      setPerson(data)
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // const room = async() => {
+  //   try {
+  //     const {data} = await axios({
+  //       method: 'GET',
+  //       url: `http://localhost:3001/rooms/${localStorage.id}`,
+  //       headers: {
+  //         access_token: localStorage.access_token
+  //       }
+  //     })
+  //     setPerson(data)
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
   
   return (
     <>
@@ -171,10 +178,10 @@ export default function ChatRoom(props) {
           </Row>
         </Container> */}
         <div className='chat container'>
-          <ChatBar socket={socket} person={person}/>
+          <ChatBar socket={socket} handleShop={handleShop}/>
           <div className='chat_main'>
             <ChatBody socket={socket} lastMessageRef={lastMessageRef} messages={messages}/>
-            <ChatFooter socket={socket}/>
+            <ChatFooter socket={socket} receiverMsg={receiverMsg}/>
           </div>
         </div>
 
