@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 // import {
 //   MDBContainer,
 //   MDBRow,
@@ -9,76 +9,91 @@ import React, { useState, useEffect,useRef } from 'react';
 //   MDBIcon,
 //   MDBTextArea,
 // } from "mdb-react-ui-kit";
-import { Container, Row, Col, Card, Form, Button, Modal } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faEnvelope, faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import ChatBar from './ChatBar';
-import ChatBody from './ChatBody';
-import ChatFooter from './ChatFooter';
-import socket from '../stores/socket';
-import axios from 'axios';
+import {
+	Container,
+	Row,
+	Col,
+	Card,
+	Form,
+	Button,
+	Modal,
+} from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+	faSearch,
+	faEnvelope,
+	faCartShopping,
+} from "@fortawesome/free-solid-svg-icons";
+import ChatBar from "./ChatBar";
+import ChatBody from "./ChatBody";
+import ChatFooter from "./ChatFooter";
+import socket from "../stores/socket";
+import axios from "axios";
 
-export default function ChatRoom({ handleShop, receiverMsg}) {
-  const [show, setShow] = useState(false);
-  const [messages, setMessages] = useState([])
-  const lastMessageRef = useRef(null);
-  // const [person, setPerson] = useState([])
+export default function ChatRoom({ handleShop, receiverMsg }) {
+	const [show, setShow] = useState(false);
+	const [messages, setMessages] = useState([]);
+	const lastMessageRef = useRef(null);
+	// const [person, setPerson] = useState([])
 
-  const handleClose = () => {
+	const handleClose = () => {
+		setShow(false);
+	};
+	const handleShow = (e) => {
+		e.preventDefault();
+		// room()
+		// console.log(window.location.pathname.split('/')[2], 'ini path');
+		if (
+			localStorage.role == "buyer" &&
+			window.location.pathname == "/product-detail"
+		) {
+			handleShop(window.location.pathname.split("/")[2]);
+			setShow(true);
+		} else {
+			setShow(true);
+		}
+	};
 
-    setShow(false)
-  };
-  const handleShow = (e) => {
-    e.preventDefault();
-    room()
-    // console.log(window.location.pathname.split('/')[2], 'ini path');
-    if(localStorage.role == 'buyer' && window.location.pathname == '/product-detail'){
-      handleShop(window.location.pathname.split('/')[2])
-      setShow(true)
-    }else{
-      setShow(true);
-    }
-  };
+	useEffect(() => {
+		socket.on("messageResponse", (data) => setMessages([...messages, data]));
+	}, [socket, messages]);
+	// console.log(messages, 'ini messages')
 
-  useEffect(()=> {
-    socket.on("messageResponse", data => setMessages([...messages, data]))
-  }, [socket, messages])
-  // console.log(messages, 'ini messages')
+	useEffect(() => {
+		// 👇️ scroll to bottom every time messages change
+		lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+	}, [messages]);
 
-  useEffect(() => {
-    // 👇️ scroll to bottom every time messages change
-    lastMessageRef.current?.scrollIntoView({behavior: 'smooth'});
-  }, [messages]);
+	// const room = async() => {
+	//   try {
+	//     const {data} = await axios({
+	//       method: 'GET',
+	//       url: `http://localhost:3001/rooms/${localStorage.id}`,
+	//       headers: {
+	//         access_token: localStorage.access_token
+	//       }
+	//     })
+	//     setPerson(data)
+	//   } catch (err) {
+	//     console.log(err);
+	//   }
+	// }
 
-  // const room = async() => {
-  //   try {
-  //     const {data} = await axios({
-  //       method: 'GET',
-  //       url: `http://localhost:3001/rooms/${localStorage.id}`,
-  //       headers: {
-  //         access_token: localStorage.access_token
-  //       }
-  //     })
-  //     setPerson(data)
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-  
-  return (
-    <>
-      <a onClick={handleShow} style={{ cursor: 'pointer' }}>
-        <FontAwesomeIcon icon={faEnvelope} style={{ fontSize: 24}} />
-      </a>
+	return (
+		<>
+			<a onClick={handleShow} style={{ cursor: "pointer" }}>
+				<FontAwesomeIcon icon={faEnvelope} style={{ fontSize: 30 }} />
+			</a>
 
-      <Modal
-        show={show}
-        onHide={handleClose}
-        animation={false}
-        size="md"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered>
-        {/* <Container>
+			<Modal
+				show={show}
+				onHide={handleClose}
+				animation={false}
+				size="md"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+			>
+				{/* <Container>
           <Row className="d-flex justify-content-center">
             <Col md="12" lg="12" xl="12">
               <Card id="chat1" style={{ borderRadius: '15px' }}>
@@ -177,24 +192,29 @@ export default function ChatRoom({ handleShop, receiverMsg}) {
             </Col>
           </Row>
         </Container> */}
-        <div className='chat container'>
-          <ChatBar socket={socket} handleShop={handleShop}/>
-          <div className='chat_main'>
-            <ChatBody socket={socket} lastMessageRef={lastMessageRef} messages={messages}/>
-            <ChatFooter socket={socket} receiverMsg={receiverMsg}/>
-          </div>
-        </div>
+				<div className="chat container">
+					<ChatBar socket={socket} handleShop={handleShop} />
+					<div className="chat_main">
+						<ChatBody
+							socket={socket}
+							lastMessageRef={lastMessageRef}
+							messages={messages}
+						/>
+						<ChatFooter socket={socket} receiverMsg={receiverMsg} />
+					</div>
+				</div>
 
-        <Button
-          style={{
-            backgroundColor: '#2596be',
-            borderColor: '#2596be',
-            color: 'white',
-          }}
-          onClick={handleClose}>
-          Close
-        </Button>
-      </Modal>
-    </>
-  );
+				<Button
+					style={{
+						backgroundColor: "#2596be",
+						borderColor: "#2596be",
+						color: "white",
+					}}
+					onClick={handleClose}
+				>
+					Close
+				</Button>
+			</Modal>
+		</>
+	);
 }
