@@ -29,39 +29,49 @@ export const getProductByShopId = createAsyncThunk(
 );
 
 export const deleteProduct = createAsyncThunk(
-	"products/deleteProduct",
-	async (id) => {
-		await axios({
-			method: "delete",
-			url: `${baseUrl}/products/${id}`,
-			headers: {
-				access_token: localStorage.getItem("access_token"),
-			},
-		});
-		return id;
-	}
-);
 
-export const postProduct = createAsyncThunk(
-	"products/postProduct",
-	async (payload) => {
-		const { images, formProduct } = payload;
-		let form = new FormData();
-		images.forEach((el) => {
-			form.append("image", el.data_url);
-		});
-		await form.append("product", JSON.stringify(formProduct));
-		const { data } = await axios({
-			method: "post",
-			url: `${baseUrl}/products`,
-			headers: {
-				access_token: localStorage.access_token,
-			},
-			data: form,
-		});
-		return data;
-	}
-);
+  "products/deleteProduct",
+  async (id) => {
+    await axios({
+      method: "delete",
+      url: `${baseUrl}/products/${id}`,
+      headers: {
+        access_token: localStorage.getItem("access_token"),
+      }
+    });
+    return id;
+  }
+)
+
+export const getProductById = createAsyncThunk(
+  "products/getProductById",
+  async (id) => {
+    const { data } = await axios({
+      method: "get",
+      url: `${baseUrl}/products/${id}`,
+    });
+    return data;
+  }
+)
+
+
+export const postProduct = createAsyncThunk("products/postProduct", async(payload) => {
+  const {images, formProduct} = payload
+  let form = new FormData();
+      images.forEach((el) => {
+        form.append('image', el.data_url);
+      });
+	await form.append('product', JSON.stringify(formProduct))
+  const {data} = await axios({
+    method: 'post',
+    url: `${baseUrl}/products`,
+    headers: {
+      'access_token': localStorage.access_token
+    },
+    data: form
+  })
+  return data
+})
 
 const productEntity = createEntityAdapter({
 	selectId: (product) => product.id,
@@ -78,22 +88,25 @@ initialState : {
 
 */
 const productSlice = createSlice({
-	name: "product",
-	initialState: productEntity.getInitialState(),
-	extraReducers: {
-		[getProducts.fulfilled]: (state, action) => {
-			productEntity.setAll(state, action.payload);
-		},
-		[postProduct.fulfilled]: (state, action) => {
-			productEntity.addOne(state, action.payload);
-		},
-		[getProductByShopId.fulfilled]: (state, action) => {
-			productEntity.setAll(state, action.payload);
-		},
-		[deleteProduct.fulfilled]: (state, action) => {
-			productEntity.removeOne(state, action.payload);
-		},
-	},
+  name: "product",
+  initialState: productEntity.getInitialState(),
+  extraReducers: {
+    [getProducts.fulfilled]: (state, action) => {
+      productEntity.setAll(state, action.payload);
+    },
+    [postProduct.fulfilled]: (state, action) => {
+      productEntity.addOne(state, action.payload);
+    },
+    [getProductByShopId.fulfilled]: (state, action) => {
+      productEntity.setAll(state, action.payload);
+    },
+    [deleteProduct.fulfilled]: (state, action) => {
+      productEntity.removeOne(state, action.payload);
+    },
+    [getProductById.fulfilled]: (state, action) => {
+      productEntity.setOne(state, action.payload);
+    }
+  },
 });
 
 export const productSelectors = productEntity.getSelectors(

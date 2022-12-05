@@ -11,7 +11,6 @@ export default function ProductListCMS() {
 	const products = useSelector(productSelectors.selectAll);
 	useEffect( () => {
 	dispatch(getProductByShopId(shopId));
-		console.log(products);
 	}, [dispatch]);
 	return (
 		<>
