@@ -1,35 +1,35 @@
 import {
-  createSlice,
-  createAsyncThunk,
-  createEntityAdapter,
+	createSlice,
+	createAsyncThunk,
+	createEntityAdapter,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
 const baseUrl = "http://localhost:3001";
 export const getProducts = createAsyncThunk(
-  "products/getProducts",
-  async () => {
-    const { data } = await axios({
-      method: "get",
-      url: `${baseUrl}/products`,
-    });
-    return data;
-  }
+	"products/getProducts",
+	async () => {
+		const { data } = await axios({
+			method: "get",
+			url: `${baseUrl}/products`,
+		});
+		return data;
+	}
 );
 
 export const getProductByShopId = createAsyncThunk(
-  "products/getProductByShopId",
-  async (shopId) => {
-    const { data } = await axios({
-      method: "get",
-      url: `${baseUrl}/products/shop/${shopId}`,
-    });
-    return data;
-  }
+	"products/getProductByShopId",
+	async (shopId) => {
+		const { data } = await axios({
+			method: "get",
+			url: `${baseUrl}/products/shop/${shopId}`,
+		});
+		return data;
+	}
 );
 
 export const deleteProduct = createAsyncThunk(
+
   "products/deleteProduct",
   async (id) => {
     await axios({
@@ -55,7 +55,6 @@ export const getProductById = createAsyncThunk(
 )
 
 
-
 export const postProduct = createAsyncThunk("products/postProduct", async(payload) => {
   const {images, formProduct} = payload
   let form = new FormData();
@@ -75,7 +74,7 @@ export const postProduct = createAsyncThunk("products/postProduct", async(payloa
 })
 
 const productEntity = createEntityAdapter({
-  selectId: (product) => product.id,
+	selectId: (product) => product.id,
 });
 // const productEntityByShopId = createEntityAdapter({
 //   selectId: (productByShop) => productByShop.id
@@ -110,9 +109,7 @@ const productSlice = createSlice({
   },
 });
 
-
 export const productSelectors = productEntity.getSelectors(
-  (state) => state.product
+	(state) => state.product
 );
 export default productSlice.reducer;
-
