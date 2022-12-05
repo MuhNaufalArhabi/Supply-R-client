@@ -2,16 +2,21 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
 
-
-export default function ProductCard({product}) {
+export default function ProductCard({ product }) {
   const navigate = useNavigate();
   return (
     <>
-      <Card style={{ width: "12rem" }} className="margin">
-        <Card.Img
-          variant="top"
-          src={product?.mainImage}
-        />
+      <Card
+        style={{
+          width: "12rem",
+          marginLeft: "8px",
+          marginRight: "8px",
+          marginTop: "8px",
+          marginBottom: "8px",
+        }}
+        className="shadow"
+      >
+        <Card.Img variant="top" src={product?.mainImage} />
         <Card.Body>
           <Card.Title>{product?.name}</Card.Title>
           <Card.Text>Rp. {product?.price}</Card.Text>
