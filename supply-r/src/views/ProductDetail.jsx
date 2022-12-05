@@ -1,36 +1,39 @@
-import { Container, Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import ChatRoom from "../components/ChatRoom";
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getProductById, productSelectors} from "../features/productSlice";
-import { useEffect } from "react";
+import { Container, Col, Row } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import ChatRoom from '../components/ChatRoom';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProductById, productSelectors } from '../features/productSlice';
+import { useEffect } from 'react';
+import socket from '../stores/socket';
 export default function ProductDetail() {
   // const [modalShow, setModalShow] = useState(false);
+  const [receiverMsg, setReceiverMsg] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector((state) => productSelectors.selectById(state, id));
-  useEffect(()=> {
-    dispatch(getProductById(id))
-  },[dispatch])
+  const handleShop = (id) => {
+    setReceiverMsg(id);
+    socket.emit('newUser', { users: product.Shop.name, id: product.Shop.id });
+  };
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch]);
   return (
     <>
       <Container>
         <Row>
           <div className="mt-5 mb-5">
             <h1>Product Details</h1>
+            {/* <pre>{product.Shop}</pre> */}
           </div>
-          <ChatRoom />
+          <ChatRoom handleShop={handleShop} receiverMsg={receiverMsg} />
         </Row>
         <Row>
           <Col sm={4}>
-            <img
-              src={product.mainImage}
-              width={300}
-              height={400}
-            ></img>
+            <img src={product.mainImage} width={300} height={400}></img>
           </Col>
           <Col sm={8}>
             <div className="mt-5 mb-5">
@@ -46,12 +49,11 @@ export default function ProductDetail() {
               <h6>{product.stock}</h6>
               <Button
                 style={{
-                  backgroundColor: "#2596be",
-                  borderColor: "#2596be",
-                  color: "white",
+                  backgroundColor: '#2596be',
+                  borderColor: '#2596be',
+                  color: 'white',
                 }}
-                className="mt-1 mb-1"
-              >
+                className="mt-1 mb-1">
                 Add to Cart
               </Button>
               <br></br>
