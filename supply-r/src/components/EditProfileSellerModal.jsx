@@ -1,67 +1,149 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function EditProfileSellerModal(props) {
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Edit Profile Details
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3" controlId="formBasicUsername">
-            <Form.Label className="text-center">Username</Form.Label>
+	const navigate = useNavigate();
+	const [show, setShow] = useState(false);
+	const [formSeller, setFormSeller] = useState({
+		username: "",
+		email: "",
+		phoneNumber: "",
+		ktp: "",
+	});
 
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              placeholder="Enter username"
-            />
-          </Form.Group>
+	const handleSellerForm = (e) => {
+		const { name, value } = e.target;
+		const newForm = {
+			...formSeller,
+		};
+		newForm[name] = value;
+		setFormSeller(newForm);
+	};
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="text-center">Email address</Form.Label>
+	const handleClose = () => {
+		setShow(false);
+	};
 
-            <input
-              type="email"
-              className="form-control"
-              name="email"
-              placeholder="Enter email"
-            />
-          </Form.Group>
+	const handleShow = (e) => {
+		e.preventDefault();
 
-          <Form.Group className="mb-3">
-            <Form.Label>Phone Number</Form.Label>
-            <Form.Control type="text" placeholder="Phone number ..." />
-          </Form.Group>
+		setShow(true);
+	};
 
-          <Form.Group className="mb-3">
-            <Form.Label>KTP ID</Form.Label>
-            <Form.Control type="text" placeholder="KTP ID number ..." />
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button
-          style={{
-            backgroundColor: "#2596be",
-            borderColor: "#2596be",
-            color: "white",
-          }}
-          type="submit"
-        >
-          Edit Profile
-        </Button>
-      </Modal.Footer>
-    </Modal>
-  );
+	const successEditSellerProfile = async (e) => {
+		try {
+			let id = id;
+			e.preventDefault();
+			const { data } = await axios({
+				method: "PUT",
+				url: `http://localhost:3001/sellers/${id}`,
+				data: { formSeller },
+			});
+			console.log(data);
+			navigate(`/profile-seller/${id}`);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	return (
+		<>
+			<Button
+				onClick={handleShow}
+				style={{
+					backgroundColor: "#2596be",
+					borderColor: "#2596be",
+					color: "white",
+					width: "100%",
+				}}
+			>
+				Edit UMKM Profile
+			</Button>
+			<Modal
+				show={show}
+				onHide={handleClose}
+				animation={false}
+				size="lg"
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+			>
+				<Form
+					onSubmit={successEditSellerProfile}
+					style={{ paddingLeft: "5%", width: "95%" }}
+				>
+					<Modal.Header closeButton>
+						<Modal.Title
+							id="contained-modal-title-vcenter"
+							style={{ color: "#204e64" }}
+						>
+							Edit UMKM Profile Details
+						</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<Form.Group className="mb-3" controlId="formBasicUsername">
+							<Form.Label className="text-center">Username</Form.Label>
+
+							<Form.Control
+								type="text"
+								className="form-control"
+								name="username"
+								placeholder="Enter username ..."
+								value={formSeller.username}
+								onChange={handleSellerForm}
+							/>
+						</Form.Group>
+
+						<Form.Group className="mb-3" controlId="formBasicEmail">
+							<Form.Label className="text-center">Email</Form.Label>
+
+							<Form.Control
+								type="email"
+								className="form-control"
+								name="email"
+								placeholder="Enter email address ..."
+								value={formSeller.email}
+								onChange={handleSellerForm}
+							/>
+						</Form.Group>
+
+						<Form.Group className="mb-3">
+							<Form.Label>Phone Number</Form.Label>
+							<Form.Control
+								type="text"
+								placeholder="Enter phone number ..."
+								value={formSeller.phoneNumber}
+								onChange={handleSellerForm}
+							/>
+						</Form.Group>
+
+						<Form.Group className="mb-3">
+							<Form.Label>KTP</Form.Label>
+							<Form.Control
+								type="text"
+								placeholder="Enter KTP number ..."
+								value={formSeller.ktp}
+								onChange={handleSellerForm}
+							/>
+						</Form.Group>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							style={{
+								backgroundColor: "#2596be",
+								borderColor: "#2596be",
+								color: "white",
+							}}
+							type="submit"
+						>
+							Edit UMKM Profile
+						</Button>
+					</Modal.Footer>
+				</Form>
+			</Modal>
+		</>
+	);
 }

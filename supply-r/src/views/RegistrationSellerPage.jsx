@@ -27,7 +27,6 @@ export default function RegistrationSellerPage() {
 			url: "http://localhost:3001/sellers/register",
 			data: formSeller,
 		});
-		console.log(data);
 		navigate("/login");
 	};
 	return (

@@ -7,7 +7,6 @@ import axios from "axios";
 const baseUrl = "http://localhost:3001";
 
 export const getBuyersById = createAsyncThunk("buyers/getBuyersById", async (id) => {
-  console.log('masuk sini')
   const { data } = await axios({
     method: "get",
     url: `${baseUrl}/buyers/${id}`,

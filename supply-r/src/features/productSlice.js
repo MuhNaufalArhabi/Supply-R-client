@@ -4,6 +4,7 @@ import {
 	createEntityAdapter,
 } from "@reduxjs/toolkit";
 import axios from "axios";
+import FormData from "form-data";
 
 const baseUrl = "http://localhost:3001";
 export const getProducts = createAsyncThunk(
@@ -73,20 +74,13 @@ export const postProduct = createAsyncThunk("products/postProduct", async(payloa
   return data
 })
 
+
+
 const productEntity = createEntityAdapter({
 	selectId: (product) => product.id,
 });
-// const productEntityByShopId = createEntityAdapter({
-//   selectId: (productByShop) => productByShop.id
-// })
 
-/* 
-initialState : {
-  product: productEntity.getinitialState(),
-  productByShop: productEntityByShopId.getInitialState()
-}
 
-*/
 const productSlice = createSlice({
   name: "product",
   initialState: productEntity.getInitialState(),
@@ -105,7 +99,8 @@ const productSlice = createSlice({
     },
     [getProductById.fulfilled]: (state, action) => {
       productEntity.setOne(state, action.payload);
-    }
+    },
+    
   },
 });
 

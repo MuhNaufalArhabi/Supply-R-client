@@ -10,6 +10,7 @@ import axios from "axios";
 import CounterInput from "react-counter-input";
 import update from "immutability-helper";
 
+
 export default function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -123,7 +124,6 @@ export default function CartPage() {
                     <th>Product IMG</th>
                     <th>Product</th>
                     <th>Category</th>
-
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total Price</th>

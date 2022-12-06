@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getStoreById, storeSelectors } from "../features/storeSlice";
 import { useEffect } from "react";
 export default function ProfileStorePageCMS() {
@@ -11,7 +11,6 @@ export default function ProfileStorePageCMS() {
 	const store = useSelector((state) => storeSelectors.selectById(state, id));
 	useEffect(() => {
 		dispatch(getStoreById(id));
-		console.log(store)
 	}, [dispatch]);
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {
