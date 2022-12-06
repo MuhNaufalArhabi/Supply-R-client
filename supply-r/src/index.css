@@ -5,11 +5,13 @@ div[data-placeholder]:not([data-placeholder=""]):empty::before {
   content: attr(data-placeholder);
 }
 div:empty::before {
-  content: "Choose a file or Drag it here";
-  display: flex;
-  justify-content: center;
-  margin-top: 6%;
+
+	content: "Choose a file or Drag it here";
+	display: flex;
+	justify-content: center;
+	margin-top: 6%;
 }
+
 .chat {
   width: 100%;
   height: 100vh;

@@ -13,7 +13,7 @@ export const getProducts = createAsyncThunk(
 			method: "get",
 			url: `${baseUrl}/products`,
 		});
-		return data;
+		return data
 	}
 );
 

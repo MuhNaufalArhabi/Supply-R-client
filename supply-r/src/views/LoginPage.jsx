@@ -42,6 +42,7 @@ export default function LoginPage() {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
+      localStorage.setItem('sellerId', data.sellerId);
       // localStorage.setItem('name', data.name);
       // socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
 
@@ -72,6 +73,7 @@ export default function LoginPage() {
         url: 'http://localhost:3001/buyers/login',
         data: formLogin,
       });
+      console.log(data)
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);

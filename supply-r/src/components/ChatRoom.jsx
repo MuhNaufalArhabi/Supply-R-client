@@ -30,7 +30,7 @@ export default function ChatRoom({ handleShop, receiverMsg}) {
   };
   const handleShow = (e) => {
     e.preventDefault();
-    room()
+    // room()
     // console.log(window.location.pathname.split('/')[2], 'ini path');
     if(localStorage.role == 'buyer' && window.location.pathname == '/product-detail'){
       handleShop(window.location.pathname.split('/')[2])

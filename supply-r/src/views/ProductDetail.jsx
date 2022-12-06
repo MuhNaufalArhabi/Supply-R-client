@@ -33,6 +33,14 @@ export default function ProductDetail() {
     setReceiverMsg(id);
     socket.emit('newUser', { users: product.Shop.name, id: product.Shop.id });
   };
+
+  const navigateOrder = ()=> {
+    navigate('/order');
+  }
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch]);
+
   return (
     <>
       <Container>
@@ -65,7 +73,8 @@ export default function ProductDetail() {
                   borderColor: '#2596be',
                   color: 'white',
                 }}
-                className="mt-1 mb-1">
+                className="mt-1 mb-1"
+                >
                 Add to Cart
               </Button>
               <br></br>

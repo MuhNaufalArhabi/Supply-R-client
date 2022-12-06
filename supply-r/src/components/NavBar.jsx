@@ -11,7 +11,6 @@ import { signOut } from 'firebase/auth';
 export default function NavBar({ socket }) {
   const navigate = useNavigate();
   const [modalShow, setModalShow] = useState(false);
-
   const handleLogout = () => {
     localStorage.clear();
     signOut(auth);
