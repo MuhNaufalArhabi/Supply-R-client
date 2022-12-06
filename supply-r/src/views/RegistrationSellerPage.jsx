@@ -9,7 +9,10 @@ import {
 } from "react-bootstrap";
 import { useState } from 'react'
 import axios from "axios";
-const {useNavigate} = require("react-router-dom");
+import { useNavigate } from "react-router-dom";
+import AddStoreModal from '../components/AddStoreModal.jsx'
+
+
 export default function RegistrationSellerPage() {
   const navigate = useNavigate();
   const [formSeller, setFormSeller] = useState({
@@ -130,7 +133,8 @@ export default function RegistrationSellerPage() {
                         </Form.Group>
 
                         <div className="d-grid">
-                          <Button
+                        <AddStoreModal formSeller={formSeller}/>
+                          {/* <Button
                             style={{
                               backgroundColor: "#2596be",
                               borderColor: "#2596be",
@@ -139,7 +143,7 @@ export default function RegistrationSellerPage() {
                             type="submit"
                           >
                             Register Seller
-                          </Button>
+                          </Button> */}
                         </div>
                       </Form>
                     </div>

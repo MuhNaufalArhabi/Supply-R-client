@@ -1,12 +1,12 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-import AddStoreModal from "../components/AddStoreModal.jsx";
 import { useState } from "react";
 import EditProfileSellerModal from "../components/EditProfileSellerModal.jsx";
 
 export default function ProfileSellerPage() {
   const [modalShow, setModalShow] = useState(false);
   const [modalEditShow, setModalEditShow] = useState(false);
+
   return (
     <>
       <Container>
@@ -49,6 +49,7 @@ export default function ProfileSellerPage() {
                   >
                     Edit Seller Info
                   </Button>
+
                   <EditProfileSellerModal
                     show={modalEditShow}
                     onHide={() => setModalEditShow(false)}
@@ -71,6 +72,7 @@ export default function ProfileSellerPage() {
                     onHide={() => setModalShow(false)}
                   />
                   //cek
+
                 </Card.Body>
               </Card>
             </div>

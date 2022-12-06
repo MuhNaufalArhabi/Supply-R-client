@@ -42,6 +42,8 @@ export default function LoginPage() {
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
+      // localStorage.setItem('name', data.name);
+      // socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
 
     //   console.log(data);
     //   const shop = await axios({
@@ -74,8 +76,7 @@ export default function LoginPage() {
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
       localStorage.setItem('name', data.name);
-      console.log(data);
-      socket.emit('newUser', { users: localStorage.name, UserId: localStorage.id });
+      // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
       navigate('/');
     } catch (err) {
       console.log(err);
