@@ -13,19 +13,19 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [shopId, setShopId] = useState(product.ShopId);
-
+  
   // const handleShop = async(param) => {
-  //   setReceiverMsg(param ? param : product.ShopId)
-  //   socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
-  // };
-  // useEffect(() => {
-  //   setReceiverMsg(product.Shop.id);
-  // }, [product])
-
-  const product = useSelector((state) =>
-    productSelectors.selectById(state, id)
-  );
+    //   setReceiverMsg(param ? param : product.ShopId)
+    //   socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
+    // };
+    // useEffect(() => {
+      //   setReceiverMsg(product.Shop.id);
+      // }, [product])
+      
+      const product = useSelector((state) =>
+      productSelectors.selectById(state, id)
+      );
+      const [shopId, setShopId] = useState(product.ShopId);
   useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch]);

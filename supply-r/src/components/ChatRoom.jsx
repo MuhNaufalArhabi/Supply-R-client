@@ -37,16 +37,12 @@ export default function ChatRoom({ shopId }) {
     socket.emit("newRooms", { role: localStorage.role, id: localStorage.id });
   };
 
-	const handleClose = () => {
-		setShow(false);
-	};
-
   const handleClose = () => setShow(false);
 
   const handleShow = () => {
     handleShop();
     setShow(true);
-  };
+  }; 
 
   const handleMessage = async (param, name) => {
     const { data } = await axios({

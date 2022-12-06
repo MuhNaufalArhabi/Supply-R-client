@@ -5,6 +5,7 @@ import { getProducts, productSelectors } from "../features/productSlice";
 import PromoCarousel from "../components/PromoCarousel";
 import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
+import PaginationProducts from "../components/PaginationProducts";
 import axios from "axios";
 
 export default function HomePage() {

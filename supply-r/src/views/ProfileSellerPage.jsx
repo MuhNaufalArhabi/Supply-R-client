@@ -2,10 +2,11 @@ import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import EditProfileSellerModal from "../components/EditProfileSellerModal.jsx";
 // import AddStoreModal from "../components/AddStoreModal.jsx";
-// import { useState } from "react";
+import { useState } from "react";
 import { getSellerById, sellerSelectors } from "../features/sellerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import AddStoreModal from "../components/AddStoreModal.jsx";
 
 export default function ProfileSellerPage() {
   const dispatch = useDispatch();

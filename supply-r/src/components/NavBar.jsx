@@ -14,6 +14,7 @@ import { faSearch, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import ChatRoom from "./ChatRoom";
 import { auth } from "../stores/firebase";
 import { signOut } from "firebase/auth";
+import { useState } from "react";
 
 export default function NavBar({ socket }) {
   const navigate = useNavigate();
