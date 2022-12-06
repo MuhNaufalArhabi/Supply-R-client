@@ -8,7 +8,9 @@ const ChatFooter = ({ receiverMsg }) => {
 
   const handleSendMessage = (e) => {
     e.preventDefault();
+    console.log('masuk sini')
     if (message.trim() && localStorage.getItem('id')) {
+      console.log('masuk if footer')
       socket.emit('message', {
         chat: message,
         sender: localStorage.id, // user yang mengirim pesan
@@ -18,6 +20,7 @@ const ChatFooter = ({ receiverMsg }) => {
         senderId: localStorage.id,
       });
     }
+    console.log(message, localStorage.id, receiverMsg, localStorage.role, localStorage.name)
     setMessage('');
   };
   return (

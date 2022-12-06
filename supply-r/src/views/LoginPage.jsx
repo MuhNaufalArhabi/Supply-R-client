@@ -50,9 +50,10 @@ export default function LoginPage() {
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("id", data.id);
 			localStorage.setItem("role", data.role);
-      localStorage.setItem('sellerId', data.sellerId);
+      		localStorage.setItem('sellerId', data.sellerId);
+			localStorage.setItem("name", data.name);
       
-			socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
+			socket.emit('userConnect', {socketId: socket.id, id: +data.id, role: data.role });
       
 			navigate("/");
 		} catch (err) {
@@ -68,12 +69,11 @@ export default function LoginPage() {
         url: 'http://localhost:3001/buyers/login',
         data: formLogin,
       });
-      console.log(data)
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
       localStorage.setItem('name', data.name);
-      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: data.id});
+      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: +data.id});
       // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
       navigate('/');
     } catch (err) {
