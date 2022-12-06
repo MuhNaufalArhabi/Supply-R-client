@@ -42,26 +42,10 @@ export default function Footer() {
 							</div>
 							{/*Grid column*/}
 							{/*Grid column*/}
-							<div className="col-lg-3 col-md-6 mb-4 mb-md-0">
-								{/* <h5 className="text-uppercase">
-									<b>Social Media</b>
-								</h5>
-								<ul className="list-unstyled mb-0">
-									<li>
-										<a href="#!" className="text-white">
-											Twitter
-										</a>
-									</li>
-									<li>
-										<a href="#!" className="text-white">
-											Instagram
-										</a>
-									</li>
-								</ul> */}
-							</div>
-							{/*Grid column*/}
-							{/*Grid column*/}
-							<div className="col-lg-3 col-md-6 mb-4 mb-md-0">
+							<div
+								className="col-lg-6 col-md-6 mb-4 mb-md-0"
+								style={{ paddingLeft: "40%" }}
+							>
 								<h5 className="text-uppercase mb-2">
 									<b>Follow Us</b>
 								</h5>

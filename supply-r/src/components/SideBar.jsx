@@ -1,7 +1,12 @@
 import Container from "react-bootstrap/Container";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SideBar() {
+	const id = localStorage.getItem("id");
+	const navigate = useNavigate();
+	const handleList = () => {
+		navigate(`/product-list/${id}`)
+	}
 	return (
 		<>
 			<Container
@@ -51,11 +56,11 @@ export default function SideBar() {
 				>
 					<h4 style={{ color: "#204e64" }}>Products</h4>
 				</Link>
-				<Link to="/product-list" className="nav-link">
+				<button onClick={handleList} className="nav-link">
 					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
 						Product List
 					</h5>
-				</Link>
+				</button>
 				<Link to="/add-product" className="nav-link">
 					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
 						Add Product
