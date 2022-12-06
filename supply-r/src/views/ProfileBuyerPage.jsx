@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import EditProfileBuyerModal from "../components/EditProfileBuyerModal";
 import { getBuyersById, buyerSelectors } from "../features/buyerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+
 export default function ProfileBuyerPage() {
+  const [modalEditShow, setModalEditShow] = useState(false);
   const dispatch = useDispatch();
   const id = localStorage.getItem("id");
   const buyer = useSelector((state) => buyerSelectors.selectById(state, id));
@@ -56,9 +60,14 @@ export default function ProfileBuyerPage() {
                       borderColor: "#2596be",
                       color: "white",
                     }}
+                    onClick={() => setModalEditShow(true)}
                   >
                     Edit Company Info
                   </Button>
+                  <EditProfileBuyerModal
+                    show={modalEditShow}
+                    onHide={() => setModalEditShow(false)}
+                  />
                 </Card.Body>
               </Card>
             </div>

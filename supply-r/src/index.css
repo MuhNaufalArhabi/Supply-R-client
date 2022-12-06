@@ -1,11 +1,11 @@
-
 div:empty::before {
-	color: grey;
+  color: grey;
 }
 div[data-placeholder]:not([data-placeholder=""]):empty::before {
-	content: attr(data-placeholder);
+  content: attr(data-placeholder);
 }
 div:empty::before {
+
 	content: "Choose a file or Drag it here";
 	display: flex;
 	justify-content: center;
