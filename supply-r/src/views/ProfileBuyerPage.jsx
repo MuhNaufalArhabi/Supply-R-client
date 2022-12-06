@@ -1,7 +1,20 @@
+import { useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import EditProfileBuyerModal from "../components/EditProfileBuyerModal";
+import { getBuyersById, buyerSelectors } from "../features/buyerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 export default function ProfileBuyerPage() {
+  const [modalEditShow, setModalEditShow] = useState(false);
+  const dispatch = useDispatch();
+  const id = localStorage.getItem("id");
+  const buyer = useSelector((state) => buyerSelectors.selectById(state, id));
+  useEffect(() => {
+    dispatch(getBuyersById(id));
+  }, []);
+
   return (
     <>
       <Container>
@@ -27,19 +40,19 @@ export default function ProfileBuyerPage() {
 
                   <Card.Text>
                     <h5>Name </h5>
-                    <h6>asas</h6>
+                    <h6>{buyer?.name}</h6>
                     <h5>Owner Name </h5>
-                    <h6>ada</h6>
+                    <h6>{buyer?.owner}</h6>
                     <h5>Phone Number </h5>
-                    <h6>ada</h6>
+                    <h6>{buyer?.phoneNumber}</h6>
                     <h5>Email Address </h5>
-                    <h6>ada</h6>
+                    <h6>{buyer?.email}</h6>
                     <h5>Address </h5>
-                    <h6>ada</h6>
+                    <h6>{buyer?.address}</h6>
                     <h5>Industry </h5>
-                    <h6>ada</h6>
+                    <h6>{buyer?.industry}</h6>
                     <h5>Website </h5>
-                    <h6>ada</h6>
+                    <h6>{buyer?.website}</h6>
                   </Card.Text>
                   <Button
                     style={{
@@ -47,9 +60,14 @@ export default function ProfileBuyerPage() {
                       borderColor: "#2596be",
                       color: "white",
                     }}
+                    onClick={() => setModalEditShow(true)}
                   >
                     Edit Company Info
                   </Button>
+                  <EditProfileBuyerModal
+                    show={modalEditShow}
+                    onHide={() => setModalEditShow(false)}
+                  />
                 </Card.Body>
               </Card>
             </div>

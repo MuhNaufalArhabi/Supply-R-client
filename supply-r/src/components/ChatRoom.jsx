@@ -1,14 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import {
-//   MDBContainer,
-//   MDBRow,
-//   MDBCol,
-//   MDBCard,
-//   MDBCardHeader,
-//   MDBCardBody,
-//   MDBIcon,
-//   MDBTextArea,
-// } from "mdb-react-ui-kit";
 import {
 	Container,
 	Row,
@@ -54,10 +44,26 @@ export default function ChatRoom({ handleShop, receiverMsg }) {
 		}
 	};
 
+
 	useEffect(() => {
 		socket.on("messageResponse", (data) => setMessages([...messages, data]));
 	}, [socket, messages]);
 	// console.log(messages, 'ini messages')
+
+    setShow(false)
+  };
+  const handleShow = (e) => {
+    e.preventDefault();
+    // room()
+    // console.log(window.location.pathname.split('/')[2], 'ini path');
+    if(localStorage.role == 'buyer' && window.location.pathname == '/product-detail'){
+      handleShop(window.location.pathname.split('/')[2])
+      setShow(true)
+    }else{
+      setShow(true);
+    }
+  };
+
 
 	useEffect(() => {
 		// 👇️ scroll to bottom every time messages change

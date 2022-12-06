@@ -3,9 +3,17 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getOrders, orderSelectors } from "../features/orderSlice";
 
 export default function CartPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const orders = useSelector(orderSelectors.selectAll);
+  useEffect(() => {
+    dispatch(getOrders());
+  }, [dispatch]);
   return (
     <>
       <Container>
@@ -38,8 +46,9 @@ export default function CartPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="align-middle text-center">
-                    <td>1</td>
+                {orders.map((order, index) => {
+                  return <tr className="align-middle text-center">
+                    <td>{++index}</td>
                     <td>gbr</td>
                     <td>produk</td>
                     <td>elektronik</td>
@@ -53,6 +62,8 @@ export default function CartPage() {
                       />
                     </td>
                   </tr>
+                })}
+                  
                 </tbody>
               </Table>
             </div>

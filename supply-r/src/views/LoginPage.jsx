@@ -33,6 +33,7 @@ export default function LoginPage() {
 		password: "",
 	});
 
+
 	const handleFormLogin = (event) => {
 		setFormLogin({
 			...formLogin,
@@ -47,31 +48,40 @@ export default function LoginPage() {
 				url: "http://localhost:3001/sellers/login",
 				data: formLogin,
 			});
+      
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("id", data.id);
 			localStorage.setItem("role", data.role);
-			// localStorage.setItem('name', data.name);
-			// socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
-
-			//   console.log(data);
-			//   const shop = await axios({
-			//     method: 'GET',
-			//     url: `http://localhost:3001/shops/${data.id}`,
-			//   });
-			//   if (!shop.data) {
-			//     localStorage.setItem('name', data.name);
-			//   } else {
-			//     localStorage.setItem('name', shop.data.name);
-			//   }
-			//   console.log(shop.data)
-			//   socket.emit('newUser', { users: localStorage.name, UserId: localStorage.id });
-
+      localStorage.setItem('sellerId', data.sellerId);
+      
+			socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
+      
 			navigate("/");
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
+  const handleSubmitBuyer = async (event) => {
+    try {
+      event.preventDefault();
+      const { data } = await axios({
+        method: 'POST',
+        url: 'http://localhost:3001/buyers/login',
+        data: formLogin,
+      });
+      console.log(data)
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('role', data.role);
+      localStorage.setItem('name', data.name);
+      // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 	const handleSubmitBuyer = async (event) => {
 		try {
 			event.preventDefault();

@@ -16,11 +16,18 @@ import { auth } from "../stores/firebase";
 import { signOut } from "firebase/auth";
 
 export default function NavBar({ socket }) {
-	const navigate = useNavigate();
-
-	const handleLogin = () => {
+  const navigate = useNavigate();
+  const [modalShow, setModalShow] = useState(false);
+   const handleLogin = () => {
 		navigate("/login");
 	};
+
+  const handleLogout = () => {
+    localStorage.clear();
+    signOut(auth);
+    navigate('/login');
+  };
+
 
 	const handleBuyerProfile = () => {
 		navigate("/profile-buyer");

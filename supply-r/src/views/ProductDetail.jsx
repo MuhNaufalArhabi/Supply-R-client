@@ -1,3 +1,4 @@
+
 import { Container, Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import ChatRoom from '../components/ChatRoom';
@@ -7,20 +8,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getProductById, productSelectors } from '../features/productSlice';
 import { useEffect } from 'react';
 import socket from '../stores/socket';
+
 export default function ProductDetail() {
-  // const [modalShow, setModalShow] = useState(false);
   const [receiverMsg, setReceiverMsg] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector((state) => productSelectors.selectById(state, id));
+
+  const product = useSelector((state) =>
+    productSelectors.selectById(state, id)
+  );
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch]);
+
+  const rupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
+
   const handleShop = (id) => {
     setReceiverMsg(id);
     socket.emit('newUser', { users: product.Shop.name, id: product.Shop.id });
   };
+
+  const navigateOrder = ()=> {
+    navigate('/order');
+  }
   useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch]);
+
   return (
     <>
       <Container>
@@ -44,7 +64,7 @@ export default function ProductDetail() {
               <h5>Category </h5>
               <h6>{product.Category.name}</h6>
               <h5>Price </h5>
-              <h6>Rp. {product.price}</h6>
+              <h6>{rupiah(product.price)}</h6>
               <h5>Stock </h5>
               <h6>{product.stock}</h6>
               <Button
@@ -53,7 +73,8 @@ export default function ProductDetail() {
                   borderColor: '#2596be',
                   color: 'white',
                 }}
-                className="mt-1 mb-1">
+                className="mt-1 mb-1"
+                >
                 Add to Cart
               </Button>
               <br></br>
