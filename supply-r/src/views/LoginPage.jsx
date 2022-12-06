@@ -23,7 +23,7 @@ import {
 	MDBIcon,
 } from "mdb-react-ui-kit";
 import logo from "../asset/logo-supply-r.png";
-// import socket from "../stores/socket";
+import socket from "../stores/socket";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
@@ -81,25 +81,6 @@ export default function LoginPage() {
     }
   };
   
-	const handleSubmitBuyer = async (event) => {
-		try {
-			event.preventDefault();
-			const { data } = await axios({
-				method: "POST",
-				url: "http://localhost:3001/buyers/login",
-				data: formLogin,
-			});
-			localStorage.setItem("access_token", data.access_token);
-			localStorage.setItem("id", data.id);
-			localStorage.setItem("role", data.role);
-			localStorage.setItem("name", data.name);
-			// socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
-			navigate("/");
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
 	const login = async (provider) => {
 		try {
 			let baseUrl = "";

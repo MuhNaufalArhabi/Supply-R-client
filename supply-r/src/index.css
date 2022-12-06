@@ -1,5 +1,5 @@
 div:empty::before {
-  color: grey;
+  color: rgba(244, 241, 241, 0.937);
 }
 div[data-placeholder]:not([data-placeholder=""]):empty::before {
   content: attr(data-placeholder);
