@@ -46,13 +46,14 @@ export default function LoginPage() {
 				url: "http://localhost:3001/sellers/login",
 				data: formLogin,
 			});
-      
+
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("id", data.id);
 			localStorage.setItem("role", data.role);
       localStorage.setItem('sellerId', data.sellerId);
+			localStorage.setItem("name", data.name);
       
-			socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
+			socket.emit('userConnect', {socketId: socket.id, id: +data.id, role: data.role });
       
 			navigate("/");
 		} catch (err) {
@@ -68,13 +69,11 @@ export default function LoginPage() {
         url: 'http://localhost:3001/buyers/login',
         data: formLogin,
       });
-      console.log(data)
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
       localStorage.setItem('name', data.name);
-      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: data.id});
-      // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
+      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: +data.id});
       navigate('/');
     } catch (err) {
       console.log(err);
@@ -85,7 +84,6 @@ export default function LoginPage() {
 		try {
 			let baseUrl = "";
 			const { user } = await signInWithPopup(auth, provider);
-			console.log(user.displayName, user.email);
 			if (provider === google) {
 				baseUrl = "http://localhost:3001/sellers/google-login";
 			} else if (provider === facebook) {
@@ -101,7 +99,6 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			console.log(data);
 			localStorage.setItem("access_token", data.access_token);
 			navigate("/");
 		} catch (err) {
@@ -123,7 +120,7 @@ export default function LoginPage() {
 			<Container>
 				<Row className="vh-100 d-flex justify-content-center align-items-center">
 					<Col md={12} lg={12} xs={12}>
-						<CardGroup className="mb-3 mt-md-4">
+						<CardGroup className="mb-3 mt-md-4" style={{ height: "670px" }}>
 							<Card className="shadow">
 								<Row>
 									<Link
@@ -211,6 +208,7 @@ export default function LoginPage() {
 												<MDBTabsLink
 													onClick={() => handleJustifyClick("tab1")}
 													active={justifyActive === "tab1"}
+													className="btn-supply-r"
 												>
 													Company
 												</MDBTabsLink>
@@ -219,6 +217,7 @@ export default function LoginPage() {
 												<MDBTabsLink
 													onClick={() => handleJustifyClick("tab2")}
 													active={justifyActive === "tab2"}
+													className="btn-supply-r"
 												>
 													UMKM
 												</MDBTabsLink>
@@ -283,44 +282,6 @@ export default function LoginPage() {
 																</Button>
 															</div>
 														</Form>
-													</div>
-												</div>
-												<div className="text-center mb-3">
-													<h5 style={{ color: "#204e64" }}>Login with:</h5>
-
-													<div
-														className="d-flex justify-content-center mx-auto"
-														style={{ gap: "3%" }}
-													>
-														<MDBBtn
-															tag="a"
-															color="none"
-															className="m-1"
-															style={{ color: "#2596be" }}
-															onClick={() => login(facebook)}
-														>
-															<MDBIcon fab icon="facebook-f" size="lg" />
-														</MDBBtn>
-
-														<MDBBtn
-															tag="a"
-															color="none"
-															className="m-1"
-															style={{ color: "#2596be" }}
-															onClick={() => login(twitter)}
-														>
-															<MDBIcon fab icon="twitter" size="lg" />
-														</MDBBtn>
-
-														<MDBBtn
-															tag="a"
-															color="none"
-															className="m-1"
-															style={{ color: "#2596be" }}
-															onClick={() => login(google)}
-														>
-															<MDBIcon fab icon="google" size="lg" />
-														</MDBBtn>
 													</div>
 												</div>
 											</MDBTabsPane>
@@ -425,7 +386,6 @@ export default function LoginPage() {
 											</MDBTabsPane>
 										</MDBTabsContent>
 									</MDBContainer>
-									{/* ---------------------------------------- */}
 								</Card.Body>
 							</Card>
 						</CardGroup>

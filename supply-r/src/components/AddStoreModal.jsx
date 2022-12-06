@@ -42,7 +42,6 @@ export default function AddStoreModal({ formSeller, handleSubmit }) {
 				url: "http://localhost:3001/sellers/register",
 				data: { formSeller, formShop },
 			});
-			console.log(data);
 			navigate("/login");
 		} catch (error) {
 			console.log(error);

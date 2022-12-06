@@ -1,12 +1,13 @@
 import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SideBar() {
 	const id = localStorage.getItem("id");
 	const navigate = useNavigate();
 	const handleList = () => {
-		navigate(`/product-list/${id}`)
-	}
+		navigate(`/product-list/${id}`);
+	};
 	return (
 		<>
 			<Container
@@ -49,18 +50,18 @@ export default function SideBar() {
 					</h5>
 				</Link>
 				<hr />
-				<Link
-					to="/product-list"
+				<Nav.Link
+					onClick={handleList}
 					className="nav-link"
 					style={{ marginTop: "5px" }}
 				>
 					<h4 style={{ color: "#204e64" }}>Products</h4>
-				</Link>
-				<button onClick={handleList} className="nav-link">
+				</Nav.Link>
+				<Nav.Link onClick={handleList} className="nav-link">
 					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
 						Product List
 					</h5>
-				</button>
+				</Nav.Link>
 				<Link to="/add-product" className="nav-link">
 					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
 						Add Product
