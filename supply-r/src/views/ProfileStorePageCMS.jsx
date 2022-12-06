@@ -11,7 +11,6 @@ export default function ProfileStorePageCMS() {
 	const store = useSelector((state) => storeSelectors.selectById(state, id));
 	useEffect(() => {
 		dispatch(getStoreById(id));
-		console.log(store);
 	}, [dispatch]);
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {

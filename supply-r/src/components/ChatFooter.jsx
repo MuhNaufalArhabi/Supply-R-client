@@ -3,8 +3,6 @@ import socket from '../stores/socket';
 
 const ChatFooter = ({ receiverMsg }) => {
   const [message, setMessage] = useState('');
-  // const handleTyping = () =>
-  //   socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -29,7 +27,6 @@ const ChatFooter = ({ receiverMsg }) => {
           className="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          // onKeyDown={handleTyping}
         />
         <button className="sendBtn" type="submit">
           SEND

@@ -7,13 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function ProfileSellerPage() {
-	const dispatch = useDispatch();
-	const id = localStorage.getItem("sellerId");
-	const seller = useSelector((state) => sellerSelectors.selectById(state, id));
-	useEffect(() => {
-		dispatch(getSellerById(id));
-		console.log(seller);
-	}, []);
+  const dispatch = useDispatch();
+  const id = localStorage.getItem("sellerId");
+  const seller = useSelector((state) => sellerSelectors.selectById(state, id));
+  useEffect(() => {
+    dispatch(getSellerById(id));
+  }, []);
 
 	return (
 		<>

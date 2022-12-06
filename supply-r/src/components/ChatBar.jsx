@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const ChatBar = ({ socket, handleShop, rooms , handleMessage}) => {
 
-  // const changeSoketId = (id) => {
-  //   setrooms(id)
-  // }
-  // console.log(rooms)
   return (
     <div className="chat__sidebar">
       <h4>User</h4>

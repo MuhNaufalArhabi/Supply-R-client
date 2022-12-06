@@ -50,50 +50,40 @@ export default function LoginPage() {
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("id", data.id);
 			localStorage.setItem("role", data.role);
-			localStorage.setItem("sellerId", data.sellerId);
-
-			socket.emit("newUser", {
-				users: localStorage.name,
-				id: localStorage.id,
-				role: localStorage.role,
-			});
-
-			navigate("/");
-		} catch (err) {
-			console.log(err);
-		}
-	};
-
-	const handleSubmitBuyer = async (event) => {
-		try {
-			event.preventDefault();
-			const { data } = await axios({
-				method: "POST",
-				url: "http://localhost:3001/buyers/login",
-				data: formLogin,
-			});
-			console.log(data);
-			localStorage.setItem("access_token", data.access_token);
-			localStorage.setItem("id", data.id);
-			localStorage.setItem("role", data.role);
+      localStorage.setItem('sellerId', data.sellerId);
 			localStorage.setItem("name", data.name);
-			socket.emit("userConnect", {
-				socketId: socket.id,
-				role: data.role,
-				id: data.id,
-			});
-			// socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
+      
+			socket.emit('userConnect', {socketId: socket.id, id: +data.id, role: data.role });
+      
 			navigate("/");
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
+  const handleSubmitBuyer = async (event) => {
+    try {
+      event.preventDefault();
+      const { data } = await axios({
+        method: 'POST',
+        url: 'http://localhost:3001/buyers/login',
+        data: formLogin,
+      });
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('id', data.id);
+      localStorage.setItem('role', data.role);
+      localStorage.setItem('name', data.name);
+      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: +data.id});
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 	const login = async (provider) => {
 		try {
 			let baseUrl = "";
 			const { user } = await signInWithPopup(auth, provider);
-			console.log(user.displayName, user.email);
 			if (provider === google) {
 				baseUrl = "http://localhost:3001/sellers/google-login";
 			} else if (provider === facebook) {
@@ -109,7 +99,6 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			console.log(data);
 			localStorage.setItem("access_token", data.access_token);
 			navigate("/");
 		} catch (err) {
@@ -295,44 +284,6 @@ export default function LoginPage() {
 														</Form>
 													</div>
 												</div>
-												{/* <div className="text-center mb-3">
-													<h5 style={{ color: "#204e64" }}>Login with:</h5>
-
-													<div
-														className="d-flex justify-content-center mx-auto"
-														style={{ gap: "3%" }}
-													>
-														<MDBBtn
-															tag="a"
-															color="none"
-															className="m-1"
-															style={{ color: "#2596be" }}
-															onClick={() => login(facebook)}
-														>
-															<MDBIcon fab icon="facebook-f" size="lg" />
-														</MDBBtn>
-
-														<MDBBtn
-															tag="a"
-															color="none"
-															className="m-1"
-															style={{ color: "#2596be" }}
-															onClick={() => login(twitter)}
-														>
-															<MDBIcon fab icon="twitter" size="lg" />
-														</MDBBtn>
-
-														<MDBBtn
-															tag="a"
-															color="none"
-															className="m-1"
-															style={{ color: "#2596be" }}
-															onClick={() => login(google)}
-														>
-															<MDBIcon fab icon="google" size="lg" />
-														</MDBBtn>
-													</div>
-												</div> */}
 											</MDBTabsPane>
 
 											<MDBTabsPane show={justifyActive === "tab2"}>
@@ -435,7 +386,6 @@ export default function LoginPage() {
 											</MDBTabsPane>
 										</MDBTabsContent>
 									</MDBContainer>
-									{/* ---------------------------------------- */}
 								</Card.Body>
 							</Card>
 						</CardGroup>
