@@ -74,7 +74,6 @@ export default function LoginPage() {
       localStorage.setItem('role', data.role);
       localStorage.setItem('name', data.name);
       socket.emit('userConnect', {socketId: socket.id, role: data.role, id: +data.id});
-      // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
       navigate('/');
     } catch (err) {
       console.log(err);
@@ -85,7 +84,6 @@ export default function LoginPage() {
 		try {
 			let baseUrl = "";
 			const { user } = await signInWithPopup(auth, provider);
-			console.log(user.displayName, user.email);
 			if (provider === google) {
 				baseUrl = "http://localhost:3001/sellers/google-login";
 			} else if (provider === facebook) {
@@ -101,7 +99,6 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			console.log(data);
 			localStorage.setItem("access_token", data.access_token);
 			navigate("/");
 		} catch (err) {

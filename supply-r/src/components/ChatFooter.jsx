@@ -3,14 +3,10 @@ import socket from '../stores/socket';
 
 const ChatFooter = ({ receiverMsg }) => {
   const [message, setMessage] = useState('');
-  // const handleTyping = () =>
-  //   socket.emit('typing', `${localStorage.getItem('userName')} is typing`);
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    console.log('masuk sini')
     if (message.trim() && localStorage.getItem('id')) {
-      console.log('masuk if footer')
       socket.emit('message', {
         chat: message,
         sender: localStorage.id, // user yang mengirim pesan
@@ -20,7 +16,6 @@ const ChatFooter = ({ receiverMsg }) => {
         senderId: localStorage.id,
       });
     }
-    console.log(message, localStorage.id, receiverMsg, localStorage.role, localStorage.name)
     setMessage('');
   };
   return (
@@ -32,7 +27,6 @@ const ChatFooter = ({ receiverMsg }) => {
           className="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          // onKeyDown={handleTyping}
         />
         <button className="sendBtn" type="submit">
           SEND

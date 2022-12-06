@@ -49,10 +49,8 @@ export default function ChatRoom({ shopId }) {
       method: "GET",
       url: "http://localhost:3001/rooms/chat/" + param,
     });
-    // console.log(data);
     setMessages(data);
     setName(name);
-    // console.log(messages, localStorage.id);
   };
 
   useEffect(() => {

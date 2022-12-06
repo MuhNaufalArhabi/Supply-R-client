@@ -19,12 +19,12 @@ export default function ShowImagesModalCMS(props) {
           <Carousel.Item>
             <img
               style={{ height: "500px" }}
-              src={props.product.mainImage}
+              src={props.product?.mainImage}
               alt="First slide"
             />
 						<p>{props.product.mainImage}</p>
           </Carousel.Item>
-          {props.product.Images.map((image) => {
+          {props.product.Images?.map((image) => {
             return (
               <Carousel.Item key={image.id}>
                 <img

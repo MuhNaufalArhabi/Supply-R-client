@@ -14,7 +14,6 @@ export default function ProfileSellerPage() {
   const seller = useSelector((state) => sellerSelectors.selectById(state, id));
   useEffect(() => {
     dispatch(getSellerById(id));
-    console.log(seller)
   }, []);
 
   const [modalShow, setModalShow] = useState(false);

@@ -8,12 +8,7 @@ import socket from './stores/socket';
 function App() {
 	useEffect(() => {
 		if(localStorage.access_token){
-			console.log(socket)
-			console.log(socket.id)
-			console.log(socket.connected)
 			socket.on('connect', () => {
-				console.log(socket.id)
-				console.log(socket.connected)
 				socket.emit('userConnect', {socketId: socket.id, id: +localStorage.id, role: localStorage.role });
 			});
 		}

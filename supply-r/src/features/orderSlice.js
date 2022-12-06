@@ -15,7 +15,6 @@ export const getOrders = createAsyncThunk("orders/getOrders", async () => {
       access_token: localStorage.access_token
     }
   });
-  console.log(data)
   return data;
 });
 
