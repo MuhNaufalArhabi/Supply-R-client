@@ -192,83 +192,75 @@ export default function AddProductCMS(props) {
                     )}
 
                     <div className="upload__image-wrapper">
-                      {/* <div
+
+										<div>Upload Images</div>
+										<div
+											as="textarea"
+											rows={3}
+											placeholder="Choose a file or Drag it here"
 											className="upload-container"
-											{...dragProps}
-											onClick={onImageUpload}
-											style={
-												isDragging
-													? { backgroundColor: "#afafaf", color: "white" }
-													: undefined
-											}
+											// {...dragProps}
+											// onClick={onImageUpload}
+											style={{
+												marginTop: "10px",
+												backgroundColor: "white",
+												height: "155px",
+												borderStyle: "solid",
+												borderColor: "#d8dcdf",
+												borderWidth: "1.5px",
+												borderRadius: "5px",
+											}}
 										>
-											Choose a file or Drag it here
-										</div> */}
-                      <div>Upload Images</div>
-                      <div
-                        as="textarea"
-                        rows={3}
-                        placeholder="Choose a file or Drag it here"
-                        className="upload-container"
-                        // {...dragProps}
-                        // onClick={onImageUpload}
-                        style={{
-                          marginTop: "10px",
-                          backgroundColor: "white",
-                          height: "155px",
-                          borderStyle: "solid",
-                          borderColor: "#d8dcdf",
-                          borderWidth: "1.5px",
-                          borderRadius: "5px",
-                        }}>
-                        <div
-                          as="textarea"
-                          rows={3}
-                          data-placeholder=" "
-                          placeholder="Choose a file or Drag it here"
-                          className="upload-container"
-                          {...dragProps}
-                          onClick={onImageUpload}
-                          style={{
-                            height: "110px",
-                            zIndex: "1",
-                            position: "fixed",
-                            width: "55%",
-                            color: "grey",
-                            textAlign: "center",
-                            // backgroundColor: "red",
-                          }}>
-                          {/* {images.length !== 0 ? undefined : <h1>halo</h1>} */}
-                        </div>
-                        <div
-                          className="p-2"
-                          style={{
-                            textAlign: "center",
-                            zIndex: "-1",
-                          }}>
-                          {imageList.map((image, index) => (
-                            <div
-                              key={index}
-                              className="image-item  "
-                              style={{
-                                height: "100px",
-                                marginRight: "10px",
-                                display: "inline-block",
-                              }}>
-                              <img
-                                src={product? image.image: image["data_url"]}
-                                alt=""
-                                style={{ height: "100px" }}
-                              />
-                              <div className="image-item__btn-wrapper mt-1">
-                                <ButtonGroup size="sm" style={{ width: "100%" }}>
-                                  {/* <Button
-																	color="primary"
-																	onClick={() => onImageUpdate(index)}
-																>
-																	Update
-																</Button> */}
-                                  {product ? '': <Button
+											<div
+												as="textarea"
+												rows={3}
+												data-placeholder=""
+												id="upload"
+												placeholder="Choose a file or Drag it here"
+												className="upload-container"
+												{...dragProps}
+												onClick={onImageUpload}
+												style={{
+													display: "flex",
+													justifyContent: "center",
+													alignItems: "center",
+													zIndex: "1",
+													height: "100%",
+													color: "grey",
+													// backgroundColor: "red",
+												}}
+											>
+												{images.length === 0 ? (
+													<p>Choose a file or Drag it here</p>
+												) : (
+													<div
+														className="p-2"
+														style={{
+															textAlign: "center",
+															zIndex: "-1",
+														}}
+													>
+														{imageList.map((image, index) => (
+															<div
+																key={index}
+																className="image-item  "
+																style={{
+																	height: "100px",
+																	marginRight: "10px",
+																	display: "inline-block",
+																}}
+															>
+																<img
+																	src={product? image.image: image["data_url"]}
+																	alt=""
+																	style={{ height: "100px" }}
+																/>
+																<div className="image-item__btn-wrapper mt-1">
+																	<ButtonGroup
+																		size="sm"
+																		style={{ width: "100%" }}
+																	>
+																		  {product ? '': <Button
                                     style={{
                                       backgroundColor: "#e23500",
                                       borderColor: "#e23500",
@@ -281,25 +273,14 @@ export default function AddProductCMS(props) {
                                     }}>
                                     Remove
                                   </Button>}
-                                </ButtonGroup>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        {/* {images.length > 0 && (
-                      <>
-                        <hr />
-                        <div className="text-start p-2">
-                          <Button onClick={printjson} color="success">
-                            Upload
-                          </Button>{' '}
-                          <Button onClick={onImageRemoveAll} color="danger">
-                            Remove All Images
-                          </Button>
-                        </div>
-                        <pre className="text-start" id="jsonprint"></pre>
-                      </>
-                    )} */}
+																	</ButtonGroup>
+																</div>
+															</div>
+														))}
+													</div>
+												)}
+											</div>
+										
                       </div>
                     </div>
                   </>
