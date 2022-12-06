@@ -1,17 +1,3 @@
-div:empty::before {
-  color: rgba(244, 241, 241, 0.937);
-}
-div[data-placeholder]:not([data-placeholder=""]):empty::before {
-  content: attr(data-placeholder);
-}
-div:empty::before {
-
-	content: "Choose a file or Drag it here";
-	display: flex;
-	justify-content: center;
-	margin-top: 6%;
-}
-
 .chat {
 	width: 100%;
 	height: 100vh;
@@ -33,9 +19,9 @@ div:empty::before {
 	margin: 30px 0 20px 0;
 }
 .chat__users > * {
-  margin-bottom: 10px;
-  color: #0b0c0c;
-  font-size: 14px;
+	margin-bottom: 10px;
+	color: #0b0c0c;
+	font-size: 14px;
 }
 .online__users > * {
 	margin-bottom: 10px;
@@ -132,7 +118,7 @@ div:empty::before {
 }
 
 .btn-supply-r {
-	color: #2596be;
+	color: #cacaca;
 }
 
 .btn-supply-r:focus {
