@@ -6,14 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrders, orderSelectors } from "../features/orderSlice";
-
+import { deleteOrder } from "../features/orderSlice";
 export default function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const orders = useSelector(orderSelectors.selectAll);
+  const deleteHandle = (id) => {
+    dispatch(deleteOrder(id));
+  }
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch]);
+  }, [dispatch, orders]);
   return (
     <>
       <Container>
@@ -38,7 +41,6 @@ export default function CartPage() {
                     <th>Product IMG</th>
                     <th>Product</th>
                     <th>Category</th>
-
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
@@ -46,24 +48,29 @@ export default function CartPage() {
                   </tr>
                 </thead>
                 <tbody>
-                {orders.map((order, index) => {
+                {orders[0]?.OrderProducts.map((order, index) => {
                   return <tr className="align-middle text-center">
                     <td>{++index}</td>
-                    <td>gbr</td>
-                    <td>produk</td>
-                    <td>elektronik</td>
-                    <td>1000</td>
-                    <td>5</td>
+                    <td>
+                      <img src={order?.Product.mainImage} alt="belum ada" />
+                    </td>
+                    <td>{order?.Product.name}</td>
+                    <td>{order?.Product.Category.name}</td>
+                    <td>{order?.Product.price}</td>
+                    <td>{order.quantity}</td>
                     <td>5000</td>
                     <td>
+                    <Button
+                    onClick={() => deleteHandle(order?.id)}
+                    >
                       <FontAwesomeIcon
                         icon={faTrash}
                         style={{ color: "#e23500" }}
                       />
+                    </Button>
                     </td>
                   </tr>
-                })}
-                  
+                })}  
                 </tbody>
               </Table>
             </div>
