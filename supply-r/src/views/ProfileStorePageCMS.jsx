@@ -2,8 +2,17 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-
+import {useDispatch, useSelector} from "react-redux";
+import { getStoreById, storeSelectors } from "../features/storeSlice";
+import { useEffect } from "react";
 export default function ProfileStorePageCMS() {
+	const dispatch = useDispatch();
+	const id = localStorage.getItem("id");
+	const store = useSelector((state) => storeSelectors.selectById(state, id));
+	useEffect(() => {
+		dispatch(getStoreById(id));
+		console.log(store)
+	}, [dispatch]);
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",
@@ -22,7 +31,7 @@ export default function ProfileStorePageCMS() {
 					}}
 				>
 					<h1 style={{ textAlign: "center", color: "#204e64" }}>
-						[Store Name]
+						{store?.name}
 					</h1>
 					<br></br>
 
@@ -33,9 +42,9 @@ export default function ProfileStorePageCMS() {
 							<div>Owner</div>
 						</Col>
 						<Col className="col-10">
-							<div>: 58 Hudson Pass</div>
-							<div>: 489-413-3119</div>
-							<div>: Owner's Name</div>
+							<div>: {store?.address}</div>
+							<div>: {store?.phoneNumber}</div>
+							<div>: {store?.owner}</div>
 						</Col>
 					</Row>
 					<br></br>
@@ -61,7 +70,7 @@ export default function ProfileStorePageCMS() {
 										color: "#2596be",
 									}}
 								>
-									28
+									{store?.Products.length}
 								</Row>
 							</Card>
 						</Col>

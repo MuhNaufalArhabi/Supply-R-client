@@ -2,8 +2,17 @@ import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 // import AddStoreModal from "../components/AddStoreModal.jsx";
 // import { useState } from "react";
-
+import { getSellerById, sellerSelectors } from "../features/sellerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 export default function ProfileSellerPage() {
+  const dispatch = useDispatch();
+  const id = localStorage.getItem("sellerId");
+  const seller = useSelector((state) => sellerSelectors.selectById(state, id));
+  useEffect(() => {
+    dispatch(getSellerById(id));
+    console.log(seller)
+  }, []);
   return (
     <>
       <Container>
@@ -29,13 +38,13 @@ export default function ProfileSellerPage() {
 
                   <Card.Text>
                     <h5>Username </h5>
-                    <h6>asas</h6>
+                    <h6>{seller?.username}</h6>
                     <h5>Email Address </h5>
-                    <h6>ada</h6>
+                    <h6>{seller?.email}</h6>
                     <h5>Phone Number </h5>
-                    <h6>ada</h6>
+                    <h6>{seller?.phoneNumber}</h6>
                     <h5>KTP ID </h5>
-                    <h6>ada</h6>
+                    <h6>{seller?.ktp}</h6>
                   </Card.Text>
                   <Button
                     style={{
@@ -46,10 +55,6 @@ export default function ProfileSellerPage() {
                   >
                     Edit Seller Info
                   </Button>
-//cek
-                  
-                  {/* <AddStoreModal /> */}
-//cek
                 </Card.Body>
               </Card>
             </div>

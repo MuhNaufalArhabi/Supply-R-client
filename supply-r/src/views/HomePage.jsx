@@ -5,13 +5,26 @@ import { getProducts, productSelectors } from "../features/productSlice";
 import PromoCarousel from "../components/PromoCarousel";
 import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
+import axios from "axios";
 export default function HomePage() {
-
+  const [products, setProducts] = React.useState([])
   const dispatch = useDispatch();
-  const products = useSelector(productSelectors.selectAll);
+  const getPagination = async(name) => {
+    const {data} = await axios({
+      method: "GET",
+      url: `http://localhost:3001/products/pagination`,
+      params: {
+        page: 1,
+        limit: 10,
+        name: name
+      }
+    })
+    setProducts(data.products.rows)
+  }
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+    getPagination()
+  },[products[0]?.name]);
   return (
     <>
       <Container>

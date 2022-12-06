@@ -10,6 +10,7 @@ div:empty::before {
 	display: flex;
 	justify-content: center;
 	margin-top: 6%;
+}
 
 .chat {
   width: 100%;
