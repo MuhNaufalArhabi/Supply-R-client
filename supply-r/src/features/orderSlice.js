@@ -18,6 +18,17 @@ export const getOrders = createAsyncThunk("orders/getOrders", async () => {
   return data;
 });
 
+export const deleteOrder = createAsyncThunk("orders/deleteOrder", async (id) => {
+  const { data } = await axios({
+    method: "delete",
+    url: `${baseUrl}/orders/products/${id}`,
+    headers: {
+      access_token: localStorage.access_token
+    }
+  });
+  return data;
+});
+
 const orderEntity = createEntityAdapter({
   selectId: (order) => order.id,
 });
@@ -29,6 +40,9 @@ const orderSlice = createSlice({
     [getOrders.fulfilled]: (state, action) => {
       orderEntity.setAll(state, action.payload);
     },
+    [deleteOrder.fulfilled]: (state, action) => {
+      orderEntity.removeOne(state, action.payload);
+    }
   },
 });
 

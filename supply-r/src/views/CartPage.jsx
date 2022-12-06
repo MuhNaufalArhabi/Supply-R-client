@@ -9,16 +9,18 @@ import { getOrders, orderSelectors } from "../features/orderSlice";
 import axios from "axios";
 import CounterInput from "react-counter-input";
 
+
 export default function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const orders = useSelector(orderSelectors.selectAll);
-  let [changed_order, setChanged_order] = useState(orders);
+
   useEffect(() => {
     dispatch(getOrders());
-    setChanged_order(orders);
-    console.log(changed_order);
-  }, [dispatch]);
+  }, [dispatch, orders]);
+
+  let [changed_order, setChanged_order] = useState(orders);
+
   const getToken = async () => {
     console.log(localStorage.access_token);
     const { data } = await axios({
@@ -102,7 +104,6 @@ export default function CartPage() {
                     <th>Product IMG</th>
                     <th>Product</th>
                     <th>Category</th>
-
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total Price</th>
@@ -110,6 +111,7 @@ export default function CartPage() {
                   </tr>
                 </thead>
                 <tbody>
+
                   {orders[0]?.OrderProducts.map((order, index) => {
                     return (
                       <tr className="align-middle text-center">
