@@ -10,10 +10,18 @@ import { useEffect } from 'react';
 import socket from '../stores/socket';
 
 export default function ProductDetail() {
-  const [receiverMsg, setReceiverMsg] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [shopId, setShopId] = useState(product.ShopId);
+
+  // const handleShop = async(param) => {
+  //   setReceiverMsg(param ? param : product.ShopId)
+  //   socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
+  // };
+  // useEffect(() => {
+  //   setReceiverMsg(product.Shop.id);
+  // }, [product])
 
   const product = useSelector((state) =>
     productSelectors.selectById(state, id)
@@ -29,17 +37,10 @@ export default function ProductDetail() {
     }).format(number);
   };
 
-  const handleShop = (id) => {
-    setReceiverMsg(id);
-    socket.emit('newUser', { users: product.Shop.name, id: product.Shop.id });
-  };
-
   const navigateOrder = ()=> {
     navigate('/order');
   }
-  useEffect(() => {
-    dispatch(getProductById(id));
-  }, [dispatch]);
+
 
   return (
     <>
@@ -49,7 +50,7 @@ export default function ProductDetail() {
             <h1>Product Details</h1>
             {/* <pre>{product.Shop}</pre> */}
           </div>
-          <ChatRoom handleShop={handleShop} receiverMsg={receiverMsg} />
+          <ChatRoom shopId={shopId}/>
         </Row>
         <Row>
           <Col sm={4}>

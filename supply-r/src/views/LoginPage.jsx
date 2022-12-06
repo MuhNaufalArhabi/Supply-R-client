@@ -27,12 +27,10 @@ import logo from "../asset/logo-supply-r.png";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
-
 	const [formLogin, setFormLogin] = useState({
 		email: "",
 		password: "",
 	});
-
 
 	const handleFormLogin = (event) => {
 		setFormLogin({
@@ -75,6 +73,7 @@ export default function LoginPage() {
       localStorage.setItem('id', data.id);
       localStorage.setItem('role', data.role);
       localStorage.setItem('name', data.name);
+      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: data.id});
       // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
       navigate('/');
     } catch (err) {

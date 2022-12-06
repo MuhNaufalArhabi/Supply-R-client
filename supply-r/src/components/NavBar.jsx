@@ -22,12 +22,15 @@ export default function NavBar({ socket }) {
 		navigate("/login");
 	};
 
+  const handleChat = () => {
+    socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
+  }
+
   const handleLogout = () => {
     localStorage.clear();
     signOut(auth);
     navigate('/login');
   };
-
 
 	const handleBuyerProfile = () => {
 		navigate("/profile-buyer");
@@ -39,12 +42,6 @@ export default function NavBar({ socket }) {
 
 	const handleSellerStore = () => {
 		navigate("/profile-store");
-	};
-
-	const handleLogout = () => {
-		localStorage.clear();
-		signOut(auth);
-		navigate("/login");
 	};
 
 	return (

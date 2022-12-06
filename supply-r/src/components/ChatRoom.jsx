@@ -20,70 +20,60 @@ import ChatFooter from "./ChatFooter";
 import socket from "../stores/socket";
 import axios from "axios";
 
-export default function ChatRoom({ handleShop, receiverMsg }) {
-	const [show, setShow] = useState(false);
-	const [messages, setMessages] = useState([]);
-	const lastMessageRef = useRef(null);
-	// const [person, setPerson] = useState([])
+export default function ChatRoom({ shopId }) {
+  const [show, setShow] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const lastMessageRef = useRef(null);
+  const [receiverMsg, setReceiverMsg] = useState();
+  const [rooms, setRooms] = useState([]);
+  const [name, setName] = useState("");
+
+  const handleShop = async (param) => {
+    if (!shopId) {
+      setReceiverMsg(param);
+    } else {
+      setReceiverMsg(shopId);
+    }
+    socket.emit("newRooms", { role: localStorage.role, id: localStorage.id });
+  };
 
 	const handleClose = () => {
 		setShow(false);
 	};
-	const handleShow = (e) => {
-		e.preventDefault();
-		// room()
-		// console.log(window.location.pathname.split('/')[2], 'ini path');
-		if (
-			localStorage.role == "buyer" &&
-			window.location.pathname == "/product-detail"
-		) {
-			handleShop(window.location.pathname.split("/")[2]);
-			setShow(true);
-		} else {
-			setShow(true);
-		}
-	};
 
+  const handleClose = () => setShow(false);
 
-	useEffect(() => {
-		socket.on("messageResponse", (data) => setMessages([...messages, data]));
-	}, [socket, messages]);
-	// console.log(messages, 'ini messages')
-
-    setShow(false)
-  };
-  const handleShow = (e) => {
-    e.preventDefault();
-    // room()
-    // console.log(window.location.pathname.split('/')[2], 'ini path');
-    if(localStorage.role == 'buyer' && window.location.pathname == '/product-detail'){
-      handleShop(window.location.pathname.split('/')[2])
-      setShow(true)
-    }else{
-      setShow(true);
-    }
+  const handleShow = () => {
+    handleShop();
+    setShow(true);
   };
 
+  const handleMessage = async (param, name) => {
+    const { data } = await axios({
+      method: "GET",
+      url: "http://localhost:3001/rooms/chat/" + param,
+    });
+    // console.log(data);
+    setMessages(data);
+    setName(name);
+    // console.log(messages, localStorage.id);
+  };
 
-	useEffect(() => {
-		// 👇️ scroll to bottom every time messages change
-		lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-	}, [messages]);
+  useEffect(() => {
+    socket.on("messageResponse", (data) => setMessages([...messages, data]));
+  }, [socket, messages]);
 
-	// const room = async() => {
-	//   try {
-	//     const {data} = await axios({
-	//       method: 'GET',
-	//       url: `http://localhost:3001/rooms/${localStorage.id}`,
-	//       headers: {
-	//         access_token: localStorage.access_token
-	//       }
-	//     })
-	//     setPerson(data)
-	//   } catch (err) {
-	//     console.log(err);
-	//   }
-	// }
+  useEffect(() => {
+    // 👇️ scroll to bottom every time messages change
+    lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    socket.on("newRoomResponse", (data) => {
+      setRooms(data);
+    });
+  }, [socket, rooms]);
+
 
 	return (
 		<>
@@ -98,129 +88,36 @@ export default function ChatRoom({ handleShop, receiverMsg }) {
 				size="md"
 				aria-labelledby="contained-modal-title-vcenter"
 				centered
-			>
-				{/* <Container>
-          <Row className="d-flex justify-content-center">
-            <Col md="12" lg="12" xl="12">
-              <Card id="chat1" style={{ borderRadius: '15px' }}>
-                <Card.Header
-                  className="d-flex justify-content-between align-items-center p-3  text-white border-bottom-0"
-                  style={{
-                    borderTopLeftRadius: '15px',
-                    borderTopRightRadius: '15px',
-                    backgroundColor: '#2596be',
-                  }}>
-                  <p className="mb-0 fw-bold">Live chat</p>
-                </Card.Header>
+			>	
+        <div className="chat container">
+          <ChatBar
+            socket={socket}
+            handleShop={handleShop}
+            rooms={rooms}
+            handleMessage={handleMessage}
+          />
+          <div className="chat_main">
+            <ChatBody
+              socket={socket}
+              lastMessageRef={lastMessageRef}
+              messages={messages}
+              name={name}
+            />
+            <ChatFooter socket={socket} receiverMsg={receiverMsg} />
+          </div>
+        </div>
 
-                <Card.Body>
-                  <div className="d-flex flex-row justify-content-start mb-4">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="avatar 1"
-                      style={{ width: '45px', height: '100%' }}
-                    />
-                    <div
-                      className="p-3 ms-3"
-                      style={{
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(57, 192, 237,.2)',
-                      }}>
-                      <p className="small mb-0">
-                        Hello and thank you for visiting MDBootstrap. Please click the
-                        video below.
-                      </p>
-                    </div>
-                  </div>
+        <Button
+          style={{
+            backgroundColor: "#2596be",
+            borderColor: "#2596be",
+            color: "white",
+          }}
+          onClick={handleClose}>
+          Close
+        </Button>
+      </Modal>
+    </>
+  );
 
-                  <div className="d-flex flex-row justify-content-end mb-4">
-                    <div
-                      className="p-3 me-3 border"
-                      style={{
-                        borderRadius: '15px',
-                        backgroundColor: '#fbfbfb',
-                      }}>
-                      <p className="small mb-0">Thank you, I really like your product.</p>
-                    </div>
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
-                      alt="avatar 1"
-                      style={{ width: '45px', height: '100%' }}
-                    />
-                  </div>
-
-                  <div className="d-flex flex-row justify-content-start mb-4">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="avatar 1"
-                      style={{ width: '45px', height: '100%' }}
-                    />
-                    <div className="ms-3" style={{ borderRadius: '15px' }}>
-                      <div className="bg-image">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/screenshot1.webp"
-                          style={{ borderRadius: '15px' }}
-                          alt="video"
-                        />
-                        <a href="#!">
-                          <div className="mask"></div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="d-flex flex-row justify-content-start mb-4">
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
-                      alt="avatar 1"
-                      style={{ width: '45px', height: '100%' }}
-                    />
-                    <div
-                      className="p-3 ms-3"
-                      style={{
-                        borderRadius: '15px',
-                        backgroundColor: 'rgba(57, 192, 237,.2)',
-                      }}>
-                      <p className="small mb-0">...</p>
-                    </div>
-                  </div>
-
-                  
-                  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Type your message</Form.Label>
-                    <Form.Control as="textarea" rows={4} />
-                  </Form.Group>
-                  <Button style={{ paddingTop: '.55rem', backgroundColor: '#2596be' }}>
-                    Send
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container> */}
-				<div className="chat container">
-					<ChatBar socket={socket} handleShop={handleShop} />
-					<div className="chat_main">
-						<ChatBody
-							socket={socket}
-							lastMessageRef={lastMessageRef}
-							messages={messages}
-						/>
-						<ChatFooter socket={socket} receiverMsg={receiverMsg} />
-					</div>
-				</div>
-
-				<Button
-					style={{
-						backgroundColor: "#2596be",
-						borderColor: "#2596be",
-						color: "white",
-					}}
-					onClick={handleClose}
-				>
-					Close
-				</Button>
-			</Modal>
-		</>
-	);
 }
