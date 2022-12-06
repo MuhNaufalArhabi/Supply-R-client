@@ -46,41 +46,49 @@ export default function LoginPage() {
 				url: "http://localhost:3001/sellers/login",
 				data: formLogin,
 			});
-      
+
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("id", data.id);
 			localStorage.setItem("role", data.role);
-      localStorage.setItem('sellerId', data.sellerId);
-      
-			socket.emit('newUser', { users: localStorage.name, id: localStorage.id, role: localStorage.role });
-      
+			localStorage.setItem("sellerId", data.sellerId);
+
+			socket.emit("newUser", {
+				users: localStorage.name,
+				id: localStorage.id,
+				role: localStorage.role,
+			});
+
 			navigate("/");
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-  const handleSubmitBuyer = async (event) => {
-    try {
-      event.preventDefault();
-      const { data } = await axios({
-        method: 'POST',
-        url: 'http://localhost:3001/buyers/login',
-        data: formLogin,
-      });
-      console.log(data)
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('id', data.id);
-      localStorage.setItem('role', data.role);
-      localStorage.setItem('name', data.name);
-      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: data.id});
-      // socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
-      navigate('/');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  
+	const handleSubmitBuyer = async (event) => {
+		try {
+			event.preventDefault();
+			const { data } = await axios({
+				method: "POST",
+				url: "http://localhost:3001/buyers/login",
+				data: formLogin,
+			});
+			console.log(data);
+			localStorage.setItem("access_token", data.access_token);
+			localStorage.setItem("id", data.id);
+			localStorage.setItem("role", data.role);
+			localStorage.setItem("name", data.name);
+			socket.emit("userConnect", {
+				socketId: socket.id,
+				role: data.role,
+				id: data.id,
+			});
+			// socket.emit('newUser', { users: localStorage.name, id: localStorage.id ,role: localStorage.role })
+			navigate("/");
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const login = async (provider) => {
 		try {
 			let baseUrl = "";
@@ -123,7 +131,7 @@ export default function LoginPage() {
 			<Container>
 				<Row className="vh-100 d-flex justify-content-center align-items-center">
 					<Col md={12} lg={12} xs={12}>
-						<CardGroup className="mb-3 mt-md-4">
+						<CardGroup className="mb-3 mt-md-4" style={{ height: "670px" }}>
 							<Card className="shadow">
 								<Row>
 									<Link
@@ -211,6 +219,7 @@ export default function LoginPage() {
 												<MDBTabsLink
 													onClick={() => handleJustifyClick("tab1")}
 													active={justifyActive === "tab1"}
+													className="btn-supply-r"
 												>
 													Company
 												</MDBTabsLink>
@@ -219,6 +228,7 @@ export default function LoginPage() {
 												<MDBTabsLink
 													onClick={() => handleJustifyClick("tab2")}
 													active={justifyActive === "tab2"}
+													className="btn-supply-r"
 												>
 													UMKM
 												</MDBTabsLink>
@@ -285,7 +295,7 @@ export default function LoginPage() {
 														</Form>
 													</div>
 												</div>
-												<div className="text-center mb-3">
+												{/* <div className="text-center mb-3">
 													<h5 style={{ color: "#204e64" }}>Login with:</h5>
 
 													<div
@@ -322,7 +332,7 @@ export default function LoginPage() {
 															<MDBIcon fab icon="google" size="lg" />
 														</MDBBtn>
 													</div>
-												</div>
+												</div> */}
 											</MDBTabsPane>
 
 											<MDBTabsPane show={justifyActive === "tab2"}>
