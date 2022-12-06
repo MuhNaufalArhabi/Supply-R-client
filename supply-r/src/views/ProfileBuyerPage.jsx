@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
+import EditProfileBuyerModal from "../components/EditProfileBuyerModal";
 
 export default function ProfileBuyerPage() {
+  const [modalEditShow, setModalEditShow] = useState(false);
   return (
     <>
       <Container>
@@ -47,9 +50,14 @@ export default function ProfileBuyerPage() {
                       borderColor: "#2596be",
                       color: "white",
                     }}
+                    onClick={() => setModalEditShow(true)}
                   >
                     Edit Company Info
                   </Button>
+                  <EditProfileBuyerModal
+                    show={modalEditShow}
+                    onHide={() => setModalEditShow(false)}
+                  />
                 </Card.Body>
               </Card>
             </div>

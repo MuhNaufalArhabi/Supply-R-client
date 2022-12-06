@@ -5,8 +5,8 @@ import { getProducts, productSelectors } from "../features/productSlice";
 import PromoCarousel from "../components/PromoCarousel";
 import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
+import PaginationProducts from "../components/PaginationProducts";
 export default function HomePage() {
-
   const dispatch = useDispatch();
   const products = useSelector(productSelectors.selectAll);
   useEffect(() => {
@@ -22,24 +22,22 @@ export default function HomePage() {
         </Row>
         <Row>
           <Col sm={12} className="mt-3 mb-3">
-          <Row>
-            <h4 style={{ color: "#204e64" }}>Category</h4>
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-          </Row>
+            <Row>
+              <h4 style={{ color: "#204e64" }}>Category</h4>
+              <CategoryCard />
+            </Row>
           </Col>
         </Row>
         <Row>
           <Col sm={12} className="mt-3 mb-3">
-          <Row>
-            <h4>Products</h4>
-            {products.map((product) => {
-              return <ProductCard product={product} key={product.id} />
-            })}
-          </Row>
+            <Row>
+              <h4>Products</h4>
+              {products.map((product) => {
+                return <ProductCard product={product} key={product.id} />;
+              })}
+              <PaginationProducts />
+            </Row>
           </Col>
-     
         </Row>
         <Row>
           <Col sm={12} className="mt-3 mb-3">

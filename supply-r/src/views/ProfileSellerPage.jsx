@@ -1,9 +1,12 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
-// import AddStoreModal from "../components/AddStoreModal.jsx";
-// import { useState } from "react";
+import { useState } from "react";
+import EditProfileSellerModal from "../components/EditProfileSellerModal.jsx";
 
 export default function ProfileSellerPage() {
+  const [modalShow, setModalShow] = useState(false);
+  const [modalEditShow, setModalEditShow] = useState(false);
+
   return (
     <>
       <Container>
@@ -26,7 +29,6 @@ export default function ProfileSellerPage() {
                 <Card.Body>
                   <Card.Title>Seller Info</Card.Title>
                   <div className="border border-2 border-info"></div>
-
                   <Card.Text>
                     <h5>Username </h5>
                     <h6>asas</h6>
@@ -43,13 +45,34 @@ export default function ProfileSellerPage() {
                       borderColor: "#2596be",
                       color: "white",
                     }}
+                    onClick={() => setModalEditShow(true)}
                   >
                     Edit Seller Info
                   </Button>
-//cek
-                  
-                  {/* <AddStoreModal /> */}
-//cek
+
+                  <EditProfileSellerModal
+                    show={modalEditShow}
+                    onHide={() => setModalEditShow(false)}
+                  />
+                  //cek
+                  <br />
+                  <br />
+                  <Button
+                    style={{
+                      backgroundColor: "#2596be",
+                      borderColor: "#2596be",
+                      color: "white",
+                    }}
+                    onClick={() => setModalShow(true)}
+                  >
+                    + Create Store
+                  </Button>
+                  <AddStoreModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                  />
+                  //cek
+
                 </Card.Body>
               </Card>
             </div>
