@@ -58,7 +58,6 @@ export default function EditProfileSellerModal(props) {
 					backgroundColor: "#2596be",
 					borderColor: "#2596be",
 					color: "white",
-					width: "100%",
 				}}
 			>
 				Edit UMKM Profile

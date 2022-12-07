@@ -37,11 +37,11 @@ export default function SideBar() {
 					className="nav-link"
 					style={{ marginTop: "5px" }}
 				>
-					<h4 style={{ color: "#204e64" }}>Transaction</h4>
+					<h4 style={{ color: "#204e64" }}>Transactions</h4>
 				</Link>
 				<Link to="/transaction-cash" className="nav-link">
 					<h5 style={{ fontWeight: "lighter", color: "#204e64" }}>
-						Cash Transaction
+						Upfront Transaction
 					</h5>
 				</Link>
 				<Link to="/transaction-installment" className="nav-link">
@@ -74,6 +74,14 @@ export default function SideBar() {
 					style={{ marginTop: "5px" }}
 				>
 					<h4 style={{ color: "#204e64" }}>Edit Store Profile</h4>
+				</Link>
+				<hr />
+				<Link
+					to="/profile-seller"
+					className="nav-link"
+					style={{ marginTop: "5px" }}
+				>
+					<h4 style={{ color: "#204e64" }}>UMKM Profile</h4>
 				</Link>
 				<hr />
 				<Link to="/" className="nav-link" style={{ marginTop: "5px" }}>

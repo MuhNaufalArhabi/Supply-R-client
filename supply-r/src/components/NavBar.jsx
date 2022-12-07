@@ -17,28 +17,24 @@ import { signOut } from "firebase/auth";
 import { useState } from "react";
 
 export default function NavBar({ socket }) {
-  const navigate = useNavigate();
-  const [modalShow, setModalShow] = useState(false);
-   const handleLogin = () => {
+	const navigate = useNavigate();
+	const [modalShow, setModalShow] = useState(false);
+	const handleLogin = () => {
 		navigate("/login");
 	};
 
-  const handleChat = () => {
-    socket.emit('newRooms', { role: localStorage.role, id: localStorage.id });
-  }
+	const handleChat = () => {
+		socket.emit("newRooms", { role: localStorage.role, id: localStorage.id });
+	};
 
-  const handleLogout = () => {
-    localStorage.clear();
-    signOut(auth);
-    navigate('/login');
-  };
+	const handleLogout = () => {
+		localStorage.clear();
+		signOut(auth);
+		navigate("/login");
+	};
 
 	const handleBuyerProfile = () => {
 		navigate("/profile-buyer");
-	};
-
-	const handleSellerProfile = () => {
-		navigate("/profile-seller");
 	};
 
 	const handleSellerStore = () => {
@@ -155,7 +151,7 @@ export default function NavBar({ socket }) {
 									style={{
 										display: "flex",
 										flexDirection: "row",
-										width: "50%",
+										width: "30%",
 										alignItems: "center",
 										justifyContent: "end",
 										gap: "15px",
@@ -173,17 +169,6 @@ export default function NavBar({ socket }) {
 										onClick={handleSellerStore}
 									>
 										UMKM Store
-									</Button>
-
-									<Button
-										style={{
-											backgroundColor: "#204e64",
-											borderColor: "#204e64",
-											color: "white",
-										}}
-										onClick={handleSellerProfile}
-									>
-										UMKM Profile
 									</Button>
 
 									<Button

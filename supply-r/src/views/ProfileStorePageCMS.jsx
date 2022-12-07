@@ -58,7 +58,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Number of Products
+									Products
 								</Card.Header>
 								<Row
 									style={{
@@ -82,7 +82,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Number of Cash Transaction
+									Upfront Transactions
 								</Card.Header>
 								<Row
 									style={{
@@ -106,7 +106,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Number of Installment Transaction
+									Installment Transactions
 								</Card.Header>
 								<Row
 									style={{
