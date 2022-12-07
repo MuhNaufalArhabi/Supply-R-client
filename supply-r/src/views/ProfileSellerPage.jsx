@@ -6,6 +6,7 @@ import { getSellerById, sellerSelectors } from "../features/sellerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
 
 export default function ProfileSellerPage() {
   const dispatch = useDispatch();
