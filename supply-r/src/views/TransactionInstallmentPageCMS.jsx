@@ -3,8 +3,28 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import TransactionInstallmentRowCMS from "../components/TransactionInstallmentRowCMS";
-
+import axios from "axios";
+import { useState, useEffect } from "react";
 export default function TransactionInstallmentPageCMS() {
+	const id = localStorage.id
+	const [installment, setInstallment] = useState([]);
+	const getInstallmentData = async () => {
+		try {
+			const {data} = await axios({
+				method: "GET",
+				url: `http://localhost:3001/shops/matriks-installment/${id}`,
+				headers: {
+					access_token: localStorage.access_token,
+				},
+			})
+			installment(data)
+		} catch (err) {
+			console.log(err)
+		}
+	}
+	useEffect(() => {
+		getInstallmentData()
+	}, [])
 	return (
 		<>
 			<div style={{ marginLeft: "20%" }}>
@@ -20,8 +40,8 @@ export default function TransactionInstallmentPageCMS() {
 						Installment Transaction List
 					</h1>
 					<br></br>
-
-					<Table striped bordered hover>
+					{installment?.length === 0 ? <h1 style={{textAlign: 'center'}}>No Transaction Data</h1> :
+					 <Table striped bordered hover>
 						<thead
 							className="sticky-top bg-white"
 							style={{ textAlign: "center" }}
@@ -38,12 +58,21 @@ export default function TransactionInstallmentPageCMS() {
 							</tr>
 						</thead>
 						<tbody>
-							<TransactionInstallmentRowCMS />
-							<TransactionInstallmentRowCMS />
+							{installment.map((installment, index) => {
+								return (
+									<TransactionInstallmentRowCMS
+										installment={installment}
+										key={installment.id}
+										index={index}
+									/>
+								);
+							})}
 						</tbody>
 					</Table>
+				}
 				</Container>
 			</div>
+
 		</>
 	);
 }

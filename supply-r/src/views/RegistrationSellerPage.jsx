@@ -22,7 +22,7 @@ export default function RegistrationSellerPage() {
 	};
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		const { data } = await axios({
+		await axios({
 			method: "POST",
 			url: "http://localhost:3001/sellers/register",
 			data: formSeller,

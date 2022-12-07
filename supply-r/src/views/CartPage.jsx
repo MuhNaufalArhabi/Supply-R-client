@@ -8,19 +8,31 @@ import { useSelector, useDispatch } from "react-redux";
 import { getOrders, orderSelectors } from "../features/orderSlice";
 import axios from "axios";
 import CounterInput from "react-counter-input";
+import update from "immutability-helper";
 
 
 export default function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // const [id, setId] = useState(0)
   const orders = useSelector(orderSelectors.selectAll);
-
+  let [changed_order, setChanged_order] = useState(
+    //   {
+    //   BuyerId: orders ? orders.BuyerId : null,
+    //   isPaid: orders ? orders.isPaid : null,
+    //   paymentMethod: orders ? orders.paymentMethod : null,
+    //   totalPrice: orders ? orders.totalPrice : null,
+    //   OrderProducts: orders ? orders.OrderProducts : null,
+    // }
+    null
+  );
+  let [changed_order, setChanged_order] = useState(orders);
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch, orders[0]?.quantity]);
-
-  let [changed_order, setChanged_order] = useState(orders);
-
+    console.log(orders[0]);
+    setChanged_order(orders[0]);
+    console.log(changed_order);
+  }, [dispatch]);
   const getToken = async () => {
     console.log(localStorage.access_token);
     const { data } = await axios({
@@ -64,20 +76,29 @@ export default function CartPage() {
       console.log(error);
     }
   };
-  const countHandler = (count, OrderProductId) => {
-    let tmp = changed_order;
-    const tmp_idx = tmp[0]?.OrderProducts.findIndex(
-      (el) => el.id === OrderProductId
-    );
-    console.log(tmp[0]?.OrderProducts[tmp_idx]);
-    tmp[0].OrderProducts[tmp_idx]["quantity"] = count;
-    // tmp[0].OrderProducts[tmp_idx] = {
-    //   ...tmp[0].OrderProducts[tmp_idx],
-    //   quantity: count,
-    // };
-    // console.log(tmp[0].OrderProducts[0]);
-    setChanged_order(tmp);
-    // console.log(tmp);
+  const countHandler = (count, idxProduct) => {
+    
+    setChanged_order((prevState) => {
+      console.log(count);
+      const arr = update(prevState.OrderProducts, {
+        [idxProduct]: {
+          quantity: {
+            $set: count,
+          },
+          totalPrice: {
+            $set: prevState.OrderProducts[idxProduct].Product.price * (count),
+          },
+        },
+      });
+      console.log(arr);
+
+      return update(prevState, {
+        OrderProducts: { $set: arr },
+      });
+    });
+
+    // setChanged_order(tmp);
+
     console.log(changed_order);
   };
   return (
@@ -111,8 +132,7 @@ export default function CartPage() {
                   </tr>
                 </thead>
                 <tbody>
-
-                  {orders[0]?.OrderProducts.map((order, index) => {
+                  {changed_order?.OrderProducts.map((order, index) => {
                     return (
                       <tr className="align-middle text-center">
                         <td>{++index}</td>
@@ -126,9 +146,9 @@ export default function CartPage() {
                           <CounterInput
                             min={1}
                             max={order.Product.stock}
-                            count={order.quantity}
+                            count={1}
                             onCountChange={(count) =>
-                              countHandler(count, order.id)
+                              countHandler(count, index - 1)
                             }
                           />
                         </td>

@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from '../views/Layout.jsx';
 import LoginPage from '../views/LoginPage.jsx';
@@ -19,7 +20,6 @@ import AddStoreSosmed from '../views/AddStoreSosmed.jsx';
 
 
 const router = createBrowserRouter([
-
 	{
 		path: "/login",
 		element: <LoginPage />,
@@ -90,7 +90,6 @@ const router = createBrowserRouter([
 			},
 		],
 	},
-
 ]);
 
 export default router;

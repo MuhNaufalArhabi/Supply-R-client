@@ -3,8 +3,29 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
-
+import axios from "axios";
+import { useState, useEffect } from "react";
 export default function TransactionCashPageCMS() {
+	const id = localStorage.id
+	const [cash, setCash] = useState([]);
+	const getCashData = async () => {
+		try {
+			const {data} = await axios({
+				method: "GET",
+				url: `http://localhost:3001/shops/matriks-upfront/${id}`,
+				headers: {
+					access_token: localStorage.access_token,
+				},
+			})
+			// console.log(data)
+			setCash(data)
+		} catch (err) {
+			console.log(err)
+		}
+	}
+	useEffect(() => {
+		getCashData()
+	}, [])
 	return (
 		<>
 			<div style={{ marginLeft: "20%" }}>
@@ -38,8 +59,9 @@ export default function TransactionCashPageCMS() {
 							</tr>
 						</thead>
 						<tbody>
-							<TransactionCashRowCMS />
-							<TransactionCashRowCMS />
+						{cash.map((cash, index) => {
+							return <TransactionCashRowCMS cash={cash} key={cash.id} index={index} />;
+						})}
 						</tbody>
 					</Table>
 				</Container>

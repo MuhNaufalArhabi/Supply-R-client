@@ -1,8 +1,15 @@
-import { Container, Col, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
+import {
+	Container,
+	Col,
+	Row,
+	Button,
+	CardGroup,
+	Card,
+	Carousel,
+} from "react-bootstrap";
 import ChatRoom from "../components/ChatRoom";
 import { useState } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams, useLocation} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductById, productSelectors } from "../features/productSlice";
 import { useEffect } from "react";
@@ -48,60 +55,75 @@ export default function ProductDetail() {
   const navigateOrder = () => {
     navigate("/order");
   };
-
-  return (
-    <>
-      <Container>
-        <Row>
-          <div className="mt-5 mb-5">
-            <h1>Product Details</h1>
-          </div>
-          <ChatRoom shopId={shopId} />
-        </Row>
-        <Row>
-          <Col sm={4}>
-            <img src={product?.mainImage} width={300} height={400}></img>
-          </Col>
-          <Col sm={8}>
-            <div className="mt-5 mb-5">
-              <h5>Name </h5>
-              <h6>{product?.name}</h6>
-              <h5>Description </h5>
-              <h6>{product?.description}</h6>
-              <h5>Category </h5>
-              <h6>{product?.Category.name}</h6>
-              <h5>Price </h5>
-              <h6>{rupiah(product?.price)}</h6>
-              <h5>Stock </h5>
-              <h6>{product?.stock}</h6>
-              {localStorage.role === "buyer" ? (
-                <Button
-                  style={{
-                    backgroundColor: "#2596be",
-                    borderColor: "#2596be",
-                    color: "white",
-                  }}
-                  className="mt-1 mb-1"
-                  onClick={orders}>
-                  Add to Cart
-                </Button>
-              ) : null}
-              <br></br>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Container>
-            <Row>
-              <h5>Images</h5>
-            </Row>
-          </Container>
-
-          <div className="mt-5 mb-5">
-            <h1>Seller Info</h1>
-          </div>
-        </Row>
-      </Container>
-    </>
-  );
+	return (
+		<>
+			<Container fluid style={{ padding: "4%" }}>
+				<Row>
+					<h1 style={{ color: "#204e64" }}>Product Details</h1>
+				</Row>
+				<Row>
+					<CardGroup style={{ height: "400px" }}>
+						<Card>
+							<Carousel style={{ textAlign: "center" }}>
+								<Carousel.Item>
+									<img
+										style={{ height: "400px" }}
+										src={product?.mainImage}
+										alt="First slide"
+									/>
+								</Carousel.Item>
+								{product.Images?.map((image) => {
+									return (
+										<Carousel.Item key={image.id}>
+											<img
+												style={{ height: "400px" }}
+												src={image.image}
+												alt="Second slide"
+											/>
+										</Carousel.Item>
+									);
+								})}
+							</Carousel>
+						</Card>
+						<Card>
+							<div style={{ margin: "5%" }}>
+								<h2>{product?.name}</h2>
+								<h6 style={{ color: "#c7c8c8" }}>{product?.Category.name}</h6>
+								<h6 style={{ marginTop: "5%" }}>{product?.description}</h6>
+								<h6>Available: {product?.stock}</h6>
+								<h2 style={{ marginTop: "5%", marginBottom: "5%" }}>
+									{rupiah(product?.price)}
+								</h2>
+								{localStorage.role === "buyer" ? (
+									<Button
+										style={{
+											backgroundColor: "#2596be",
+											borderColor: "#2596be",
+											color: "white",
+										}}
+										className="mt-1 mb-1"
+										onClick={orders}
+									>
+										Add to Cart
+									</Button>
+								) : null}
+								<br></br>
+							</div>
+						</Card>
+						<Card>
+							<div style={{ margin: "5%" }}>
+								<h2>Store Name</h2>
+								<h6 style={{ marginTop: "5%" }}>Phone Number:</h6>
+								<h6>+62 123 123 123</h6>
+								<h6 style={{ marginTop: "5%" }}>Store Address:</h6>
+								<h6>jalan kaki 5</h6>
+								<h6 style={{ marginTop: "5%" }}>Chat with Store:</h6>
+								<ChatRoom shopId={shopId} />
+							</div>
+						</Card>
+					</CardGroup>
+				</Row>
+			</Container>
+		</>
+	);
 }
