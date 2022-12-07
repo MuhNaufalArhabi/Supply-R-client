@@ -1,11 +1,12 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
+import OrderListSeller from "../components/OrderListSeller";
 import EditProfileSellerModal from "../components/EditProfileSellerModal.jsx";
 import { getSellerById, sellerSelectors } from "../features/sellerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 export default function ProfileSellerPage() {
   const dispatch = useDispatch();
   const [cash, setCash] = useState([]);
