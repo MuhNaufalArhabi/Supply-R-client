@@ -93,7 +93,7 @@ export default function ProductDetail() {
 								<h2>{product?.name}</h2>
 								<h6 style={{ color: "#c7c8c8" }}>{product?.Category.name}</h6>
 								<h6 style={{ marginTop: "5%" }}>{product?.description}</h6>
-								<h6>Available: {product?.stock}</h6>
+								<h6>Available: {product?.stock} orders</h6>
 								<h2 style={{ marginTop: "5%", marginBottom: "5%" }}>
 									{rupiah(product?.price)}
 								</h2>
