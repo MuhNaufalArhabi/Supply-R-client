@@ -64,8 +64,8 @@ export default function ProfileBuyerPage() {
 								</tr>
 							</thead>
 							<tbody>
-								<TransactionCashRowCMS />
-								<TransactionCashRowCMS />
+								{/* <TransactionCashRowCMS />
+								<TransactionCashRowCMS /> */}
 							</tbody>
 						</Table>
 					</Col>

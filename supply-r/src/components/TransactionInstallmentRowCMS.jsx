@@ -1,4 +1,13 @@
-export default function TransactionInstallmentRowCMS() {
+import { getBuyersById, buyerSelectors } from "../features/buyerSlice";
+import { useDispatch, useSelector} from "react-redux";
+import { useEffect } from "react";
+export default function TransactionInstallmentRowCMS({installment, index}) {
+	const dispatch = useDispatch();
+	let id = installment?.BuyerId
+	const buyer = useSelector((state) => buyerSelectors.selectById(state, id));
+	useEffect(() => {
+		dispatch(getBuyersById(id));
+	}, []);
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",
@@ -8,26 +17,30 @@ export default function TransactionInstallmentRowCMS() {
 	return (
 		<>
 			<tr className="align-middle text-center">
-				<td>1</td>
+				<td>{++index}</td>
 				<td>
-					<div>Danishes - Mini Cheese</div>
-					<div>Danishes - Mini Cheese</div>
-					<div>Danishes - Mini Cheese</div>
+				{installment.OrderProducts.map((orderProduct) => {
+					return <div>{orderProduct.Product.name}</div>;
+				})}
 				</td>
 				<td>
-					<div>2</div>
-					<div>3</div>
-					<div>3</div>
+				{installment.OrderProducts.map((orderProduct) => {
+					return <div>{orderProduct.quantity}</div>;
+				})}
 				</td>
 				<td>
-					<div>{rupiah(30000)}</div>
-					<div>{rupiah(60000)}</div>
-					<div>{rupiah(60000)}</div>
+				{installment.OrderProducts.map((orderProduct) => {
+					return <div>{rupiah(orderProduct.Product.price)}</div>;
+				})}
 				</td>
-				<td>{rupiah(420000)}</td>
-				<td>2-12-2022</td>
-				<td>PT. Suka Belanja</td>
-				<td>Installment</td>
+				<td>
+				{installment.OrderProducts.map((orderProduct) => {
+					return <div>{rupiah(orderProduct.totalPrice)}</div>;
+				})}
+				</td>
+				<td>{installment.createdAt}</td>
+				<td>{buyer?.owner}</td>
+				<td>{installment.paymentMethod}</td>
 			</tr>
 		</>
 	);

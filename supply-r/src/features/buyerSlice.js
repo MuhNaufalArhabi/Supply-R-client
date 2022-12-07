@@ -17,6 +17,18 @@ export const getBuyersById = createAsyncThunk("buyers/getBuyersById", async (id)
   return data;
 });
 
+export const editBuyer = createAsyncThunk("buyers/editBuyer", async (payload) => {
+  const { data } = await axios({
+    method: "put",
+    url: `${baseUrl}/buyers`,
+    headers: {
+      access_token: localStorage.access_token,
+    },
+    data: payload,
+  });
+  return data;
+});
+
 const buyerEntity = createEntityAdapter({
   selectId: (buyer) => buyer.id,
 });
@@ -28,6 +40,9 @@ const buyerSlice = createSlice({
     [getBuyersById.fulfilled]: (state, action) => {
       buyerEntity.setOne(state, action.payload);
     },
+    [editBuyer.fulfilled]: (state, action) => {
+      buyerEntity.updateOne(state, action.payload);
+    }
   },
 });
 
