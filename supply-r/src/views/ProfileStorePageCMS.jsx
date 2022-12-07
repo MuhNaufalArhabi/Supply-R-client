@@ -4,9 +4,20 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getStoreById, storeSelectors } from "../features/storeSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBuilding,
+  faPerson,
+  faPhone,
+  faLocationDot,
+  faAt,
+  faIndustry,
+  faComputer,
+  faChampagneGlasses
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { faChampagneGlasses } from "@fortawesome/free-solid-svg-icons";
+
 export default function ProfileStorePageCMS() {
 	const dispatch = useDispatch();
 	const id = localStorage.getItem("id");
@@ -63,34 +74,42 @@ export default function ProfileStorePageCMS() {
 		}).format(number);
 	};
 	return (
-		<>
-			<div style={{ marginLeft: "20%" }}>
-				<Container
-					style={{
-						paddingTop: "2%",
-						paddingBottom: "2%",
-						paddingLeft: "5%",
-						paddingRight: "5%",
-					}}
-				>
-					<h1 style={{ textAlign: "center", color: "#204e64" }}>
-						{store?.name}
-					</h1>
-					<br></br>
+    <>
+      <div style={{ marginLeft: "20%" }}>
+        <Container
+          style={{
+            paddingTop: "2%",
+            paddingBottom: "2%",
+            paddingLeft: "5%",
+            paddingRight: "5%",
+          }}
+        >
+          <h1 style={{ textAlign: "center", color: "#204e64" }}>
+            {store?.name}
+          </h1>
+          <br></br>
 
-					<Row>
-						<Col className="col-2">
-							<div>Address</div>
-							<div>Phone Number</div>
-							<div>Owner</div>
-						</Col>
-						<Col className="col-10">
-							<div>: {store?.address}</div>
-							<div>: {store?.phoneNumber}</div>
-							<div>: {store?.owner}</div>
-						</Col>
-					</Row>
-					<br></br>
+          <Row>
+            <Col className="col-0">
+              <div>
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  style={{ color: "gray" }}
+                />
+                : {store?.address}
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faPhone} style={{ color: "gray" }} />:
+                {store?.phoneNumber}
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faPerson} style={{ color: "gray" }} />:
+                {store?.owner}
+              </div>
+            </Col>
+            
+          </Row>
+          <br></br>
 
 					<Row style={{ textAlign: "center" }}>
 						<Col className="col-4">
