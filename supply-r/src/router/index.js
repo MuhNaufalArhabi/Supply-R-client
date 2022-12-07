@@ -15,7 +15,7 @@ import ProductListCMS from '../views/ProductListCMS.jsx';
 import AddProductCMS from '../views/AddProductCMS.jsx';
 import ProfileStorePageCMS from '../views/ProfileStorePageCMS.jsx';
 import EditProfileStorePageCMS from '../views/EditProfileStorePageCMS.jsx';
-import OrderPage from '../views/OrderPage.jsx';
+import AddStoreSosmed from '../views/AddStoreSosmed.jsx';
 
 
 const router = createBrowserRouter([
@@ -56,8 +56,8 @@ const router = createBrowserRouter([
 				element: <CartPage />,
 			},
 			{
-				path: "/order",
-				element: <OrderPage />,
+				path: "/add-store",
+				element: <AddStoreSosmed />,
 			},
 		],
 	},

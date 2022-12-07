@@ -1,43 +1,39 @@
-
-import { Container, Col, Row } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import ChatRoom from '../components/ChatRoom';
-import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { getProductById, productSelectors } from '../features/productSlice';
-import { useEffect } from 'react';
-import axios from 'axios';
+import { Container, Col, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import ChatRoom from "../components/ChatRoom";
+import { useState } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getProductById, productSelectors } from "../features/productSlice";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function ProductDetail() {
+  const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
-  const dispatch = useDispatch();   
-      const product = useSelector((state) =>
-      productSelectors.selectById(state, id)
-      );
-      const [shopId, setShopId] = useState(product?.ShopId);
-   
-      const [orderlists, setOrderLists] = useState(
-        [
-          {
-            ProductId: id,
-            quantity: 1,
-            totalPrice: 0,
-          }
-        ]
-      ) 
-      const orders = async()=> {
-        const {data} = await axios({
-          method: "POST",
-          url: `http://localhost:3001/orders/products`,
-          data: {orderlists},
-          headers: {
-            access_token: localStorage.getItem("access_token")
-          }
-        })
-        navigate(`/cart`)
-      }
+  const dispatch = useDispatch();
+  const product = useSelector((state) => productSelectors.selectById(state, id));
+  const [shopId, setShopId] = useState(location.state.product.ShopId);
+
+  const [orderlists, setOrderLists] = useState([
+    {
+      ProductId: id,
+      quantity: 1,
+      totalPrice: 0,
+    },
+  ]);
+  const orders = async () => {
+    const { data } = await axios({
+      method: "POST",
+      url: `http://localhost:3001/orders/products`,
+      data: { orderlists },
+      headers: {
+        access_token: localStorage.getItem("access_token"),
+      },
+    });
+    navigate(`/cart`);
+  };  
   useEffect(() => {
     dispatch(getProductById(id));
   }, [dispatch]);
@@ -49,10 +45,9 @@ export default function ProductDetail() {
     }).format(number);
   };
 
-  const navigateOrder = ()=> {
-    navigate('/order');
-  }
-
+  const navigateOrder = () => {
+    navigate("/order");
+  };
 
   return (
     <>
@@ -61,7 +56,7 @@ export default function ProductDetail() {
           <div className="mt-5 mb-5">
             <h1>Product Details</h1>
           </div>
-          <ChatRoom shopId={shopId}/>
+          <ChatRoom shopId={shopId} />
         </Row>
         <Row>
           <Col sm={4}>
@@ -79,17 +74,18 @@ export default function ProductDetail() {
               <h6>{rupiah(product?.price)}</h6>
               <h5>Stock </h5>
               <h6>{product?.stock}</h6>
-              {localStorage.role === 'buyer'? <Button
-                style={{
-                  backgroundColor: '#2596be',
-                  borderColor: '#2596be',
-                  color: 'white',
-                }}
-                className="mt-1 mb-1"
-                onClick={orders}
-                >
-                Add to Cart
-              </Button> : null}
+              {localStorage.role === "buyer" ? (
+                <Button
+                  style={{
+                    backgroundColor: "#2596be",
+                    borderColor: "#2596be",
+                    color: "white",
+                  }}
+                  className="mt-1 mb-1"
+                  onClick={orders}>
+                  Add to Cart
+                </Button>
+              ) : null}
               <br></br>
             </div>
           </Col>

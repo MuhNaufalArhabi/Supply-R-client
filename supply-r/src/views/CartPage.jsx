@@ -17,7 +17,7 @@ export default function CartPage() {
 
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch, orders]);
+  }, [dispatch, orders[0]?.quantity]);
 
   let [changed_order, setChanged_order] = useState(orders);
 

@@ -209,6 +209,7 @@ export default function AddProductCMS(props) {
 												borderColor: "#d8dcdf",
 												borderWidth: "1.5px",
 												borderRadius: "5px",
+                        zIndex: "-10"
 											}}
 										>
 											<div
@@ -251,7 +252,7 @@ export default function AddProductCMS(props) {
 																}}
 															>
 																<img
-																	src={product? image.image: image["data_url"]}
+																	src={product ? image.image: image["data_url"]}
 																	alt=""
 																	style={{ height: "100px" }}
 																/>

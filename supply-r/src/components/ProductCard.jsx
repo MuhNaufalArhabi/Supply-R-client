@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
 							color: "white",
 						}}
 						onClick={() => {
-							navigate(`/product-detail/${product.id}`);
+							navigate(`/product-detail/${product.id}`, {state: {product}});
 						}}
 					>
 						Details

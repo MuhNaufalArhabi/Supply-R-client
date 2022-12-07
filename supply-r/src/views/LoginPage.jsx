@@ -99,8 +99,20 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			localStorage.setItem("access_token", data.access_token);
-			navigate("/");
+			console.log(data)
+			if(data.shopId){
+				localStorage.setItem("access_token", data.access_token);
+				localStorage.setItem("sellerId", data.sellerId);
+				localStorage.setItem("role", data.role);
+				localStorage.setItem("id", data.shopId);
+				localStorage.setItem("name", data.shopName);
+				navigate("/");
+			} else {
+				localStorage.setItem("access_token", data.access_token);
+				localStorage.setItem("role", data.role);
+				localStorage.setItem("sellerId", data.sellerId);
+				navigate("/add-store");
+			}
 		} catch (err) {
 			console.log(err);
 		}
