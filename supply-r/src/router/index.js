@@ -16,6 +16,7 @@ import AddProductCMS from "../views/AddProductCMS.jsx";
 import ProfileStorePageCMS from "../views/ProfileStorePageCMS.jsx";
 import EditProfileStorePageCMS from "../views/EditProfileStorePageCMS.jsx";
 import AddStoreSosmed from "../views/AddStoreSosmed.jsx";
+import NotFoundPage from "../views/NotFoundPage.jsx";
 
 const router = createBrowserRouter([
 	{
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
 						return redirect("/");
 					}
 				},
+
 			},
 			{
 				path: "/product-detail/:id",
@@ -83,6 +85,10 @@ const router = createBrowserRouter([
 					}
 				},
 			},
+        {
+        path: "*",
+        element: <NotFoundPage />,
+      },
 		],
 	},
 	{
