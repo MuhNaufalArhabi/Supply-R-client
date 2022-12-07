@@ -2,7 +2,7 @@ import { Container, Col, Row, Table } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrders, orderSelectors } from "../features/orderSlice";
@@ -18,11 +18,11 @@ export default function CartPage() {
   let [changed_order, setChanged_order] = useState(null);
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch, orders[0]?.id]);
+  }, [dispatch]);
+
   useEffect(() => {
-    // console.log("orders dari use Effect", orders);
     if (orders.length > 0) {
-      setChanged_order(orders[0]);
+      // setChanged_order(orders[0]);
 
       setChanged_order(() => {
         let tp = 0;
@@ -34,6 +34,7 @@ export default function CartPage() {
     }
   }, [orders]);
   console.log(orders[0]);
+  console.log(changed_order);
   const getToken = async () => {
     console.log(localStorage.access_token);
     let totalPrice = 0;
@@ -43,6 +44,7 @@ export default function CartPage() {
     setChanged_order((prvState) => {
       return update(prvState, { totalPrice: { $set: totalPrice } });
     });
+
     const { data } = await axios({
       method: "put",
       url: "http://localhost:3001/orders/products/bulk",
@@ -50,7 +52,6 @@ export default function CartPage() {
       data: { orders: changed_order },
     });
 
-    console.log(data.transaction.token);
     window.snap.pay(data.transaction.token, {
       onSuccess: function (result) {
         /* You may add your own implementation here */
