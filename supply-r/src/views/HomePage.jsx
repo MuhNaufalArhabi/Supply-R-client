@@ -6,13 +6,22 @@ import CategoryCard from "../components/CategoryCard";
 import PaginationProducts from "../components/PaginationProducts";
 import axios from "axios";
 import { Outlet } from "react-router-dom";
-export default function HomePage() {
-	const [products, setProducts] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalPage, setTotalPage] = useState(0);
+import { Grid } from "react-loader-spinner";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-	const getPagination = async (id, page, name) => {
-    if(id === null){
+export default function HomePage() {
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    // setTimeout(setLoading, 800, true);
+  }, []);
+
+  const getPagination = async (id, page, name) => {
+    if (id === null) {
       const { data } = await axios({
         method: "GET",
         url: `http://localhost:3001/products/pagination`,
@@ -26,7 +35,7 @@ export default function HomePage() {
       setTotalPage(data.totalPage);
       setProducts(data.products.rows);
     } else {
-      console.log(page, name, id)
+      console.log(page, name, id);
       const { data } = await axios({
         method: "GET",
         url: `http://localhost:3001/products/category/${id}`,
@@ -36,53 +45,67 @@ export default function HomePage() {
           name: name,
         },
       });
-      console.log(data)
+      console.log(data);
       setCurrentPage(data.currentPage);
       setTotalPage(data.totalPage);
       setProducts(data.products);
     }
+  };
+  useEffect(() => {
+    // dispatch(getProducts());
+    getPagination(null, currentPage);
+  }, [currentPage]);
 
-      
-	};
-	useEffect(() => {
-		// dispatch(getProducts());
-		getPagination(null,currentPage);
-	}, [currentPage]);
+  return (
+    <>
+      <Container>
+        <Row>
+          <Col sm={12} className="mt-3 mb-3">
+            <PromoCarousel />
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12} className="mt-3 mb-3">
+            <Row>
+              <h4 style={{ color: "#204e64" }}>Category</h4>
+              <CategoryCard
+                getPagination={getPagination}
+                currentPage={currentPage}
+              />
+            </Row>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12} className="mt-3 mb-3">
+            <Row>
+              <h4>Products</h4>
+              {!loading && (
+                <div className="loader">
+                  <Grid
+                    height="80"
+                    width="80"
+                    color="#204e64"
+                    ariaLabel="grid-loading"
+                    radius="12.5"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                </div>
+              )}
 
-
-	return (
-		<>
-			<Container>
-				<Row>
-					<Col sm={12} className="mt-3 mb-3">
-						<PromoCarousel />
-					</Col>
-				</Row>
-				<Row>
-					<Col sm={12} className="mt-3 mb-3">
-						<Row>
-							<h4 style={{ color: "#204e64" }}>Category</h4>
-							<CategoryCard getPagination={getPagination} currentPage={currentPage}/>
-						</Row>
-					</Col>
-				</Row>
-				<Row>
-					<Col sm={12} className="mt-3 mb-3">
-						<Row>
-							<h4>Products</h4>
-							{products.map((product) => {
-								return <ProductCard product={product} key={product.id} />;
-							})}
-							<PaginationProducts
-								currentPage={currentPage}
-								totalPage={totalPage}
-								setCurrentPage={setCurrentPage}
-							/>
-						</Row>
-					</Col>
-				</Row>
-			</Container>
-  
-		</>
-	);
+              {products.map((product) => {
+                return <ProductCard product={product} key={product.id} />;
+              })}
+              <PaginationProducts
+                currentPage={currentPage}
+                totalPage={totalPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  );
 }

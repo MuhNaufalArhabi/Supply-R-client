@@ -16,78 +16,83 @@ import AddProductCMS from "../views/AddProductCMS.jsx";
 import ProfileStorePageCMS from "../views/ProfileStorePageCMS.jsx";
 import EditProfileStorePageCMS from "../views/EditProfileStorePageCMS.jsx";
 import AddStoreSosmed from "../views/AddStoreSosmed.jsx";
+import NotFoundPage from "../views/NotFoundPage.jsx";
 
 const router = createBrowserRouter([
-	{
-		path: "/login",
-		element: <LoginPage />,
-	},
-	{
-		path: "/register-buyer",
-		element: <RegistrationBuyerPage />,
-	},
-	{
-		path: "/register-seller",
-		element: <RegistrationSellerPage />,
-	},
-	{
-		element: <Layout />,
-		children: [
-			{
-				path: "/",
-				element: <HomePage />,
-			},
-			{
-				path: "/profile-buyer",
-				element: <ProfileBuyerPage />,
-			},
-			{
-				path: "/product-detail/:id",
-				element: <ProductDetail />,
-			},
-			{
-				path: "/cart",
-				element: <CartPage />,
-			},
-			{
-				path: "/add-store",
-				element: <AddStoreSosmed />,
-			},
-		],
-	},
-	{
-		element: <LayoutCMS />,
-		children: [
-			{
-				path: "/profile-store",
-				element: <ProfileStorePageCMS />,
-			},
-			{
-				path: "/transaction-cash",
-				element: <TransactionCashPageCMS />,
-			},
-			{
-				path: "/transaction-installment",
-				element: <TransactionInstallmentPageCMS />,
-			},
-			{
-				path: "/product-list/:shopId",
-				element: <ProductListCMS />,
-			},
-			{
-				path: "/add-product",
-				element: <AddProductCMS />,
-			},
-			{
-				path: "/edit-profile-store",
-				element: <EditProfileStorePageCMS />,
-			},
-			{
-				path: "/profile-seller",
-				element: <ProfileSellerPage />,
-			},
-		],
-	},
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register-buyer",
+    element: <RegistrationBuyerPage />,
+  },
+  {
+    path: "/register-seller",
+    element: <RegistrationSellerPage />,
+  },
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/profile-buyer",
+        element: <ProfileBuyerPage />,
+      },
+      {
+        path: "/product-detail/:id",
+        element: <ProductDetail />,
+      },
+      {
+        path: "/cart",
+        element: <CartPage />,
+      },
+      {
+        path: "/add-store",
+        element: <AddStoreSosmed />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
+      },
+    ],
+  },
+  {
+    element: <LayoutCMS />,
+    children: [
+      {
+        path: "/profile-store",
+        element: <ProfileStorePageCMS />,
+      },
+      {
+        path: "/transaction-cash",
+        element: <TransactionCashPageCMS />,
+      },
+      {
+        path: "/transaction-installment",
+        element: <TransactionInstallmentPageCMS />,
+      },
+      {
+        path: "/product-list/:shopId",
+        element: <ProductListCMS />,
+      },
+      {
+        path: "/add-product",
+        element: <AddProductCMS />,
+      },
+      {
+        path: "/edit-profile-store",
+        element: <EditProfileStorePageCMS />,
+      },
+      {
+        path: "/profile-seller",
+        element: <ProfileSellerPage />,
+      },
+    ],
+  },
 ]);
 
 export default router;
