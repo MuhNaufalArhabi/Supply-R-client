@@ -27,7 +27,7 @@ export default function HomePage() {
 	useEffect(() => {
 		// dispatch(getProducts());
 		getPagination(currentPage);
-		console.log(products);
+		console.log(currentPage)
 	}, [products[0]?.name, currentPage]);
 	return (
 		<>

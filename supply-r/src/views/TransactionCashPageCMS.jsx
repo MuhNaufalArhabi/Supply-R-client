@@ -17,7 +17,6 @@ export default function TransactionCashPageCMS() {
 					access_token: localStorage.access_token,
 				},
 			})
-			// console.log(data)
 			setCash(data)
 		} catch (err) {
 			console.log(err)
@@ -41,7 +40,7 @@ export default function TransactionCashPageCMS() {
 						Cash Transaction List
 					</h1>
 					<br></br>
-
+					{cash?.length === 0 ? <h1 style={{textAlign: 'center'}}>No Transaction Data</h1> :
 					<Table striped bordered hover>
 						<thead
 							className="sticky-top bg-white"
@@ -64,6 +63,7 @@ export default function TransactionCashPageCMS() {
 						})}
 						</tbody>
 					</Table>
+					}
 				</Container>
 			</div>
 		</>
