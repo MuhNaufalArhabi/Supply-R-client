@@ -9,52 +9,55 @@ import {
 } from "react-bootstrap";
 import ChatRoom from "../components/ChatRoom";
 import { useState } from "react";
-import { useNavigate, useParams, useLocation} from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductById, productSelectors } from "../features/productSlice";
 import { useEffect } from "react";
 import axios from "axios";
 
 export default function ProductDetail() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const product = useSelector((state) => productSelectors.selectById(state, id));
-  const [shopId, setShopId] = useState(location.state.product.ShopId);
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { id } = useParams();
+	const dispatch = useDispatch();
+	const product = useSelector((state) =>
+		productSelectors.selectById(state, id)
+	);
+	const [shopId, setShopId] = useState(location.state.product.ShopId);
 
-  const [orderlists, setOrderLists] = useState([
-    {
-      ProductId: id,
-      quantity: 1,
-      totalPrice: location.state.product.price,
-    },
-  ]);
-  const orders = async () => {
-    const { data } = await axios({
-      method: "POST",
-      url: `http://localhost:3001/orders/products`,
-      data: { orderlists },
-      headers: {
-        access_token: localStorage.getItem("access_token"),
-      },
-    });
-    navigate(`/cart`);
-  };  
-  useEffect(() => {
-    dispatch(getProductById(id));
-  }, [dispatch]);
+	const [orderlists, setOrderLists] = useState([
+		{
+			ProductId: id,
+			quantity: 1,
+			totalPrice: location.state.product.price,
+		},
+	]);
+	const orders = async () => {
+		const { data } = await axios({
+			method: "POST",
+			url: `http://localhost:3001/orders/products`,
+			data: { orderlists },
+			headers: {
+				access_token: localStorage.getItem("access_token"),
+			},
+		});
+		navigate(`/cart`);
+	};
+	useEffect(() => {
+		dispatch(getProductById(id));
+	}, [dispatch]);
 
-  const rupiah = (number) => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(number);
-  };
+	const rupiah = (number) => {
+		return new Intl.NumberFormat("id-ID", {
+			style: "currency",
+			currency: "IDR",
+			minimumFractionDigits: 0,
+		}).format(number);
+	};
 
-  const navigateOrder = () => {
-    navigate("/order");
-  };
+	const navigateOrder = () => {
+		navigate("/order");
+	};
 	return (
 		<>
 			<Container fluid style={{ padding: "4%" }}>
@@ -90,7 +93,7 @@ export default function ProductDetail() {
 								<h2>{product?.name}</h2>
 								<h6 style={{ color: "#c7c8c8" }}>{product?.Category.name}</h6>
 								<h6 style={{ marginTop: "5%" }}>{product?.description}</h6>
-								<h6>Available: {product?.stock}</h6>
+								<h6>Available: {product?.stock} orders</h6>
 								<h2 style={{ marginTop: "5%", marginBottom: "5%" }}>
 									{rupiah(product?.price)}
 								</h2>
@@ -117,8 +120,14 @@ export default function ProductDetail() {
 								<h6>{location.state.product.Shop.phoneNumber}</h6>
 								<h6 style={{ marginTop: "5%" }}>Store Address:</h6>
 								<h6>{location.state.product.Shop.address}</h6>
-                {localStorage.access_token ? (<><h6 style={{ marginTop: "5%" }}>Chat with Store:</h6><ChatRoom shopId={shopId} /></>): <></> }
-								
+								{localStorage.role === "buyer" ? (
+									<>
+										<h6 style={{ marginTop: "5%" }}>Chat with Store:</h6>
+										<ChatRoom shopId={shopId} />
+									</>
+								) : (
+									<></>
+								)}
 							</div>
 						</Card>
 					</CardGroup>

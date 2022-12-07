@@ -9,20 +9,26 @@ export default function ProductCard({ product }) {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",
 			currency: "IDR",
+			minimumFractionDigits: 0,
 		}).format(number);
 	};
 
 	// bikin function untuk on click dan di taro di card
+	const navigateToProductDetail = () => {
+		navigate(`/product-detail/${product.id}`, { state: { product } });
+	};
 
 	return (
 		<>
 			<Card
 				style={{
-					width: "15rem",
-					margin: "5px",
+					width: "16rem",
+					margin: "3px",
 					padding: "0",
+					cursor: "pointer",
 				}}
 				className="shadow"
+				onClick={navigateToProductDetail}
 			>
 				<Card.Img
 					variant="top"
@@ -36,27 +42,14 @@ export default function ProductCard({ product }) {
 				/>
 				<Card.Body>
 					<Card.Title className="text-truncate">{product?.name}</Card.Title>
-					<Card.Text className="text-truncate">
-						{product?.Shop.name}
-					</Card.Text>
-					<Card.Text className="text-truncate" style={{ color: "#c7c8c8" }}>
+
+					<Card.Text className="text-truncate" style={{ color: "#898989" }}>
 						{product?.Category.name}
 					</Card.Text>
 					<Card.Text style={{ fontSize: "24px" }}>
 						{rupiah(product?.price)}
 					</Card.Text>
-					<Nav.Link
-						style={{
-							backgroundColor: "#204e64",
-							borderColor: "#204e64",
-							color: "white",
-						}}
-						onClick={() => {
-							navigate(`/product-detail/${product.id}`, {state: {product}});
-						}}
-					>
-						Details
-					</Nav.Link>
+					<Card.Text className="text-truncate">{product?.Shop.name}</Card.Text>
 				</Card.Body>
 			</Card>
 		</>
