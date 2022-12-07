@@ -5,9 +5,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
 import PaginationProducts from "../components/PaginationProducts";
 import axios from "axios";
+
 import { Outlet } from "react-router-dom";
 import { Grid } from "react-loader-spinner";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -108,4 +110,5 @@ export default function HomePage() {
       </Container>
     </>
   );
+
 }

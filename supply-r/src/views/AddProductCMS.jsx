@@ -106,16 +106,16 @@ export default function AddProductCMS(props) {
 								onChange={hendlerProduct}
 							>
 								<option disabled>-- Select Category --</option>
-								<option value="1">Electronik</option>
-								<option value="2">Pertukangan</option>
-								<option value="3">Jasa Konstruksi / Renovasi</option>
-								<option value="4">Office / Stationary</option>
-								<option value="5">Jasa Perawatan / Peralatan dan Mesin</option>
-								<option value="6">Souvenir / Merchandise</option>
-								<option value="7">Jasa Event Organizer</option>
-								<option value="8">Jasa Mandoe dan Tenaga Kerja Lainnya</option>
-								<option value="9">Jasa Percetakan dan Media</option>
-								<option value="10">Kesehatan</option>
+								<option value="1">Electronic</option>
+								<option value="2">Tool</option>
+								<option value="3">Construction</option>
+								<option value="4">Stationary</option>
+								<option value="5">Machinery</option>
+								<option value="6">Merchandise</option>
+								<option value="7">Events</option>
+								<option value="8">Labor</option>
+								<option value="9">Printing</option>
+								<option value="10">Healthcare</option>
 							</Form.Select>
 						</Form.Group>
 

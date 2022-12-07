@@ -4,7 +4,6 @@ import orderReducer from '../features/orderSlice'
 import buyerReducer from '../features/buyerSlice'
 import sellerReducer from '../features/sellerSlice'
 import storeReducer from '../features/storeSlice'
-import searchReducer from '../features/searchSlice'
 export const store = configureStore({
   reducer: {
     product: productReducer,
@@ -12,6 +11,5 @@ export const store = configureStore({
     buyers: buyerReducer,
     sellers: sellerReducer,
     stores: storeReducer,
-    search: searchReducer,
   },
 })

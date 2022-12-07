@@ -98,6 +98,7 @@ export default function ChatRoom({ shopId }) {
 							lastMessageRef={lastMessageRef}
 							messages={messages}
 							name={name}
+							receiverMsg={receiverMsg}
 						/>
 						<ChatFooter socket={socket} receiverMsg={receiverMsg} />
 					</div>

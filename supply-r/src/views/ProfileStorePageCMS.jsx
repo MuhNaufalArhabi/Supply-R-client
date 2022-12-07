@@ -4,11 +4,54 @@ import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getStoreById, storeSelectors } from "../features/storeSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { faChampagneGlasses } from "@fortawesome/free-solid-svg-icons";
 export default function ProfileStorePageCMS() {
 	const dispatch = useDispatch();
 	const id = localStorage.getItem("id");
 	const store = useSelector((state) => storeSelectors.selectById(state, id));
+
+	const [cash, setCash] = useState([]);
+	const getCashData = async () => {
+		try {
+			const { data } = await axios({
+				method: "GET",
+				url: `http://localhost:3001/shops/matriks-upfront/${id}`,
+				headers: {
+					access_token: localStorage.access_token,
+				},
+
+			});
+			setCash(data)
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
+	const [installment, setInstallment] = useState([]);
+	const getInstallmentData = async () => {
+		try {
+			const {data} = await axios({
+				method: "GET",
+				url: `http://localhost:3001/shops/matriks-installment/${id}`,
+				headers: {
+					access_token: localStorage.access_token,
+				},
+			})
+			installment(data)
+		} catch (err) {
+			console.log(err)
+		}
+	}
+	useEffect(() => {
+		getInstallmentData()
+	}, [])
+
+	useEffect(() => {
+		getCashData();
+	}, []);
+	console.log(cash)
 	useEffect(() => {
 		dispatch(getStoreById(id));
 		
@@ -94,7 +137,7 @@ export default function ProfileStorePageCMS() {
 										color: "#74d528",
 									}}
 								>
-									8
+									{cash?.length}
 								</Row>
 							</Card>
 						</Col>
@@ -118,7 +161,7 @@ export default function ProfileStorePageCMS() {
 										color: "#ffbf00",
 									}}
 								>
-									11
+									{installment?.length}
 								</Row>
 							</Card>
 						</Col>
@@ -145,7 +188,12 @@ export default function ProfileStorePageCMS() {
 										color: "#74d528",
 									}}
 								>
-									{rupiah(84000000)}
+									{cash.length === 0 ? <>0</>:cash.map(total => {
+									
+										let totalAmount = 0
+										totalAmount += total.totalPrice
+										return rupiah(totalAmount)
+									})}
 								</Row>
 							</Card>
 						</Col>
@@ -169,7 +217,12 @@ export default function ProfileStorePageCMS() {
 										color: "#ffbf00",
 									}}
 								>
-									{rupiah(2284000000)}
+									{installment.length === 0?  <>0</>:installment.map(total => {
+									
+									let totalAmount = 0
+									totalAmount += total.totalPrice
+									return rupiah(totalAmount)
+								})}
 								</Row>
 							</Card>
 						</Col>

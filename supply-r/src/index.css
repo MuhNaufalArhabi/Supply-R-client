@@ -18,10 +18,18 @@
 .chat__header {
   margin: 30px 0 20px 0;
 }
+
 .chat__users > * {
   margin-bottom: 10px;
   color: #0b0c0c;
   font-size: 14px;
+  
+.chat__users :hover {
+	background-color: #2596be;
+	border-color: #2596be;
+	border-radius: 4px;
+	color: white;
+
 }
 .online__users > * {
   margin-bottom: 10px;
@@ -145,3 +153,17 @@
   /* z-index: 10;
   animation: bg 1s; */
 }
+
+
+.category-icon {
+	background-color: white;
+	border: 2px solid transparent;
+	padding: 4px;
+}
+
+.category-icon:hover {
+	background-color: white;
+	border: 2px solid #2596be;
+	padding: 4px;
+}
+
