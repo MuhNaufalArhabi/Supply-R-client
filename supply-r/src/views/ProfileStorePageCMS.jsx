@@ -52,7 +52,7 @@ export default function ProfileStorePageCMS() {
 					access_token: localStorage.access_token,
 				},
 			})
-			installment(data)
+			setInstallment(data)
 		} catch (err) {
 			console.log(err)
 		}
