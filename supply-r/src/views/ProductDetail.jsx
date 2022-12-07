@@ -27,7 +27,7 @@ export default function ProductDetail() {
     {
       ProductId: id,
       quantity: 1,
-      totalPrice: 0,
+      totalPrice: location.state.product.price,
     },
   ]);
   const orders = async () => {
@@ -72,7 +72,7 @@ export default function ProductDetail() {
 										alt="First slide"
 									/>
 								</Carousel.Item>
-								{product.Images?.map((image) => {
+								{product?.Images.map((image) => {
 									return (
 										<Carousel.Item key={image.id}>
 											<img
@@ -112,13 +112,13 @@ export default function ProductDetail() {
 						</Card>
 						<Card>
 							<div style={{ margin: "5%" }}>
-								<h2>Store Name</h2>
+								<h2>{location.state.product.Shop.name}</h2>
 								<h6 style={{ marginTop: "5%" }}>Phone Number:</h6>
-								<h6>+62 123 123 123</h6>
+								<h6>{location.state.product.Shop.phoneNumber}</h6>
 								<h6 style={{ marginTop: "5%" }}>Store Address:</h6>
-								<h6>jalan kaki 5</h6>
-								<h6 style={{ marginTop: "5%" }}>Chat with Store:</h6>
-								<ChatRoom shopId={shopId} />
+								<h6>{location.state.product.Shop.address}</h6>
+                {localStorage.access_token ? (<><h6 style={{ marginTop: "5%" }}>Chat with Store:</h6><ChatRoom shopId={shopId} /></>): <></> }
+								
 							</div>
 						</Card>
 					</CardGroup>

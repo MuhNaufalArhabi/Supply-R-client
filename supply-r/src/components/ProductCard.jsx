@@ -12,6 +12,8 @@ export default function ProductCard({ product }) {
 		}).format(number);
 	};
 
+	// bikin function untuk on click dan di taro di card
+
 	return (
 		<>
 			<Card
@@ -34,6 +36,9 @@ export default function ProductCard({ product }) {
 				/>
 				<Card.Body>
 					<Card.Title className="text-truncate">{product?.name}</Card.Title>
+					<Card.Text className="text-truncate">
+						{product?.Shop.name}
+					</Card.Text>
 					<Card.Text className="text-truncate" style={{ color: "#c7c8c8" }}>
 						{product?.Category.name}
 					</Card.Text>
