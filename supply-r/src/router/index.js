@@ -1,5 +1,5 @@
 
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, redirect } from 'react-router-dom';
 import Layout from '../views/Layout.jsx';
 import LoginPage from '../views/LoginPage.jsx';
 import RegistrationBuyerPage from '../views/RegistrationBuyerPage.jsx';
@@ -23,14 +23,29 @@ const router = createBrowserRouter([
 	{
 		path: "/login",
 		element: <LoginPage />,
+		loader: () => {
+			if(localStorage.access_token) {
+				return redirect('/')
+			}
+		}
 	},
 	{
 		path: "/register-buyer",
 		element: <RegistrationBuyerPage />,
+		loader: () => {
+			if(localStorage.access_token) {
+				return redirect('/')
+			}
+		}
 	},
 	{
 		path: "/register-seller",
 		element: <RegistrationSellerPage />,
+		loader: () => {
+			if(localStorage.access_token) {
+				return redirect('/')
+			}
+		}
 	},
 	{
 		element: <Layout />,
@@ -42,10 +57,20 @@ const router = createBrowserRouter([
 			{
 				path: "/profile-buyer",
 				element: <ProfileBuyerPage />,
+				loader: () => {
+					if(!localStorage.access_token || localStorage.role !== 'buyer') {
+						return redirect('/')
+					}
+				}
 			},
 			{
 				path: "/profile-seller",
 				element: <ProfileSellerPage />,
+				loader: () => {
+					if(!localStorage.access_token || localStorage.role !== 'seller') {
+						return redirect('/')
+					}
+				}
 			},
 			{
 				path: "/product-detail/:id",
@@ -54,15 +79,30 @@ const router = createBrowserRouter([
 			{
 				path: "/cart",
 				element: <CartPage />,
+				loader: () => {
+					if(!localStorage.access_token || localStorage.role !== 'buyer') {
+						return redirect('/')
+					}
+				}
 			},
 			{
 				path: "/add-store",
 				element: <AddStoreSosmed />,
+				loader: () => {
+					if(!localStorage.access_token || localStorage.role !== 'seller') {
+						return redirect('/')
+					}
+				}
 			},
 		],
 	},
 	{
 		element: <LayoutCMS />,
+		loader: () => {
+			if(!localStorage.access_token || localStorage.role !== 'seller') {
+				return redirect('/')
+			}
+		},
 		children: [
 			{
 				path: "/profile-store",
