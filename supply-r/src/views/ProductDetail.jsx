@@ -14,7 +14,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductById, productSelectors } from "../features/productSlice";
 import { useEffect } from "react";
 import axios from "axios";
+import swal from "sweetalert";
 import { Grid } from "react-loader-spinner";
+
 
 export default function ProductDetail() {
   const location = useLocation();
@@ -26,27 +28,33 @@ export default function ProductDetail() {
   );
   const [shopId, setShopId] = useState(location.state.product.ShopId);
 
-  const [orderlists, setOrderLists] = useState([
-    {
-      ProductId: id,
-      quantity: 1,
-      totalPrice: location.state.product.price,
-    },
-  ]);
-  const orders = async () => {
-    const { data } = await axios({
-      method: "POST",
-      url: `http://localhost:3001/orders/products`,
-      data: { orderlists },
-      headers: {
-        access_token: localStorage.getItem("access_token"),
-      },
-    });
-    navigate(`/cart`);
-  };
-  useEffect(() => {
-    dispatch(getProductById(id));
-  }, [dispatch]);
+
+	const [orderlists, setOrderLists] = useState([
+		{
+			ProductId: id,
+			quantity: 1,
+			totalPrice: location.state.product.price,
+		},
+	]);
+	const orders = async () => {
+		const { data } = await axios({
+			method: "POST",
+			url: `http://localhost:3001/orders/products`,
+			data: { orderlists },
+			headers: {
+				access_token: localStorage.getItem("access_token"),
+			},
+		});
+		swal("Congratulations!", "Success add product to cart!", "success", {
+			buttons: false,
+			timer: 3000,
+		});
+		navigate(`/cart`);
+	};
+	useEffect(() => {
+		dispatch(getProductById(id));
+	}, [dispatch]);
+
 
   const rupiah = (number) => {
     return new Intl.NumberFormat("id-ID", {

@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function AddStoreModal({ formSeller, handleSubmit }) {
 	const navigate = useNavigate();
@@ -41,6 +42,10 @@ export default function AddStoreModal({ formSeller, handleSubmit }) {
 				method: "POST",
 				url: "http://localhost:3001/sellers/register",
 				data: { formSeller, formShop },
+			});
+			swal("Congratulations!", "Registered Successfully!", "success", {
+				buttons: false,
+				timer: 3000,
 			});
 			navigate("/login");
 		} catch (error) {

@@ -24,6 +24,7 @@ import {
 } from "mdb-react-ui-kit";
 import logo from "../asset/logo-supply-r.png";
 import socket from "../stores/socket";
+import swal from "sweetalert";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
@@ -50,36 +51,51 @@ export default function LoginPage() {
 			localStorage.setItem("access_token", data.access_token);
 			localStorage.setItem("id", data.id);
 			localStorage.setItem("role", data.role);
-      localStorage.setItem('sellerId', data.sellerId);
+			localStorage.setItem("sellerId", data.sellerId);
 			localStorage.setItem("name", data.name);
-      
-			socket.emit('userConnect', {socketId: socket.id, id: +data.id, role: data.role });
-      
+
+			socket.emit("userConnect", {
+				socketId: socket.id,
+				id: +data.id,
+				role: data.role,
+			});
+			swal("Congratulations!", "Login Successfully!", "success", {
+				buttons: false,
+				timer: 3000,
+			});
 			navigate("/");
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-  const handleSubmitBuyer = async (event) => {
-    try {
-      event.preventDefault();
-      const { data } = await axios({
-        method: 'POST',
-        url: 'http://localhost:3001/buyers/login',
-        data: formLogin,
-      });
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('id', data.id);
-      localStorage.setItem('role', data.role);
-      localStorage.setItem('name', data.name);
-      socket.emit('userConnect', {socketId: socket.id, role: data.role, id: +data.id});
-      navigate('/');
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  
+	const handleSubmitBuyer = async (event) => {
+		try {
+			event.preventDefault();
+			const { data } = await axios({
+				method: "POST",
+				url: "http://localhost:3001/buyers/login",
+				data: formLogin,
+			});
+			localStorage.setItem("access_token", data.access_token);
+			localStorage.setItem("id", data.id);
+			localStorage.setItem("role", data.role);
+			localStorage.setItem("name", data.name);
+			socket.emit("userConnect", {
+				socketId: socket.id,
+				role: data.role,
+				id: +data.id,
+			});
+			swal("Congratulations!", "Login Successfully!", "success", {
+				buttons: false,
+				timer: 3000,
+			});
+			navigate("/");
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	const login = async (provider) => {
 		try {
 			let baseUrl = "";
@@ -99,8 +115,8 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			console.log(data)
-			if(data.shopId){
+			console.log(data);
+			if (data.shopId) {
 				localStorage.setItem("access_token", data.access_token);
 				localStorage.setItem("sellerId", data.sellerId);
 				localStorage.setItem("role", data.role);

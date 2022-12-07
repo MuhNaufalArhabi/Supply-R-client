@@ -9,6 +9,7 @@ import { getOrders, orderSelectors } from "../features/orderSlice";
 import axios from "axios";
 import CounterInput from "react-counter-input";
 import update from "immutability-helper";
+import swal from "sweetalert";
 
 export default function CartPage() {
 	const navigate = useNavigate();
@@ -74,15 +75,42 @@ export default function CartPage() {
 			},
 		});
 	};
+	// const delOrderProducts = async (OrderProductId) => {
+	// 	try {
+	// 		const { data } = await axios({
+	// 			method: "delete",
+	// 			url: `http://localhost:3001/orders/products/${OrderProductId}`,
+	// 			headers: { access_token: localStorage.access_token },
+	// 		});
+	// 		dispatch(getOrders());
+	// 		console.log(data);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 	const delOrderProducts = async (OrderProductId) => {
 		try {
-			const { data } = await axios({
-				method: "delete",
-				url: `http://localhost:3001/orders/products/${OrderProductId}`,
-				headers: { access_token: localStorage.access_token },
+			await swal({
+				title: "Are you sure?",
+				text: "You want to remove this product?",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			}).then((willDelete) => {
+				if (willDelete) {
+					axios({
+						method: "delete",
+						url: `http://localhost:3001/orders/products/${OrderProductId}`,
+						headers: { access_token: localStorage.access_token },
+					});
+					dispatch(getOrders());
+					swal("Product removed!", {
+						icon: "success",
+					});
+				} else {
+					swal("The product is still in your cart!");
+				}
 			});
-			dispatch(getOrders());
-			console.log(data);
 		} catch (error) {
 			console.log(error);
 		}

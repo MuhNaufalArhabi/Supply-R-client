@@ -2,8 +2,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from "react";
-import { editBuyer, buyerSelectors, getAllBuyers } from "../features/buyerSlice";
+import {
+	editBuyer,
+	buyerSelectors,
+	getAllBuyers,
+} from "../features/buyerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import swal from "sweetalert";
 
 export default function EditProfileBuyerModal(props) {
 	const dispatch = useDispatch();
@@ -26,14 +31,14 @@ export default function EditProfileBuyerModal(props) {
 		newForm[name] = value;
 		setFormBuyer(newForm);
 	};
-	const buyer = useSelector((state)=> buyerSelectors.selectById(state, id))
+	const buyer = useSelector((state) => buyerSelectors.selectById(state, id));
 
-	useEffect (() => {
+	useEffect(() => {
 		dispatch(getAllBuyers());
 	}, [dispatch]);
 
 	useEffect(() => {
-		if(buyer) {
+		if (buyer) {
 			setFormBuyer({
 				name: buyer.name,
 				email: buyer.email,
@@ -42,10 +47,10 @@ export default function EditProfileBuyerModal(props) {
 				address: buyer.address,
 				industry: buyer.industry,
 				website: buyer.website,
-			})
+			});
 		}
 	}, [buyer]);
-	
+
 	const handleClose = () => {
 		setShow(false);
 	};
@@ -58,8 +63,12 @@ export default function EditProfileBuyerModal(props) {
 
 	const successEditBuyerProfile = async (e) => {
 		e.preventDefault();
-	 	dispatch(editBuyer(formBuyer));
+		dispatch(editBuyer(formBuyer));
 		dispatch(getAllBuyers());
+		swal("Congratulations!", "Success edit Company Profile!", "success", {
+			buttons: false,
+			timer: 3000,
+		});
 		setShow(false);
 	};
 	return (
