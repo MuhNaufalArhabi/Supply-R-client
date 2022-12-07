@@ -18,7 +18,7 @@ export default function CartPage() {
   let [changed_order, setChanged_order] = useState(null);
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch]);
+  }, [dispatch, orders[0]?.id]);
   useEffect(() => {
     // console.log("orders dari use Effect", orders);
     if (orders.length > 0) {
@@ -33,7 +33,7 @@ export default function CartPage() {
       });
     }
   }, [orders]);
-  console.log(orders[0])
+  console.log(orders[0]);
   const getToken = async () => {
     console.log(localStorage.access_token);
     let totalPrice = 0;
@@ -49,17 +49,14 @@ export default function CartPage() {
       headers: { access_token: localStorage.access_token },
       data: { orders: changed_order },
     });
-    // const { data } = await axios({
-    //   method: "post",
-    //   url: "http://localhost:3001/orders/testMid",
-    //   headers: { access_token: localStorage.access_token },
-    // });
+
     console.log(data.transaction.token);
     window.snap.pay(data.transaction.token, {
       onSuccess: function (result) {
         /* You may add your own implementation here */
         // alert("payment success!");
         console.log(result);
+        navigate("/profile-buyer");
       },
       onPending: function (result) {
         /* You may add your own implementation here */
@@ -94,7 +91,7 @@ export default function CartPage() {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
-      minimumFractionDigits: 0
+      minimumFractionDigits: 0,
     }).format(number);
   };
   const countHandler = (count, idxProduct) => {
