@@ -9,54 +9,52 @@ import {
 } from "react-bootstrap";
 import ChatRoom from "../components/ChatRoom";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductById, productSelectors } from "../features/productSlice";
 import { useEffect } from "react";
 import axios from "axios";
 
 export default function ProductDetail() {
-	const navigate = useNavigate();
-	const { id } = useParams();
-	const dispatch = useDispatch();
-	const product = useSelector((state) =>
-		productSelectors.selectById(state, id)
-	);
-	const [shopId, setShopId] = useState(product?.ShopId);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const product = useSelector((state) => productSelectors.selectById(state, id));
+  const [shopId, setShopId] = useState(location.state.product.ShopId);
 
-	const [orderlists, setOrderLists] = useState([
-		{
-			ProductId: id,
-			quantity: 1,
-			totalPrice: 0,
-		},
-	]);
-	const orders = async () => {
-		const { data } = await axios({
-			method: "POST",
-			url: `http://localhost:3001/orders/products`,
-			data: { orderlists },
-			headers: {
-				access_token: localStorage.getItem("access_token"),
-			},
-		});
-		navigate(`/cart`);
-	};
-	useEffect(() => {
-		dispatch(getProductById(id));
-	}, [dispatch]);
+  const [orderlists, setOrderLists] = useState([
+    {
+      ProductId: id,
+      quantity: 1,
+      totalPrice: 0,
+    },
+  ]);
+  const orders = async () => {
+    const { data } = await axios({
+      method: "POST",
+      url: `http://localhost:3001/orders/products`,
+      data: { orderlists },
+      headers: {
+        access_token: localStorage.getItem("access_token"),
+      },
+    });
+    navigate(`/cart`);
+  };  
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch]);
 
-	const rupiah = (number) => {
-		return new Intl.NumberFormat("id-ID", {
-			style: "currency",
-			currency: "IDR",
-		}).format(number);
-	};
+  const rupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
 
-	const navigateOrder = () => {
-		navigate("/order");
-	};
-
+  const navigateOrder = () => {
+    navigate("/order");
+  };
 	return (
 		<>
 			<Container fluid style={{ padding: "4%" }}>

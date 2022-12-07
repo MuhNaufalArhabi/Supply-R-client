@@ -210,6 +210,25 @@ export default function AddProductCMS(props) {
 										<div className="upload__image-wrapper">
 											<div>Upload Images</div>
 
+										<div>Upload Images</div>
+										<div
+											as="textarea"
+											rows={3}
+											placeholder="Choose a file or Drag it here"
+											className="upload-container"
+											// {...dragProps}
+											// onClick={onImageUpload}
+											style={{
+												marginTop: "10px",
+												backgroundColor: "white",
+												height: "155px",
+												borderStyle: "solid",
+												borderColor: "#d8dcdf",
+												borderWidth: "1.5px",
+												borderRadius: "5px",
+                        zIndex: "-10"
+											}}
+										>
 											<div
 												as="textarea"
 												rows={3}
@@ -252,6 +271,7 @@ export default function AddProductCMS(props) {
 																}}
 															>
 																<img
+
 																	src={
 																		product ? image.image : image["data_url"]
 																	}
