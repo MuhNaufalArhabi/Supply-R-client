@@ -10,7 +10,6 @@ import axios from "axios";
 import CounterInput from "react-counter-input";
 import update from "immutability-helper";
 
-
 export default function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,16 +28,34 @@ export default function CartPage() {
   useEffect(() => {
     dispatch(getOrders());
     console.log(orders[0]);
-    setChanged_order(orders[0]);
     console.log(changed_order);
   }, [dispatch]);
+  useEffect(() => {
+    console.log("orders dari use Effect", orders);
+    if (orders.length > 0) {
+      setChanged_order(orders[0]);
+    }
+  }, [orders]);
   const getToken = async () => {
     console.log(localStorage.access_token);
-    const { data } = await axios({
-      method: "post",
-      url: "http://localhost:3001/orders/testMid",
-      headers: { access_token: localStorage.access_token },
+    let totalPrice = 0;
+    changed_order.OrderProducts.forEach((el) => {
+      totalPrice += el.totalPrice;
     });
+    setChanged_order((prvState) => {
+      return update(prvState, { totalPrice: { $set: totalPrice } });
+    });
+    const { data } = await axios({
+      method: "put",
+      url: "http://localhost:3001/orders/products/bulk",
+      headers: { access_token: localStorage.access_token },
+      data: { orders: changed_order },
+    });
+    // const { data } = await axios({
+    //   method: "post",
+    //   url: "http://localhost:3001/orders/testMid",
+    //   headers: { access_token: localStorage.access_token },
+    // });
     console.log(data.transaction.token);
     window.snap.pay(data.transaction.token, {
       onSuccess: function (result) {
@@ -76,7 +93,6 @@ export default function CartPage() {
     }
   };
   const countHandler = (count, idxProduct) => {
-    
     setChanged_order((prevState) => {
       console.log(count);
       const arr = update(prevState.OrderProducts, {
@@ -85,21 +101,26 @@ export default function CartPage() {
             $set: count,
           },
           totalPrice: {
-            $set: prevState.OrderProducts[idxProduct].Product.price * (count),
+            $set: prevState.OrderProducts[idxProduct].Product.price * count,
           },
         },
       });
       console.log(arr);
+      let totalPrice = 0;
+      changed_order.OrderProducts.forEach((el) => {
+        totalPrice += el.totalPrice;
+      });
 
       return update(prevState, {
         OrderProducts: { $set: arr },
+        totalPrice: { $set: totalPrice },
       });
     });
 
     // setChanged_order(tmp);
 
-    console.log(changed_order);
   };
+    console.log(changed_order);
   return (
     <>
       <Container>
@@ -145,7 +166,11 @@ export default function CartPage() {
                           <CounterInput
                             min={1}
                             max={order.Product.stock}
-                            count={1}
+                            count={
+                              changed_order
+                                ? order.quantity
+                                : orders[0].OrderProducts[index].quantity
+                            }
                             onCountChange={(count) =>
                               countHandler(count, index - 1)
                             }
@@ -164,6 +189,10 @@ export default function CartPage() {
                   })}
                 </tbody>
               </Table>
+              <Row className="align-middle text-center">
+                <h5>Total Payment</h5>
+                <h4>Rp {changed_order ? changed_order.totalPrice : 0}</h4>
+              </Row>
             </div>
             <Button
               style={{
