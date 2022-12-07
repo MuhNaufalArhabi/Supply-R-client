@@ -1,18 +1,18 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
+import OrderListSeller from "../components/OrderListSeller";
 import EditProfileSellerModal from "../components/EditProfileSellerModal.jsx";
 import { getSellerById, sellerSelectors } from "../features/sellerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 export default function ProfileSellerPage() {
-  const dispatch = useDispatch();
-  const id = localStorage.getItem("sellerId");
-  const seller = useSelector((state) => sellerSelectors.selectById(state, id));
-  useEffect(() => {
-    dispatch(getSellerById(id));
-  }, []);
+	const dispatch = useDispatch();
+	const id = localStorage.getItem("sellerId");
+	const seller = useSelector((state) => sellerSelectors.selectById(state, id));
+	useEffect(() => {
+		dispatch(getSellerById(id));
+	}, []);
 
 	return (
 		<>
@@ -25,13 +25,13 @@ export default function ProfileSellerPage() {
 								<Card.Body>
 									<Card.Text>
 										<h5 style={{ color: "#204e64" }}>Username: </h5>
-										<h6>{seller?.username}bambang</h6>
+										<h6>{seller?.username}</h6>
 										<h5 style={{ color: "#204e64" }}>Email: </h5>
-										<h6>{seller?.email}bambang2</h6>
+										<h6>{seller?.email}</h6>
 										<h5 style={{ color: "#204e64" }}>Phone Number: </h5>
-										<h6>{seller?.phoneNumber}123</h6>
+										<h6>{seller?.phoneNumber}</h6>
 										<h5 style={{ color: "#204e64" }}>KTP: </h5>
-										<h6>{seller?.ktp}123456</h6>
+										<h6>{seller?.ktp}</h6>
 									</Card.Text>
 
 									<EditProfileSellerModal />
@@ -48,7 +48,7 @@ export default function ProfileSellerPage() {
 							>
 								<tr style={{ color: "white", backgroundColor: "#204e64" }}>
 									<th>Order ID</th>
-									<th>Name</th>
+									<th>Product Name</th>
 									<th>Quantity</th>
 									<th>Price</th>
 									<th>Total Price</th>
@@ -58,8 +58,8 @@ export default function ProfileSellerPage() {
 								</tr>
 							</thead>
 							<tbody>
-								<TransactionCashRowCMS />
-								<TransactionCashRowCMS />
+								<OrderListSeller />
+								<OrderListSeller />
 							</tbody>
 						</Table>
 					</Col>
