@@ -185,102 +185,99 @@ export default function AddProductCMS(props) {
                             <li>Selected file extention is not .jpeg .jpg .png</li>
                           )}
                           {errors.maxFileSize && (
-                            <li>Selected file size has exceed 5GB</li>
+                            <li>Selected file size has exceed 5MB</li>
                           )}
                         </ul>
                       </Alert>
                     )}
 
                     <div className="upload__image-wrapper">
-
-										<div>Upload Images</div>
-										<div
-											as="textarea"
-											rows={3}
-											placeholder="Choose a file or Drag it here"
-											className="upload-container"
-											// {...dragProps}
-											// onClick={onImageUpload}
-											style={{
-												marginTop: "10px",
-												backgroundColor: "white",
-												height: "155px",
-												borderStyle: "solid",
-												borderColor: "#d8dcdf",
-												borderWidth: "1.5px",
-												borderRadius: "5px",
-											}}
-										>
-											<div
-												as="textarea"
-												rows={3}
-												data-placeholder=""
-												id="upload"
-												placeholder="Choose a file or Drag it here"
-												className="upload-container"
-												{...dragProps}
-												onClick={onImageUpload}
-												style={{
-													display: "flex",
-													justifyContent: "center",
-													alignItems: "center",
-													zIndex: "1",
-													height: "100%",
-													color: "grey",
-													// backgroundColor: "red",
-												}}
-											>
-												{images.length === 0 ? (
-													<p>Choose a file or Drag it here</p>
-												) : (
-													<div
-														className="p-2"
-														style={{
-															textAlign: "center",
-															zIndex: "-1",
-														}}
-													>
-														{imageList.map((image, index) => (
-															<div
-																key={index}
-																className="image-item  "
-																style={{
-																	height: "100px",
-																	marginRight: "10px",
-																	display: "inline-block",
-																}}
-															>
-																<img
-																	src={product? image.image: image["data_url"]}
-																	alt=""
-																	style={{ height: "100px" }}
-																/>
-																<div className="image-item__btn-wrapper mt-1">
-																	<ButtonGroup
-																		size="sm"
-																		style={{ width: "100%" }}
-																	>
-																		  {product ? '': <Button
-                                    style={{
-                                      backgroundColor: "#e23500",
-                                      borderColor: "#e23500",
-                                      color: "white",
-                                      zIndex: "10",
-                                    }}
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      onImageRemove(index);
-                                    }}>
-                                    Remove
-                                  </Button>}
-																	</ButtonGroup>
-																</div>
-															</div>
-														))}
-													</div>
-												)}
-											</div>
-										
+                      <div>Upload Images</div>
+                      <div
+                        as="textarea"
+                        rows={3}
+                        placeholder="Choose a file or Drag it here"
+                        className="upload-container"
+                        // {...dragProps}
+                        // onClick={onImageUpload}
+                        style={{
+                          marginTop: "10px",
+                          backgroundColor: "white",
+                          height: "155px",
+                          borderStyle: "solid",
+                          borderColor: "#d8dcdf",
+                          borderWidth: "1.5px",
+                          borderRadius: "5px",
+                          zIndex: "-10",
+                        }}>
+                        <div
+                          as="textarea"
+                          rows={3}
+                          className="upload-container"
+                          {...dragProps}
+                          onClick={onImageUpload}
+                          style={{
+                            marginTop: "10px",
+                            borderStyle: "solid",
+                            borderColor: "#d8dcdf",
+                            borderWidth: "1.5px",
+                            borderRadius: "5px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width: "100%",
+                            height: "155px",
+                            color: "grey",
+                            // backgroundColor: "red",
+                          }}>
+                          {images.length === 0 ? (
+                            <p>Choose a file or Drag it here</p>
+                          ) : (
+                            <div
+                              className="p-2"
+                              style={{
+                                textAlign: "center",
+                                zIndex: "1",
+                              }}>
+                              {imageList.map((image, index) => (
+                                <div
+                                  key={index}
+                                  className="image-item  "
+                                  style={{
+                                    height: "100px",
+                                    marginRight: "10px",
+                                    display: "inline-block",
+                                  }}>
+                                  <img
+                                    src={product ? image.image : image["data_url"]}
+                                    alt="gambar product"
+                                    style={{ height: "100px" }}
+                                  />
+                                  <div className="image-item__btn-wrapper mt-1">
+                                    <ButtonGroup size="sm" style={{ width: "100%" }}>
+                                      {product ? (
+                                        ""
+                                      ) : (
+                                        <Button
+                                          style={{
+                                            backgroundColor: "#e23500",
+                                            borderColor: "#e23500",
+                                            color: "white",
+                                          }}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            onImageRemove(index);
+                                          }}>
+                                          Remove
+                                        </Button>
+                                      )}
+                                    </ButtonGroup>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </>

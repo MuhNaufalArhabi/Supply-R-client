@@ -1,14 +1,13 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ChatBody = ({ messages, lastMessageRef, name }) => {
   const navigate = useNavigate();
 
-  
   return (
     <>
       <header className="chat__mainHeader">
-      <h4>Direct Message</h4>
+        <h4>Direct Message</h4>
       </header>
 
       <div className="message__container">

@@ -1,6 +1,6 @@
 import { Container, Col, Row, Card } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
+import PurchaseHistoryBuyer from "../components/PurchaseHistoryBuyer";
 import EditProfileBuyerModal from "../components/EditProfileBuyerModal";
 import { getBuyersById, buyerSelectors } from "../features/buyerSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,19 +25,19 @@ export default function ProfileBuyerPage() {
 								<Card.Body>
 									<Card.Text>
 										<h5 style={{ color: "#204e64" }}>Name:</h5>
-										<h6>{buyer?.name}tiara</h6>
+										<h6>{buyer?.name}</h6>
 										<h5 style={{ color: "#204e64" }}>Owner Name: </h5>
-										<h6>{buyer?.owner}tiara2</h6>
+										<h6>{buyer?.owner}</h6>
 										<h5 style={{ color: "#204e64" }}>Phone Number: </h5>
-										<h6>{buyer?.phoneNumber}123</h6>
+										<h6>{buyer?.phoneNumber}</h6>
 										<h5 style={{ color: "#204e64" }}>Email Address: </h5>
-										<h6>{buyer?.email}tiara3</h6>
+										<h6>{buyer?.email}</h6>
 										<h5 style={{ color: "#204e64" }}>Address: </h5>
-										<h6>{buyer?.address}jakarta</h6>
+										<h6>{buyer?.address}</h6>
 										<h5 style={{ color: "#204e64" }}>Industry: </h5>
-										<h6>{buyer?.industry}elektronik</h6>
+										<h6>{buyer?.industry}</h6>
 										<h5 style={{ color: "#204e64" }}>Website: </h5>
-										<h6>{buyer?.website}tiara4</h6>
+										<h6>{buyer?.website}</h6>
 									</Card.Text>
 
 									<EditProfileBuyerModal />
@@ -54,18 +54,19 @@ export default function ProfileBuyerPage() {
 							>
 								<tr style={{ color: "white", backgroundColor: "#204e64" }}>
 									<th>Order ID</th>
-									<th>Name</th>
+									<th>Product Name</th>
 									<th>Quantity</th>
 									<th>Price</th>
 									<th>Total Price</th>
-									<th>Order Date</th>
-									<th>Customer</th>
+									<th>Purchase Date</th>
+									<th>Store</th>
 									<th>Payment Method</th>
 								</tr>
 							</thead>
 							<tbody>
-								<TransactionCashRowCMS />
-								<TransactionCashRowCMS />
+								{/* <TransactionCashRowCMS />
+								<TransactionCashRowCMS /> */}
+
 							</tbody>
 						</Table>
 					</Col>

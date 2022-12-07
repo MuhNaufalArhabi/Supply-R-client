@@ -90,6 +90,13 @@ export default function CartPage() {
       console.log(error);
     }
   };
+  const rupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0
+    }).format(number);
+  };
   const countHandler = (count, idxProduct) => {
     setChanged_order((prevState) => {
       const arr = update(prevState.OrderProducts, {
@@ -153,7 +160,7 @@ export default function CartPage() {
                         </td>
                         <td>{order.Product.name}</td>
                         <td>{order.Product.Category.name}</td>
-                        <td>{order.Product.price}</td>
+                        <td>{rupiah(order.Product.price)}</td>
                         <td>
                           <CounterInput
                             min={1}
@@ -168,11 +175,7 @@ export default function CartPage() {
                             }
                           />
                         </td>
-                        <td>
-                          {order.totalPrice == 0
-                            ? order.Product.price
-                            : order.totalPrice}
-                        </td>
+                        <td>{rupiah(order.totalPrice)}</td>
                         <td>
                           <FontAwesomeIcon
                             icon={faTrash}
@@ -187,7 +190,7 @@ export default function CartPage() {
               </Table>
               <Row className="align-middle text-center">
                 <h5>Total Payment</h5>
-                <h4>Rp {changed_order ? changed_order.totalPrice : 0}</h4>
+                <h4>{changed_order ? rupiah(changed_order.totalPrice) : 0}</h4>
               </Row>
             </div>
             <Button

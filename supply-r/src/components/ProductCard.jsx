@@ -1,4 +1,3 @@
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Nav from "react-bootstrap/Nav";
 import { useNavigate } from "react-router-dom";
@@ -10,38 +9,48 @@ export default function ProductCard({ product }) {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",
 			currency: "IDR",
+			minimumFractionDigits: 0
 		}).format(number);
+	};
+
+	// bikin function untuk on click dan di taro di card
+	const navigateToProductDetail = () => {
+		navigate(`/product-detail/${product.id}`, { state: { product } });
 	};
 
 	return (
 		<>
 			<Card
 				style={{
-					width: "12rem",
-					marginLeft: "8px",
-					marginRight: "8px",
-					marginTop: "8px",
-					marginBottom: "8px",
+					width: "15rem",
+					margin: "5px",
+					padding: "0",
 				}}
 				className="shadow"
+				onClick={navigateToProductDetail}
 			>
-				<Card.Img variant="top" src={product?.mainImage} />
+				<Card.Img
+					variant="top"
+					className="img-fluid"
+					style={{
+						height: "200px",
+						width: "100%",
+						objectFit: "cover",
+					}}
+					src={product?.mainImage}
+				/>
 				<Card.Body>
-					<Card.Title>{product?.name}</Card.Title>
-					<Card.Text>{rupiah(product?.price)}</Card.Text>
-					<Card.Text>{product?.Shop.name}</Card.Text>
-					<Nav.Link
-						style={{
-							backgroundColor: "#204e64",
-							borderColor: "#204e64",
-							color: "white",
-						}}
-						onClick={() => {
-							navigate(`/product-detail/${product.id}`);
-						}}
-					>
-						Details
-					</Nav.Link>
+					<Card.Title className="text-truncate">{product?.name}</Card.Title>
+					
+					<Card.Text className="text-truncate" style={{ color: "#c7c8c8" }}>
+						{product?.Category.name}
+					</Card.Text>
+					<Card.Text style={{ fontSize: "24px" }}>
+						{rupiah(product?.price)}
+					</Card.Text>
+					<Card.Text className="text-truncate">
+						{product?.Shop.name}
+					</Card.Text>
 				</Card.Body>
 			</Card>
 		</>
