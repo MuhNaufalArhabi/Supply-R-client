@@ -16,6 +16,7 @@ import AddProductCMS from "../views/AddProductCMS.jsx";
 import ProfileStorePageCMS from "../views/ProfileStorePageCMS.jsx";
 import EditProfileStorePageCMS from "../views/EditProfileStorePageCMS.jsx";
 import AddStoreSosmed from "../views/AddStoreSosmed.jsx";
+import NotFoundPage from "../views/NotFoundPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -63,15 +64,6 @@ const router = createBrowserRouter([
 				}
 			},
 			{
-				path: "/profile-seller",
-				element: <ProfileSellerPage />,
-				loader: () => {
-					if(!localStorage.access_token || localStorage.role !== 'seller') {
-						return redirect('/')
-					}
-				}
-			},
-			{
 				path: "/product-detail/:id",
 				element: <ProductDetail />,
 			},
@@ -93,6 +85,10 @@ const router = createBrowserRouter([
 					}
 				}
 			},
+        {
+        path: "*",
+        element: <NotFoundPage />,
+      },
 		],
 	},
 	{
