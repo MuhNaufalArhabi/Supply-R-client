@@ -13,6 +13,7 @@ import { postProduct } from "../features/productSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import swal from "sweetalert";
 
 export default function AddProductCMS(props) {
 	const dispatch = useDispatch();
@@ -58,6 +59,10 @@ export default function AddProductCMS(props) {
 				formProduct,
 			};
 			await dispatch(postProduct(data));
+			swal("Congratulations!", "Success add product!", "success", {
+				buttons: false,
+				timer: 3000,
+			});
 		} else {
 			const { data } = await axios({
 				method: "put",
@@ -68,6 +73,10 @@ export default function AddProductCMS(props) {
 				data: formProduct,
 			});
 		}
+		swal("Congratulations!", "Success edit product!", "success", {
+			buttons: false,
+			timer: 3000,
+		});
 		navigate(`/product-list/${localStorage.id}`);
 	};
 	return (

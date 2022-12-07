@@ -11,6 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../asset/logo-supply-r.png";
+import swal from "sweetalert";
 
 export default function RegistrationBuyerPage() {
 	const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function RegistrationBuyerPage() {
 			[event.target.name]: event.target.value,
 		});
 	};
+
 	const handleSubmit = async (event) => {
 		try {
 			event.preventDefault();
@@ -38,6 +40,10 @@ export default function RegistrationBuyerPage() {
 				method: "POST",
 				url: "http://localhost:3001/buyers/register",
 				data: formBuyer,
+			});
+			swal("Congratulations!", "Registered Successfully!", "success", {
+				buttons: false,
+				timer: 3000,
 			});
 			navigate("/login");
 		} catch (err) {

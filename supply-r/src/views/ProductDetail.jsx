@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProductById, productSelectors } from "../features/productSlice";
 import { useEffect } from "react";
 import axios from "axios";
+import swal from "sweetalert";
 
 export default function ProductDetail() {
 	const location = useLocation();
@@ -40,6 +41,10 @@ export default function ProductDetail() {
 			headers: {
 				access_token: localStorage.getItem("access_token"),
 			},
+		});
+		swal("Congratulations!", "Success add product to cart!", "success", {
+			buttons: false,
+			timer: 3000,
 		});
 		navigate(`/cart`);
 	};
