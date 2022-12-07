@@ -5,7 +5,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function AddStoreModal({ formSeller, handleSubmit }) {
 	const navigate = useNavigate();
 	const [show, setShow] = useState(false);
@@ -40,7 +42,7 @@ export default function AddStoreModal({ formSeller, handleSubmit }) {
 			e.preventDefault();
 			const { data } = await axios({
 				method: "POST",
-				url: "http://localhost:3001/sellers/register",
+				url: `${baseUrl}/sellers/register`,
 				data: { formSeller, formShop },
 			});
 			swal("Congratulations!", "Registered Successfully!", "success", {

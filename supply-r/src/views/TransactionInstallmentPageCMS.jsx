@@ -5,6 +5,9 @@ import Table from "react-bootstrap/Table";
 import TransactionInstallmentRowCMS from "../components/TransactionInstallmentRowCMS";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function TransactionInstallmentPageCMS() {
 	const id = localStorage.id
 	const [installment, setInstallment] = useState([]);
@@ -12,7 +15,7 @@ export default function TransactionInstallmentPageCMS() {
 		try {
 			const {data} = await axios({
 				method: "GET",
-				url: `http://localhost:3001/shops/matriks-installment/${id}`,
+				url: `${baseUrl}/shops/matriks-installment/${id}`,
 				headers: {
 					access_token: localStorage.access_token,
 				},

@@ -8,8 +8,9 @@ import { getBuyersById, buyerSelectors } from "../features/buyerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-const url = "http://localhost:3001";
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 
 export default function ProfileBuyerPage() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function ProfileBuyerPage() {
   const fetchOrderHistory = async () => {
     const { data } = await axios({
       method: "get",
-      url: `${url}/orders/history`,
+      url: `${baseUrl}/orders/history`,
       headers: { access_token: localStorage.access_token },
     });
     console.log(data);

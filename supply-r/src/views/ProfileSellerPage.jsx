@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function ProfileSellerPage() {
 	const dispatch = useDispatch();
 	const [cash, setCash] = useState([]);
@@ -17,7 +19,7 @@ export default function ProfileSellerPage() {
 		try {
 			const { data } = await axios({
 				method: "GET",
-				url: `http://localhost:3001/shops/matriks-upfront/${id}`,
+				url: `${baseUrl}/shops/matriks-upfront/${id}`,
 				headers: {
 					access_token: localStorage.access_token,
 				},

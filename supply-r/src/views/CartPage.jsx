@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useLocation, useNavigate } from "react-router-dom";
-
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getOrders, orderSelectors } from "../features/orderSlice";
@@ -11,6 +10,9 @@ import axios from "axios";
 import CounterInput from "react-counter-input";
 import update from "immutability-helper";
 import swal from "sweetalert";
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 
 export default function CartPage() {
 	const navigate = useNavigate();
@@ -47,7 +49,7 @@ export default function CartPage() {
 		});
 		const { data } = await axios({
 			method: "put",
-			url: "http://localhost:3001/orders/products/bulk",
+			url: `${baseUrl}/orders/products/bulk`,
 			headers: { access_token: localStorage.access_token },
 			data: { orders: changed_order },
 		});
@@ -101,7 +103,7 @@ export default function CartPage() {
 				if (willDelete) {
 					axios({
 						method: "delete",
-						url: `http://localhost:3001/orders/products/${OrderProductId}`,
+						url: `${baseUrl}/orders/products/${OrderProductId}`,
 						headers: { access_token: localStorage.access_token },
 					});
 					dispatch(getOrders());

@@ -2,7 +2,9 @@ import { Container, Button, Form, Row } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 
 export default function AddStoreSosmed() {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ export default function AddStoreSosmed() {
       e.preventDefault();
       const { data } = await axios({
         method: "POST",
-        url: "http://localhost:3001/shops/add",
+        url: `${baseUrl}/shops/add`,
         headers: {
           access_token: localStorage.access_token,
         },

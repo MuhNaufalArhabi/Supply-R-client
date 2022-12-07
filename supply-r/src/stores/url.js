@@ -1,0 +1,1 @@
+export const url = `https://supply-r-server.up.railway.app`

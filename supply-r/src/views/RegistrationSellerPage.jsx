@@ -4,7 +4,9 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import AddStoreModal from "../components/AddStoreModal.jsx";
 import logo from "../asset/logo-supply-r.png";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function RegistrationSellerPage() {
 	const navigate = useNavigate();
 	const [formSeller, setFormSeller] = useState({
@@ -24,7 +26,7 @@ export default function RegistrationSellerPage() {
 		event.preventDefault();
 		await axios({
 			method: "POST",
-			url: "http://localhost:3001/sellers/register",
+			url: `${baseUrl}/sellers/register`,
 			data: formSeller,
 		});
 		navigate("/login");

@@ -5,6 +5,9 @@ import Table from "react-bootstrap/Table";
 import TransactionCashRowCMS from "../components/TransactionCashRowCMS";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function TransactionCashPageCMS() {
 	const id = localStorage.id;
 	const [cash, setCash] = useState([]);
@@ -12,7 +15,7 @@ export default function TransactionCashPageCMS() {
 		try {
 			const { data } = await axios({
 				method: "GET",
-				url: `http://localhost:3001/shops/matriks-upfront/${id}`,
+				url: `${baseUrl}/shops/matriks-upfront/${id}`,
 				headers: {
 					access_token: localStorage.access_token,
 				},

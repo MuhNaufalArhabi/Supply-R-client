@@ -14,7 +14,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function AddProductCMS(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -66,7 +68,7 @@ export default function AddProductCMS(props) {
 		} else {
 			const { data } = await axios({
 				method: "put",
-				url: `http://localhost:3001/products/${product.id}`,
+				url: `${baseUrl}/${product.id}`,
 				headers: {
 					access_token: localStorage.access_token,
 				},

@@ -5,8 +5,9 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 import FormData from "form-data";
-
-const baseUrl = "http://localhost:3001";
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export const getProducts = createAsyncThunk(
 	"products/getProducts",
 	async () => {

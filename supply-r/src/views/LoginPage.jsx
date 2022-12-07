@@ -25,7 +25,9 @@ import {
 import logo from "../asset/logo-supply-r.png";
 import socket from "../stores/socket";
 import swal from "sweetalert";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function LoginPage() {
 	const navigate = useNavigate();
 	const [formLogin, setFormLogin] = useState({
@@ -44,7 +46,7 @@ export default function LoginPage() {
 			event.preventDefault();
 			const { data } = await axios({
 				method: "POST",
-				url: "http://localhost:3001/sellers/login",
+				url: `${baseUrl}/sellers/login`,
 				data: formLogin,
 			});
 
@@ -74,7 +76,7 @@ export default function LoginPage() {
 			event.preventDefault();
 			const { data } = await axios({
 				method: "POST",
-				url: "http://localhost:3001/buyers/login",
+				url: `${baseUrl}/buyers/login`,
 				data: formLogin,
 			});
 			localStorage.setItem("access_token", data.access_token);
@@ -101,11 +103,11 @@ export default function LoginPage() {
 			let baseUrl = "";
 			const { user } = await signInWithPopup(auth, provider);
 			if (provider === google) {
-				baseUrl = "http://localhost:3001/sellers/google-login";
+				baseUrl = `${baseUrl}/sellers/google-login`;
 			} else if (provider === facebook) {
-				baseUrl = "http://localhost:3001/sellers/facebook-login";
+				baseUrl = `${baseUrl}/sellers/facebook-login`;
 			} else if (provider === twitter) {
-				baseUrl = "http://localhost:3001/sellers/twitter-login";
+				baseUrl = `${baseUrl}/sellers/twitter-login`;
 			}
 			const { data } = await axios({
 				method: "POST",

@@ -12,7 +12,9 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../asset/logo-supply-r.png";
 import swal from "sweetalert";
-
+import { url } from "../stores/url";
+// const baseUrl = "${baseUrl}";
+const baseUrl = url
 export default function RegistrationBuyerPage() {
 	const navigate = useNavigate();
 	const [formBuyer, setFormBuyer] = useState({
@@ -38,7 +40,7 @@ export default function RegistrationBuyerPage() {
 			event.preventDefault();
 			await axios({
 				method: "POST",
-				url: "http://localhost:3001/buyers/register",
+				url: `${baseUrl}/buyers/register`,
 				data: formBuyer,
 			});
 			swal("Congratulations!", "Registered Successfully!", "success", {
