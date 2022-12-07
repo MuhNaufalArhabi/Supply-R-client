@@ -15,27 +15,25 @@ export default function CartPage() {
   const dispatch = useDispatch();
   // const [id, setId] = useState(0)
   const orders = useSelector(orderSelectors.selectAll);
-  let [changed_order, setChanged_order] = useState(
-    //   {
-    //   BuyerId: orders ? orders.BuyerId : null,
-    //   isPaid: orders ? orders.isPaid : null,
-    //   paymentMethod: orders ? orders.paymentMethod : null,
-    //   totalPrice: orders ? orders.totalPrice : null,
-    //   OrderProducts: orders ? orders.OrderProducts : null,
-    // }
-    null
-  );
+  let [changed_order, setChanged_order] = useState(null);
   useEffect(() => {
     dispatch(getOrders());
-    console.log(orders[0]);
-    console.log(changed_order);
   }, [dispatch]);
   useEffect(() => {
-    console.log("orders dari use Effect", orders);
+    // console.log("orders dari use Effect", orders);
     if (orders.length > 0) {
       setChanged_order(orders[0]);
+
+      setChanged_order(() => {
+        let tp = 0;
+        orders[0].OrderProducts.forEach((el) => {
+          tp += el.totalPrice;
+        });
+        return update(orders[0], { totalPrice: { $set: tp } });
+      });
     }
   }, [orders]);
+  console.log(orders[0])
   const getToken = async () => {
     console.log(localStorage.access_token);
     let totalPrice = 0;
@@ -101,7 +99,6 @@ export default function CartPage() {
   };
   const countHandler = (count, idxProduct) => {
     setChanged_order((prevState) => {
-      console.log(count);
       const arr = update(prevState.OrderProducts, {
         [idxProduct]: {
           quantity: {
@@ -112,7 +109,6 @@ export default function CartPage() {
           },
         },
       });
-      console.log(arr);
       let totalPrice = 0;
       changed_order.OrderProducts.forEach((el) => {
         totalPrice += el.totalPrice;
@@ -123,11 +119,7 @@ export default function CartPage() {
         totalPrice: { $set: totalPrice },
       });
     });
-
-    // setChanged_order(tmp);
-
   };
-    console.log(changed_order);
   return (
     <>
       <Container>
@@ -183,7 +175,13 @@ export default function CartPage() {
                             }
                           />
                         </td>
-                        <td>{rupiah(order.totalPrice)}</td>
+
+                        <td>
+                          {order.totalPrice == 0
+                            ? rupiah(order.Product.price)
+                            : rupiah(order.totalPrice)}
+                        </td>
+
                         <td>
                           <FontAwesomeIcon
                             icon={faTrash}
