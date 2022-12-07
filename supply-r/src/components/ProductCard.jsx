@@ -22,9 +22,10 @@ export default function ProductCard({ product }) {
 		<>
 			<Card
 				style={{
-					width: "15rem",
-					margin: "5px",
+					width: "16rem",
+					margin: "3px",
 					padding: "0",
+					cursor: "pointer",
 				}}
 				className="shadow"
 				onClick={navigateToProductDetail}
