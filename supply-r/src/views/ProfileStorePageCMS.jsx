@@ -11,6 +11,7 @@ export default function ProfileStorePageCMS() {
 	const store = useSelector((state) => storeSelectors.selectById(state, id));
 	useEffect(() => {
 		dispatch(getStoreById(id));
+		
 	}, [dispatch]);
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {
@@ -58,7 +59,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Number of Products
+									Products
 								</Card.Header>
 								<Row
 									style={{
@@ -69,7 +70,7 @@ export default function ProfileStorePageCMS() {
 										color: "#2596be",
 									}}
 								>
-									{store?.Products.length}
+									{store?.Products ? store?.Products.length : 0}
 								</Row>
 							</Card>
 						</Col>
@@ -82,7 +83,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Number of Cash Transaction
+									Upfront Transactions
 								</Card.Header>
 								<Row
 									style={{
@@ -106,7 +107,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Number of Installment Transaction
+									Installment Transactions
 								</Card.Header>
 								<Row
 									style={{

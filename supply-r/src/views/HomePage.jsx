@@ -48,6 +48,8 @@ export default function HomePage() {
 		// dispatch(getProducts());
 		getPagination(null,currentPage);
 	}, [currentPage]);
+
+
 	return (
 		<>
 			<Container>
@@ -80,7 +82,7 @@ export default function HomePage() {
 					</Col>
 				</Row>
 			</Container>
-      <Outlet context={{getPagination, currentPage}}/>
+  
 		</>
 	);
 }

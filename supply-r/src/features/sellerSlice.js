@@ -14,7 +14,6 @@ export const getSellerById = createAsyncThunk("sellers/getSellerById", async (id
       access_token: localStorage.access_token,
     },
   });
-  console.log(data)
   return data;
 }
 );

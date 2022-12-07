@@ -7,41 +7,34 @@ import ChatRoom from "./ChatRoom";
 import { auth } from "../stores/firebase";
 import { signOut } from "firebase/auth";
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
 
 export default function NavBar({ socket }) {
-  const navigate = useNavigate();
-  const [modalShow, setModalShow] = useState(false);
-  const [search, setSearch] = useState("");
+	const navigate = useNavigate();
+	const [modalShow, setModalShow] = useState(false);
+	const handleLogin = () => {
+		navigate("/login");
+	};
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-  const handleLogin = () => {
-    navigate("/login");
-  };
+	const handleChat = () => {
+		socket.emit("newRooms", { role: localStorage.role, id: localStorage.id });
+	};
 
-  const handleChat = () => {
-    socket.emit("newRooms", { role: localStorage.role, id: localStorage.id });
-  };
+	const handleLogout = () => {
+		localStorage.clear();
+		signOut(auth);
+		navigate("/login");
+	};
 
-  const handleLogout = () => {
-    localStorage.clear();
-    signOut(auth);
-    navigate("/login");
-  };
 
   const handleBuyerProfile = () => {
     navigate("/profile-buyer");
   };
 
-  const handleSellerProfile = () => {
-    navigate("/profile-seller");
-  };
 
-  const handleSellerStore = () => {
-    navigate("/profile-store");
-  };
+	const handleSellerStore = () => {
+		navigate("/profile-store");
+	};
+
 
   return (
     <>
@@ -129,29 +122,33 @@ export default function NavBar({ socket }) {
                     Company Profile
                   </Button>
 
-                  <Button
-                    style={{
-                      backgroundColor: "#204e64",
-                      borderColor: "#204e64",
-                      color: "white",
-                    }}>
-                    <Link to="/" className="nav-link" onClick={handleLogout}>
-                      Logout
-                    </Link>
-                  </Button>
-                </div>
-              ) : (
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    width: "50%",
-                    alignItems: "center",
-                    justifyContent: "end",
-                    gap: "15px",
-                    color: "#204e64",
-                  }}>
-                  <ChatRoom socket={socket} />
+
+									<Button
+										style={{
+											backgroundColor: "#204e64",
+											borderColor: "#204e64",
+											color: "white",
+										}}
+									>
+										<Link to="/" className="nav-link" onClick={handleLogout}>
+											Logout
+										</Link>
+									</Button>
+								</div>
+							) : (
+								<div
+									style={{
+										display: "flex",
+										flexDirection: "row",
+										width: "30%",
+										alignItems: "center",
+										justifyContent: "end",
+										gap: "15px",
+										color: "#204e64",
+									}}
+								>
+									<ChatRoom socket={socket} />
+
 
                   <Button
                     style={{
@@ -163,32 +160,23 @@ export default function NavBar({ socket }) {
                     UMKM Store
                   </Button>
 
-                  <Button
-                    style={{
-                      backgroundColor: "#204e64",
-                      borderColor: "#204e64",
-                      color: "white",
-                    }}
-                    onClick={handleSellerProfile}>
-                    UMKM Profile
-                  </Button>
-
-                  <Button
-                    style={{
-                      backgroundColor: "#204e64",
-                      borderColor: "#204e64",
-                      color: "white",
-                    }}>
-                    <Link to="/" className="nav-link" onClick={handleLogout}>
-                      Logout
-                    </Link>
-                  </Button>
-                </div>
-              )}
-            </Col>
-          </Row>
-        </Container>
-      </Navbar>
-    </>
-  );
+									<Button
+										style={{
+											backgroundColor: "#204e64",
+											borderColor: "#204e64",
+											color: "white",
+										}}
+									>
+										<Link to="/" className="nav-link" onClick={handleLogout}>
+											Logout
+										</Link>
+									</Button>
+								</div>
+							)}
+						</Col>
+					</Row>
+				</Container>
+			</Navbar>
+		</>
+	);
 }
