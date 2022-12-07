@@ -3,10 +3,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {getAllStore, editStore, storeSelectors} from "../features/storeSlice";
+import { getAllStore, editStore, storeSelectors } from "../features/storeSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+
 export default function EditProfileStorePageCMS() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -25,7 +27,7 @@ export default function EditProfileStorePageCMS() {
 		};
 		newForm[name] = value;
 		setFormStore(newForm);
-	}
+	};
 	useEffect(() => {
 		dispatch(getAllStore());
 	}, [dispatch]);
@@ -33,7 +35,11 @@ export default function EditProfileStorePageCMS() {
 	const successEditStoreProfile = async (e) => {
 		e.preventDefault();
 		await dispatch(editStore(formStore));
-		navigate('/profile-store');
+		swal("Congratulations!", "Success edit Store Profile!", "success", {
+			buttons: false,
+			timer: 3000,
+		});
+		navigate("/profile-store");
 	};
 	return (
 		<>
@@ -59,12 +65,12 @@ export default function EditProfileStorePageCMS() {
 					<Form onSubmit={successEditStoreProfile}>
 						<Form.Group className="mb-3">
 							<Form.Label>Name</Form.Label>
-							<Form.Control 
-							type="text" 
-							placeholder="Store name ..." 
-							name="name"
-							value={formStore.name}
-							onChange={handleFromStore}
+							<Form.Control
+								type="text"
+								placeholder="Store name ..."
+								name="name"
+								value={formStore.name}
+								onChange={handleFromStore}
 							/>
 						</Form.Group>
 
@@ -83,23 +89,23 @@ export default function EditProfileStorePageCMS() {
 
 						<Form.Group className="mb-3">
 							<Form.Label>Phone Number</Form.Label>
-							<Form.Control 
-							type="text" 
-							placeholder="Store phone number ..." 
-							name="phoneNumber"
-							value={formStore.phoneNumber}
-							onChange={handleFromStore}
+							<Form.Control
+								type="text"
+								placeholder="Store phone number ..."
+								name="phoneNumber"
+								value={formStore.phoneNumber}
+								onChange={handleFromStore}
 							/>
 						</Form.Group>
 
 						<Form.Group className="mb-3">
 							<Form.Label>Owner Name</Form.Label>
-							<Form.Control 
-							type="text" 
-							placeholder="Store owner name ..." 
-							name="owner"
-							value={formStore.owner}
-							onChange={handleFromStore}
+							<Form.Control
+								type="text"
+								placeholder="Store owner name ..."
+								name="owner"
+								value={formStore.owner}
+								onChange={handleFromStore}
 							/>
 						</Form.Group>
 

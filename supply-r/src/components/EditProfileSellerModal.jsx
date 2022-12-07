@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
 export default function EditProfileSellerModal(props) {
 	const navigate = useNavigate();
@@ -44,6 +45,10 @@ export default function EditProfileSellerModal(props) {
 				data: { formSeller },
 			});
 			console.log(data);
+			swal("Congratulations!", "Success edit UMKM Profile!", "success", {
+				buttons: false,
+				timer: 3000,
+			});
 			navigate(`/profile-seller/${id}`);
 		} catch (error) {
 			console.log(error);

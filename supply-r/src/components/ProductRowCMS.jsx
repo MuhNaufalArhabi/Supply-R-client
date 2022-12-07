@@ -7,6 +7,8 @@ import { useState } from "react";
 import { deleteProduct } from "../features/productSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+
 export default function ProductRowCMS({ product, index }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -18,7 +20,22 @@ export default function ProductRowCMS({ product, index }) {
 		}).format(number);
 	};
 	const deleteHandler = () => {
-		dispatch(deleteProduct(product.id));
+		swal({
+			title: "Are you sure?",
+			text: "Once deleted, the product is removed from product list!",
+			icon: "warning",
+			buttons: true,
+			dangerMode: true,
+		}).then((willDelete) => {
+			if (willDelete) {
+				dispatch(deleteProduct(product.id));
+				swal("Product has been removed!", {
+					icon: "success",
+				});
+			} else {
+				swal("The product is still in your product list!");
+			}
+		});
 	};
 
 	const handleEditProduct = () => {

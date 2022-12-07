@@ -22,12 +22,14 @@
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-images-uploading": "^3.1.7",
+    "react-loader-spinner": "^5.3.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
     "socket.io-client": "^4.5.4",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
