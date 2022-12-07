@@ -1,13 +1,14 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { editBuyer, buyerSelectors, getAllBuyers } from "../features/buyerSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function EditProfileBuyerModal(props) {
-	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [show, setShow] = useState(false);
+	const id = localStorage.getItem("id");
 	const [formBuyer, setFormBuyer] = useState({
 		name: "",
 		email: "",
@@ -17,7 +18,6 @@ export default function EditProfileBuyerModal(props) {
 		industry: "",
 		website: "",
 	});
-
 	const handleBuyerForm = (e) => {
 		const { name, value } = e.target;
 		const newForm = {
@@ -26,7 +26,26 @@ export default function EditProfileBuyerModal(props) {
 		newForm[name] = value;
 		setFormBuyer(newForm);
 	};
+	const buyer = useSelector((state)=> buyerSelectors.selectById(state, id))
 
+	useEffect (() => {
+		dispatch(getAllBuyers());
+	}, [dispatch]);
+
+	useEffect(() => {
+		if(buyer) {
+			setFormBuyer({
+				name: buyer.name,
+				email: buyer.email,
+				owner: buyer.owner,
+				phoneNumber: buyer.phoneNumber,
+				address: buyer.address,
+				industry: buyer.industry,
+				website: buyer.website,
+			})
+		}
+	}, [buyer]);
+	
 	const handleClose = () => {
 		setShow(false);
 	};
@@ -38,19 +57,10 @@ export default function EditProfileBuyerModal(props) {
 	};
 
 	const successEditBuyerProfile = async (e) => {
-		try {
-			let id = id;
-			e.preventDefault();
-			const { data } = await axios({
-				method: "PUT",
-				url: `http://localhost:3001/buyers/${id}`,
-				data: { formBuyer },
-			});
-			console.log(data);
-			navigate(`/profile-buyer/${id}`);
-		} catch (error) {
-			console.log(error);
-		}
+		e.preventDefault();
+	 	dispatch(editBuyer(formBuyer));
+		dispatch(getAllBuyers());
+		setShow(false);
 	};
 	return (
 		<>

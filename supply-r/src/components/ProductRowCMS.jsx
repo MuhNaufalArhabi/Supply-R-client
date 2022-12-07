@@ -1,13 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHand, faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
+import Nav from "react-bootstrap/Nav";
 import ShowImagesModalCMS from "./ShowImagesModalCMS";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { deleteProduct } from "../features/productSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-export default function ProductRowCMS({product, index}) {
-	const navigate = useNavigate()
+export default function ProductRowCMS({ product, index }) {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [modalShow, setModalShow] = useState(false);
 	const rupiah = (number) => {
@@ -19,21 +20,17 @@ export default function ProductRowCMS({product, index}) {
 	const deleteHandler = () => {
 		dispatch(deleteProduct(product.id));
 	};
-	
-	
 
 	const handleEditProduct = () => {
-		navigate("/add-product", { state: product })
-	}
+		navigate("/add-product", { state: product });
+	};
 	return (
 		<>
-		<tr className="align-middle text-center">
+			<tr className="align-middle text-center">
 				<td>{++index}</td>
 				<td>{product.name}</td>
 				<td>{product.Category?.name}</td>
-				<td style={{ textAlign: "start" }}>
-					{product.description}
-				</td>
+				<td style={{ textAlign: "start" }}>{product.description}</td>
 				<td>{rupiah(product.price)}</td>
 				<td>{product.stock}</td>
 				<td>
@@ -55,17 +52,18 @@ export default function ProductRowCMS({product, index}) {
 					/>
 				</td>
 				<td>
-					<FontAwesomeIcon icon={faPen} style={{ color: "#2596be" }} onClick={handleEditProduct} />
+					<FontAwesomeIcon
+						icon={faPen}
+						style={{ color: "#2596be" }}
+						onClick={handleEditProduct}
+					/>
 				</td>
 				<td>
-				<button
-				onClick={deleteHandler}
-				>
-					<FontAwesomeIcon icon={faTrash} style={{ color: "#e23500"}} />
-				</button>
+					<Nav.Link onClick={deleteHandler}>
+						<FontAwesomeIcon icon={faTrash} style={{ color: "#e23500" }} />
+					</Nav.Link>
 				</td>
 			</tr>
-			
 		</>
 	);
 }

@@ -1,4 +1,14 @@
-export default function TransactionCashRowCMS() {
+import { getBuyersById, buyerSelectors } from "../features/buyerSlice";
+import { useDispatch, useSelector} from "react-redux";
+import { useEffect } from "react";
+export default function TransactionCashRowCMS({cash, index}) {
+	const dispatch = useDispatch();
+	let id = cash?.BuyerId
+	const buyer = useSelector((state) => buyerSelectors.selectById(state, id));
+	useEffect(() => {
+		dispatch(getBuyersById(id));
+	}, []);
+	console.log(cash)
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",
@@ -8,23 +18,28 @@ export default function TransactionCashRowCMS() {
 	return (
 		<>
 			<tr className="align-middle text-center">
-				<td>1</td>
+				<td>{++index}</td>
 				<td>
-					<div>Danishes - Mini Cheese</div>
-					<div>Danishes - Mini Cheese</div>
+				{cash.OrderProducts.map((orderProduct) => {
+					return <div>{orderProduct.Product.name}</div>;
+				})}
 				</td>
 				<td>
-					<div>2</div>
-					<div>3</div>
+				{cash.OrderProducts.map((orderProduct) => {
+					return <div>{orderProduct.quantity}</div>;
+				})}
 				</td>
 				<td>
-					<div>{rupiah(30000)}</div>
-					<div>{rupiah(60000)}</div>
+				{cash.OrderProducts.map((orderProduct) => {
+					return <div>{rupiah(orderProduct.Product.price)}</div>;
+				})}
 				</td>
-				<td>{rupiah(240000)}</td>
-				<td>2-12-2022</td>
-				<td>PT. Suka Belanja</td>
-				<td>Cash</td>
+				<td>{cash.OrderProducts.map((orderProduct) => {
+					return <div>{rupiah(orderProduct.totalPrice)}</div>;
+				})}</td>
+				<td>{cash.createdAt}</td>
+				<td>{buyer?.owner}</td>
+				<td>{cash.paymentMethod}</td>
 			</tr>
 		</>
 	);
