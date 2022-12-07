@@ -5,11 +5,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
 import PaginationProducts from "../components/PaginationProducts";
 import axios from "axios";
-import { Outlet } from "react-router-dom";
 export default function HomePage() {
-	const [products, setProducts] = useState([]);
-	const [currentPage, setCurrentPage] = useState(1);
-	const [totalPage, setTotalPage] = useState(0);
+  const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+
 
 	const getPagination = async (id, page, name) => {
 		if (id === null) {
