@@ -9,23 +9,28 @@ const ChatBar = ({ socket, handleShop, rooms , handleMessage}) => {
         <div className="chat__users mt-5">
           {rooms.map(room => {
             return localStorage.role === 'buyer' ? 
-              <p
-                key={room.id}
+              <div 
+              id="div-chat-bar"
+              key={room.id}
                 onClick={() => {
                   handleShop(room.ShopId);
                   handleMessage(room.id, room.Shop.name);
-                }}>
+                }} style={{cursor: 'pointer'}}>
+                
+              <p>
                 {room.Shop.name}
               </p>
+              </div>
              : 
-              <p
-                key={room.id}
+             <div key={room.id}
                 onClick={() => {
                   handleShop(room.BuyerId);
                   handleMessage(room.id, room.Buyer.name);
-                }}>
+                }} style={{cursor: 'pointer'}}>
+              <p>
                 {room.Buyer.name}
               </p>
+             </div>
           })}
         </div>
       </div>
