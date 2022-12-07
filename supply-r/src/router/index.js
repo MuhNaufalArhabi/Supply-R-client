@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Layout from "../views/Layout.jsx";
 import LoginPage from "../views/LoginPage.jsx";
 import RegistrationBuyerPage from "../views/RegistrationBuyerPage.jsx";
