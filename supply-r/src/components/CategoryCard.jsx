@@ -16,7 +16,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 			<Row>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = null;
 							getPagination(ref.current, currentPage);
@@ -35,7 +40,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 1;
 							getPagination(ref.current, currentPage);
@@ -54,7 +64,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 2;
 							getPagination(ref.current, currentPage);
@@ -73,7 +88,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 3;
 							getPagination(ref.current, currentPage);
@@ -92,7 +112,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 4;
 							getPagination(ref.current, currentPage);
@@ -111,7 +136,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 5;
 							getPagination(ref.current, currentPage);
@@ -130,7 +160,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 6;
 							getPagination(ref.current, currentPage);
@@ -149,7 +184,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 7;
 							getPagination(ref.current, currentPage);
@@ -168,7 +208,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 8;
 							getPagination(ref.current, currentPage);
@@ -187,7 +232,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 9;
 							getPagination(ref.current, currentPage);
@@ -206,7 +256,12 @@ export default function CategoryCard({ getPagination, currentPage }) {
 				</Col>
 				<Col>
 					<div
-						style={{ alignItems: "center", textAlign: "center" }}
+						className="category-icon"
+						style={{
+							alignItems: "center",
+							textAlign: "center",
+							cursor: "pointer",
+						}}
 						onClick={() => {
 							ref.current = 10;
 							getPagination(ref.current, currentPage);

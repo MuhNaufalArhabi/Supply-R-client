@@ -25,6 +25,7 @@ export default function ProductCard({ product }) {
 					width: "16rem",
 					margin: "3px",
 					padding: "0",
+					cursor: "pointer",
 				}}
 				className="shadow"
 				onClick={navigateToProductDetail}
