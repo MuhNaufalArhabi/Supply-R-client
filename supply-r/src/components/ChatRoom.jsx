@@ -19,7 +19,9 @@ import ChatBody from "./ChatBody";
 import ChatFooter from "./ChatFooter";
 import socket from "../stores/socket";
 import axios from "axios";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function ChatRoom({ shopId }) {
 	const [show, setShow] = useState(false);
 	const [messages, setMessages] = useState([]);
@@ -47,7 +49,7 @@ export default function ChatRoom({ shopId }) {
 	const handleMessage = async (param, name) => {
 		const { data } = await axios({
 			method: "GET",
-			url: "http://localhost:3001/rooms/chat/" + param,
+			url: `${baseUrl}/rooms/chat/` + param,
 		});
 		setMessages(data);
 		setName(name);

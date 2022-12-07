@@ -16,7 +16,9 @@ import { useEffect } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import { Grid } from "react-loader-spinner";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 
 export default function ProductDetail() {
   const location = useLocation();
@@ -28,7 +30,6 @@ export default function ProductDetail() {
   );
   const [shopId, setShopId] = useState(location.state.product.ShopId);
 
-
 	const [orderlists, setOrderLists] = useState([
 		{
 			ProductId: id,
@@ -39,7 +40,7 @@ export default function ProductDetail() {
 	const orders = async () => {
 		const { data } = await axios({
 			method: "POST",
-			url: `http://localhost:3001/orders/products`,
+			url: `${baseUrl}/orders/products`,
 			data: { orderlists },
 			headers: {
 				access_token: localStorage.getItem("access_token"),
@@ -68,34 +69,32 @@ export default function ProductDetail() {
     navigate("/order");
   };
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     // setTimeout(setLoading, 8000, true);
   }, []);
 
   return (
     <>
+      {loading ? <div className="loader">
+                  <Grid
+                    height="80"
+                    width="80"
+                    color="#204e64"
+                    ariaLabel="grid-loading"
+                    radius="12.5"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                </div> :
       <Container fluid style={{ padding: "4%" }}>
         <Row>
           <h1 style={{ color: "#204e64" }}>Product Details</h1>
         </Row>
 
         <Row>
-          {!loading && (
-            <div className="loader">
-              <Grid
-                height="80"
-                width="80"
-                color="#204e64"
-                ariaLabel="grid-loading"
-                radius="12.5"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            </div>
-          )}
           <CardGroup style={{ height: "400px" }}>
             <Card>
               <Carousel style={{ textAlign: "center" }}>
@@ -164,6 +163,7 @@ export default function ProductDetail() {
           </CardGroup>
         </Row>
       </Container>
+      }
     </>
   );
 

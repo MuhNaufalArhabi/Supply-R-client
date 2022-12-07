@@ -5,20 +5,21 @@ import { Col, Container, Row } from "react-bootstrap";
 import CategoryCard from "../components/CategoryCard";
 import PaginationProducts from "../components/PaginationProducts";
 import axios from "axios";
-
 import { Outlet } from "react-router-dom";
 import { Grid } from "react-loader-spinner";
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   // const [loading, setLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true);
+    setLoading(false);
     // setTimeout(setLoading, 800, true);
   }, []);
 
@@ -26,7 +27,7 @@ export default function HomePage() {
     if (id === null) {
       const { data } = await axios({
         method: "GET",
-        url: `http://localhost:3001/products/pagination`,
+        url: `${baseUrl}/products/pagination`,
         params: {
           page: page,
           limit: 10,
@@ -40,7 +41,7 @@ export default function HomePage() {
       console.log(page, name, id);
       const { data } = await axios({
         method: "GET",
-        url: `http://localhost:3001/products/category/${id}`,
+        url: `${baseUrl}/products/category/${id}`,
         params: {
           page: page,
           limit: 10,
@@ -60,6 +61,18 @@ export default function HomePage() {
 
   return (
     <>
+    {loading ? <div className="loader">
+                  <Grid
+                    height="80"
+                    width="80"
+                    color="#204e64"
+                    ariaLabel="grid-loading"
+                    radius="12.5"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                </div> :
       <Container>
         <Row>
           <Col sm={12} className="mt-3 mb-3">
@@ -80,35 +93,34 @@ export default function HomePage() {
         <Row>
           <Col sm={12} className="mt-3 mb-3">
             <Row>
-              <h4>Products</h4>
-              {!loading && (
-                <div className="loader">
-                  <Grid
-                    height="80"
-                    width="80"
-                    color="#204e64"
-                    ariaLabel="grid-loading"
-                    radius="12.5"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    visible={true}
-                  />
-                </div>
-              )}
-
+              <h4 style={{ color: "#204e64" }}>Products</h4>
+            </Row>
+            
+            <Row>
               {products.map((product) => {
                 return <ProductCard product={product} key={product.id} />;
               })}
-              <PaginationProducts
-                currentPage={currentPage}
-                totalPage={totalPage}
-                setCurrentPage={setCurrentPage}
-              />
+            </Row>
+            <Row>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "20px",
+                  alignItems: "center",
+                }}
+              >
+                <PaginationProducts
+                  currentPage={currentPage}
+                  totalPage={totalPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </div>
             </Row>
           </Col>
         </Row>
       </Container>
+    }
     </>
   );
-
 }

@@ -17,7 +17,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export default function ProfileStorePageCMS() {
 	const dispatch = useDispatch();
 	const id = localStorage.getItem("id");
@@ -28,7 +30,7 @@ export default function ProfileStorePageCMS() {
 		try {
 			const { data } = await axios({
 				method: "GET",
-				url: `http://localhost:3001/shops/matriks-upfront/${id}`,
+				url: `${baseUrl}/shops/matriks-upfront/${id}`,
 				headers: {
 					access_token: localStorage.access_token,
 				},
@@ -45,7 +47,7 @@ export default function ProfileStorePageCMS() {
 		try {
 			const {data} = await axios({
 				method: "GET",
-				url: `http://localhost:3001/shops/matriks-installment/${id}`,
+				url: `${baseUrl}/shops/matriks-installment/${id}`,
 				headers: {
 					access_token: localStorage.access_token,
 				},

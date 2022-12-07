@@ -4,8 +4,9 @@ import {
 	createEntityAdapter,
 } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const baseUrl = "http://localhost:3001";
+import { url } from "../stores/url";
+// const baseUrl = "http://localhost:3001";
+const baseUrl = url
 export const getStoreById = createAsyncThunk(
   "stores/getStoreById",
   async (id) => {
