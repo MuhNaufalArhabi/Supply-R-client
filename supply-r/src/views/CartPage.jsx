@@ -172,7 +172,13 @@ export default function CartPage() {
                             }
                           />
                         </td>
-                        <td>{rupiah(order.totalPrice)}</td>
+
+                        <td>
+                          {order.totalPrice == 0
+                            ? rupiah(order.Product.price)
+                            : rupiah(order.totalPrice)}
+                        </td>
+
                         <td>
                           <FontAwesomeIcon
                             icon={faTrash}

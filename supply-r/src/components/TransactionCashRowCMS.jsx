@@ -8,6 +8,7 @@ export default function TransactionCashRowCMS({cash, index}) {
 	useEffect(() => {
 		dispatch(getBuyersById(id));
 	}, []);
+	console.log(cash)
 	const rupiah = (number) => {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",

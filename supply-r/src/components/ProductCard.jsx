@@ -9,7 +9,7 @@ export default function ProductCard({ product }) {
 		return new Intl.NumberFormat("id-ID", {
 			style: "currency",
 			currency: "IDR",
-			minimumFractionDigits: 0
+			minimumFractionDigits: 0,
 		}).format(number);
 	};
 
@@ -22,9 +22,10 @@ export default function ProductCard({ product }) {
 		<>
 			<Card
 				style={{
-					width: "15rem",
-					margin: "5px",
+					width: "16rem",
+					margin: "3px",
 					padding: "0",
+					cursor: "pointer",
 				}}
 				className="shadow"
 				onClick={navigateToProductDetail}
@@ -41,16 +42,14 @@ export default function ProductCard({ product }) {
 				/>
 				<Card.Body>
 					<Card.Title className="text-truncate">{product?.name}</Card.Title>
-					
-					<Card.Text className="text-truncate" style={{ color: "#c7c8c8" }}>
+
+					<Card.Text className="text-truncate" style={{ color: "#898989" }}>
 						{product?.Category.name}
 					</Card.Text>
 					<Card.Text style={{ fontSize: "24px" }}>
 						{rupiah(product?.price)}
 					</Card.Text>
-					<Card.Text className="text-truncate">
-						{product?.Shop.name}
-					</Card.Text>
+					<Card.Text className="text-truncate">{product?.Shop.name}</Card.Text>
 				</Card.Body>
 			</Card>
 		</>
