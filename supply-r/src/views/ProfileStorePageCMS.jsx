@@ -75,6 +75,15 @@ export default function ProfileStorePageCMS() {
 			currency: "IDR",
 		}).format(number);
 	};
+	let totalAmount = 0
+	cash.forEach((el) => {
+		totalAmount += el.totalPrice
+	})
+let totalInstallment = 0
+installment.forEach((el) => {
+	totalInstallment += el.totalPrice
+})
+
 	return (
     <>
       <div style={{ marginLeft: "20%" }}>
@@ -209,12 +218,7 @@ export default function ProfileStorePageCMS() {
 										color: "#74d528",
 									}}
 								>
-									{cash.length === 0 ? <>0</>:cash.map(total => {
-									
-										let totalAmount = 0
-										totalAmount += total.totalPrice
-										return rupiah(totalAmount)
-									})}
+									{cash.length === 0 ? <>0</>:rupiah(totalAmount)}
 								</Row>
 							</Card>
 						</Col>
@@ -227,7 +231,7 @@ export default function ProfileStorePageCMS() {
 										color: "white",
 									}}
 								>
-									Total Pending Income
+									Total Installment Income
 								</Card.Header>
 								<Row
 									style={{
@@ -238,12 +242,7 @@ export default function ProfileStorePageCMS() {
 										color: "#ffbf00",
 									}}
 								>
-									{installment.length === 0?  <>0</>:installment.map(total => {
-									
-									let totalAmount = 0
-									totalAmount += total.totalPrice
-									return rupiah(totalAmount)
-								})}
+									{installment.length === 0?  <>0</>:rupiah(totalInstallment)}
 								</Row>
 							</Card>
 						</Col>
