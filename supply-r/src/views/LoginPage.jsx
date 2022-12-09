@@ -117,7 +117,10 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			console.log(data);
+			swal("Congratulations!", "Login Successfully!", "success", {
+				buttons: false,
+				timer: 3000,
+			});
 			if (data.shopId) {
 				localStorage.setItem("access_token", data.access_token);
 				localStorage.setItem("sellerId", data.sellerId);
@@ -131,6 +134,7 @@ export default function LoginPage() {
 				localStorage.setItem("sellerId", data.sellerId);
 				navigate("/add-store");
 			}
+			
 		} catch (err) {
 			console.log(err);
 		}

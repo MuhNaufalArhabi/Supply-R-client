@@ -38,7 +38,7 @@ export default function TransactionInstallmentRowCMS({installment, index}) {
 					return <div>{rupiah(orderProduct.totalPrice)}</div>;
 				})}
 				</td>
-				<td>{installment.createdAt}</td>
+				<td>{new Date(installment.createdAt).toLocaleDateString()}</td>
 				<td>{buyer?.owner}</td>
 				<td>{installment.paymentMethod}</td>
 			</tr>

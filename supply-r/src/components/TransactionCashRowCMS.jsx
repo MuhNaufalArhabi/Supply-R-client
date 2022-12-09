@@ -37,7 +37,7 @@ export default function TransactionCashRowCMS({cash, index}) {
 				<td>{cash.OrderProducts.map((orderProduct) => {
 					return <div>{rupiah(orderProduct.totalPrice)}</div>;
 				})}</td>
-				<td>{cash.createdAt}</td>
+				<td>{new Date(cash.createdAt).toLocaleDateString()}</td>
 				<td>{buyer?.owner}</td>
 				<td>{cash.paymentMethod}</td>
 			</tr>
