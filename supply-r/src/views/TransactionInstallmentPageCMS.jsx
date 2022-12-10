@@ -20,7 +20,8 @@ export default function TransactionInstallmentPageCMS() {
 					access_token: localStorage.access_token,
 				},
 			})
-			installment(data)
+			console.log(data)
+			setInstallment(data)
 		} catch (err) {
 			console.log(err)
 		}

@@ -27,7 +27,7 @@ import socket from "../stores/socket";
 import swal from "sweetalert";
 import { url } from "../stores/url";
 // const baseUrl = "http://localhost:3001";
-const baseUrl = url
+// const baseUrl = url
 export default function LoginPage() {
 	const navigate = useNavigate();
 	const [formLogin, setFormLogin] = useState({
@@ -46,7 +46,7 @@ export default function LoginPage() {
 			event.preventDefault();
 			const { data } = await axios({
 				method: "POST",
-				url: `${baseUrl}/sellers/login`,
+				url: `${url}/sellers/login`,
 				data: formLogin,
 			});
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
 			event.preventDefault();
 			const { data } = await axios({
 				method: "POST",
-				url: `${baseUrl}/buyers/login`,
+				url: `${url}/buyers/login`,
 				data: formLogin,
 			});
 			localStorage.setItem("access_token", data.access_token);
@@ -103,11 +103,11 @@ export default function LoginPage() {
 			let baseUrl = "";
 			const { user } = await signInWithPopup(auth, provider);
 			if (provider === google) {
-				baseUrl = `${baseUrl}/sellers/google-login`;
+				baseUrl = `${url}/sellers/google-login`;
 			} else if (provider === facebook) {
-				baseUrl = `${baseUrl}/sellers/facebook-login`;
+				baseUrl = `${url}/sellers/facebook-login`;
 			} else if (provider === twitter) {
-				baseUrl = `${baseUrl}/sellers/twitter-login`;
+				baseUrl = `${url}/sellers/twitter-login`;
 			}
 			const { data } = await axios({
 				method: "POST",
@@ -117,7 +117,10 @@ export default function LoginPage() {
 					email: user.email,
 				},
 			});
-			console.log(data);
+			swal("Congratulations!", "Login Successfully!", "success", {
+				buttons: false,
+				timer: 3000,
+			});
 			if (data.shopId) {
 				localStorage.setItem("access_token", data.access_token);
 				localStorage.setItem("sellerId", data.sellerId);
@@ -131,6 +134,7 @@ export default function LoginPage() {
 				localStorage.setItem("sellerId", data.sellerId);
 				navigate("/add-store");
 			}
+			
 		} catch (err) {
 			console.log(err);
 		}
